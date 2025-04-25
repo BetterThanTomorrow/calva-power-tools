@@ -5,12 +5,29 @@
             [e2e.macros :refer [deftest-async]]))
 
 (deftest-async registered-commands-exist
-  (testing "Check if registered commands exist"
-    (p/let [all-commands (-> (vscode/commands.getCommands true)
+  (testing "Check if contributed commands are registered"
+    (p/let [;; Get commands from the extension's manifest
+            extension-id "betterthantomorrow.calva-power-tools"
+            extension (vscode/extensions.getExtension extension-id)
+            _ (is (some? extension) (str "Extension not found: " extension-id))
+            package-json (when extension (.-packageJSON extension))
+            contributed-commands (when package-json
+                                   (->> (.-contributes package-json)
+                                        (.-commands)
+                                        (map #(.-command %))
+                                        (into #{}))) ; Convert to set
+            _ (is (seq contributed-commands)
+                  "No commands found in package.json contributes section")
+
+            ;; Get all currently registered commands
+            all-commands (-> (vscode/commands.getCommands true)
                              (p/then js->clj))
-            registered-commands #{"clay.showTopLevelForm" "clay.makeFile" "clay.watch"}
             available-commands-set (set all-commands)
-            missing-commands (->> registered-commands
-                                  (filter #(not (contains? available-commands-set %)))
-                                  (into #{}))]
-      (is (empty? missing-commands) (str "Missing commands: " missing-commands)))))
+
+            ;; Find commands from manifest that are NOT registered
+            missing-commands (when contributed-commands
+                               (->> contributed-commands
+                                    (filter #(not (contains? available-commands-set %)))
+                                    (into #{})))]
+
+      (is (empty? missing-commands) (str "Missing registered commands from manifest: " missing-commands)))))
