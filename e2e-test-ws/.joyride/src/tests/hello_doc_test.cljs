@@ -4,12 +4,13 @@
             [promesa.core :as p]
             [e2e.macros :refer [deftest-async]]))
 
-(deftest-async new-hello-doc
-  (testing "Context of the test assertions"
-    (p/let [hello-text "Multiverse"
-            editor (vscode/commands.executeCommand "calva-power-tools.newHelloDocument" hello-text)
-            doc (.-document editor)
-            doc-text (.getText doc)
-            _ (vscode/commands.executeCommand "workbench.action.revertAndCloseActiveEditor" false)]
-      (is (= (str "Hello, " hello-text "!")
-             doc-text)))))
+(deftest-async registered-commands-exist
+  (testing "Check if registered commands exist"
+    (p/let [all-commands (-> (vscode/commands.getCommands true)
+                             (p/then js->clj))
+            registered-commands #{"clay.showTopLevelForm" "clay.makeFile" "clay.watch"}
+            available-commands-set (set all-commands)
+            missing-commands (->> registered-commands
+                                  (filter #(not (contains? available-commands-set %)))
+                                  (into #{}))]
+      (is (empty? missing-commands) (str "Missing commands: " missing-commands)))))
