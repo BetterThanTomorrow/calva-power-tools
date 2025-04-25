@@ -86,7 +86,7 @@ jobs:
       - name: Publish to VS Code Marketplace
         run: |
           npx vsce verify-pat --pat ${{ secrets.MARKETPLACE_PAT }}
-          npx vsce publish --packagePath /tmp/*.vsix --pat ${{ secrets.MARKETPLACE_PAT }} --githubBranch master
+          npx vsce publish --packagePath /tmp/*.vsix --pat ${{ secrets.MARKETPLACE_PAT }} --githubBranch master --allow-all-proposed-apis
 
   publish-to-open-vsx:
     runs-on: ubuntu-latest
