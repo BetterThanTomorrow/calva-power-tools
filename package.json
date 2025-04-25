@@ -20,8 +20,19 @@
   "enabledApiProposals": [
     "extensionRuntime"
   ],
-  "categories": [],
-  "keywords": [],
+  "categories": [
+    "Keymaps",
+    "Data Science",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "Clojure",
+    "Visualization",
+    "Data Science",
+    "Literate Programming",
+    "Calva",
+    "REPL"
+  ],
   "activationEvents": [
     "onStartupFinished"
   ],
