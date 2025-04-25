@@ -8,7 +8,7 @@
     },
     "calva.replConnectSequences": [
         {
-            "name": "vsc-et",
+            "name": "calva-power-tools",
             "projectType": "deps.edn",
             "cljsType": "shadow-cljs",
             "projectRootPath": ["."],

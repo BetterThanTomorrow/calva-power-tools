@@ -7,8 +7,8 @@
               :compiler-options {:infer-externs :auto}
               :output-dir "out/js"
               :output-to "out/extension.js"
-              :exports {:activate vsc-et.extension/activate
-                        :deactivate vsc-et.extension/deactivate}}
+              :exports {:activate calva-power-tools.extension/activate
+                        :deactivate calva-power-tools.extension/deactivate}}
   :test-watch
   {:target    :node-test
    :output-to "out/extension-tests.js"

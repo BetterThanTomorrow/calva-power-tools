@@ -2,7 +2,7 @@
     "git.openRepositoryInParentFolders": "never",
     "calva.customREPLCommandSnippets": [
         {
-"name": "Run all vsc-et e2e tests",
+"name": "Run all calva-power-tools e2e tests",
 "snippet": "(require '[e2e.test-runner :as runner]) (runner/run-all-tests \".joyride/src\")"
         }
 

@@ -1,50 +1,12 @@
-# VSC-ET
+# Calva Power Tools
 
-A VS Code Extension Template. Or an automated [VS Code](https://code.visualstudio.com) **extension development** workflow, with support for [coding](#coding), [building](#building), [testing](#testing), [end-to-end testing](#end-to-end-testing), and [publishing the extension](#publishing-the-extension) to the [VS Code Marketplace](https://marketplace.visualstudio.com/vscode) and the [Open VSX Registry](https://open-vsx.org/).
+TBD...
 
-![alt text](assets/vsc-et-published.png)
-The workflow is powered by [Interactive Programming](https://en.wikipedia.org/wiki/Interactive_programming). You can use the extension while you are hacking on it, without reloading the extension host. The feedback is instantaneous. As it should be to keep coding productive and maximum fun.
-
-## Who is this for?
-
-It is probably for you. 😄 Especially if you would like to build an extension for VS Code. Also if:
-
-- You want to explore what it takes to publish an extension to the VS Code Marketplace in an automated manner.
-- Like to have the plumbing for testing, including end-to-end testing, in place from the get-go, ready for you to fill in as you build your extension
-- You would like to learn Clojure/ClojureScript in a fun way
-- Interactive Programming is your thing
-- You think that Interactive Programming might be your thing
-
-## What are the prerequisites?
-
-The tools you need to get started are:
-
-- [VS Code](https://code.visualstudio.com/)
-  - The [Calva](https://calva.io) extension
-  - The [Joyride](https://github.com/BetterThanTomorrow/joyride) extension
-- [Node.js](https://nodejs.org/)
-- [Java](https://jdk.java.net/23/)
-- [Clojure CLI](https://clojure.org/guides/install_clojure)
-- [Babashka](https://github.com/babashka/babashka#installation)
-- **If you plan to publish your extension**: At least a skim through Microsofts [Publishing extensions](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) guide and one skim through the corresponding [Publishing Extensions](https://github.com/EclipseFdn/open-vsx.org/wiki/Publishing-Extensions) guide for [open-vsx](https://open-vsx.org/).
-
-Add your curiosity and you should be good to go. To just try the template/workflow out, you do not need to know any ClojureScript (or even programming). When you start to try make the extension do something interesting, you will need to know _some_ Clojure/ClojureScript. Learning Clojure will be a fun endeavor, I promise.
-
-## How do I get started?
-
-On Github **Use this template**, and name your repository, say you are full of imagination and name it **my-extension**. Clone your repo and open it in VS Code.
-> **You may want to wait with renaming the extension itself** until you've confirmed that you can compile and start it, and connect the REPL for development. When that's confirmed, renaming the extension is mainly a matter of a global search and replace in the project. Something like so:
-> 1. Make a global search (<kbd>cmd/ctrl</kbd>+<kbd>shift</kbd>+<kbd>f</kbd>) for `vsc-et`. Activate case sensitivity and whole-word matching for precision. Study the results, removing the ones you don't think apply (I think it's safe to replace all occurrences). Expand the replace input and study the results list some more before clicking the **Replace All** button.
-> 1. Make a global search replace of “Extension Template”, similarly case sensitive and matching whole words.
-> 1. The publisher of the extension template is `betterthantomorrow`, which you will need to change if you are to publish your extension to the marketplace. See above under prerequisites for the guides to go through to get your publisher id.
-
-### Starting the extension
-
-... and connecting the ClojureScript REPL.
+## Development
 
 The paved path is:
 
-1. <kbd>cmd/ctrl+shift+b</kbd>. This starts the default build task, which is configured (in [.vscode/tasks.json](.vscode/tasks.json) to start Clojure with an nREPL server. This will happen in a terminal named **Build+watch extension**.
+1. `npm run watch`. This starts Clojure with an nREPL server.
    * Wait for it to report something like:
      ```
      nREPL server started on port 56749 on host localhost - nrepl://localhost:56749
@@ -57,7 +19,7 @@ The paved path is:
 1. <kbd>F5</kbd>. This starts the VS Code _Development Extension Host_ (because configured to do so in [.vscode/launch.json](.vscode/launch.json))
    * The development extension host is a VS Code window where your extension under development is installed. You now need to activate it to actually start the ClojureScript app.
 1. In the extension development host <kbd>cmd/ctrl+shift+p</kbd>, find and run the command **Extension template: Say hello!**
-   ![VS Code Command Palette, ET hHello command](assets/usage/say-hello.png)
+   ![VS Code Command Palette, Hello command](assets/usage/say-hello.png)
    * This activates your extension and starts the ClojureScript app and its REPL
 1. Back in the development project you will see the progress dialog go away. Because now the development project window is connected to the Development Extension Host window's REPL.
       * Now you can hack on the extension code, which will update the app in the extension host window while it is running (a.k.a. interactive programming).

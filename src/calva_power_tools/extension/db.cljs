@@ -1,8 +1,8 @@
-(ns vsc-et.extension.db)
+(ns calva-power-tools.extension.db)
 
 (def init-db {:extension/context nil
               :extension/disposables []
-              :extension/when-contexts {:vsc-et/active? false}})
+              :extension/when-contexts {:calva-power-tools/active? false}})
 
 (defonce !app-db (atom init-db))
 

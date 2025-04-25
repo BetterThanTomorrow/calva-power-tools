@@ -1,6 +1,6 @@
-(ns vsc-et.fs
+(ns calva-power-tools.fs
   (:require ["vscode" :as vscode]
-            [vsc-et.extension.db :as db]
+            [calva-power-tools.extension.db :as db]
             [promesa.core :as p]))
 
 (defn- ws-uri [path-or-uri]

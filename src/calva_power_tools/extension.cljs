@@ -1,22 +1,22 @@
-(ns vsc-et.extension
-  (:require [vsc-et.hellos :as hellos]
-            [vsc-et.extension.db :as db]
-            [vsc-et.extension.life-cycle-helpers :as lc-helpers]
-            [vsc-et.extension.when-contexts :as when-contexts]))
+(ns calva-power-tools.extension
+  (:require [calva-power-tools.hellos :as hellos]
+            [calva-power-tools.extension.db :as db]
+            [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
+            [calva-power-tools.extension.when-contexts :as when-contexts]))
 
 ;;;;; Extension activation entry point
 
 (defn ^:export activate [context]
   (js/console.time "activation")
-  (js/console.timeLog "activation" "Extension Template activate START")
+  (js/console.timeLog "activation" "Calva Power Tools activate START")
 
   (when context
     (swap! db/!app-db assoc :extension/context context))
-  (lc-helpers/register-command! db/!app-db "vsc-et.hello" #'hellos/hello-command!+)
-  (lc-helpers/register-command! db/!app-db "vsc-et.newHelloDocument" #'hellos/new-hello-doc-command!+)
-  (when-contexts/set-context!+ db/!app-db :vsc-et/active? true)
+  (lc-helpers/register-command! db/!app-db "calva-power-tools.hello" #'hellos/hello-command!+)
+  (lc-helpers/register-command! db/!app-db "calva-power-tools.newHelloDocument" #'hellos/new-hello-doc-command!+)
+  (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 
-  (js/console.timeLog "activation" "Extension Template activate END")
+  (js/console.timeLog "activation" "Calva Power Tools activate END")
   (js/console.timeEnd "activation")
   #js {:v1 {}})
 

@@ -1,4 +1,4 @@
-(ns vsc-et.extension.when-contexts
+(ns calva-power-tools.extension.when-contexts
   (:require ["vscode" :as vscode]))
 
 (defn set-context!+ [!state k v]
@@ -9,5 +9,5 @@
   (get-in state [:extension/when-contexts k]))
 
 (comment
-  (require '[vsc-et.extension.db :as db])
-  (get-context db/!app-db :vsc-et/isActive))
+  (require '[calva-power-tools.extension.db :as db])
+  (get-context db/!app-db :calva-power-tools/isActive))

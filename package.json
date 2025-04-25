@@ -1,17 +1,17 @@
 {
-  "name": "vsc-et",
-  "displayName": "Extension Template",
-  "description": "Helping users who want to get Y done, by provding X.",
+  "name": "calva-power-tools",
+  "displayName": "Calva Power Tools",
+  "description": "Commands for extra powerful things in the Clojure ecosystem.",
   "version": "0.0.1",
   "publisher": "betterthantomorrow",
   "author": {
-    "name": "Me Myself and I",
-    "email": "me@myself.i.com"
+    "name": "Better Than Tomorrow",
+    "email": "pez@pezius.com"
   },
   "icon": "assets/extension-icon-128x128.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/PEZ/vsc-et.git"
+    "url": "https://github.com/betterThanTomorrow/calva-power-tools.git"
   },
   "engines": {
     "vscode": ">=1.75.0",
@@ -22,30 +22,35 @@
   ],
   "categories": [],
   "keywords": [],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "extensionDependencies": [
+    "betterthantomorrow.calva"
+  ],
   "main": "out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "vsc-et.hello",
-        "category": "Extension Template",
+        "command": "calva-power-tools.hello",
+        "category": "Calva Power Tools",
         "title": "Say Hello!"
       },
       {
-        "command": "vsc-et.newHelloDocument",
-        "category": "Extension Template",
-        "enablement": ":vsc-et/active?",
+        "command": "calva-power-tools.newHelloDocument",
+        "category": "Calva Power Tools",
+        "enablement": ":calva-power-tools/active?",
         "title": "Open a new Hello document"
       }
     ],
     "keybindings": [
       {
-        "command": "vsc-et.hello",
+        "command": "calva-power-tools.hello",
         "key": "ctrl+alt+h h"
       },
       {
-        "command": "vsc-et.newHelloDocument",
-        "when": ":vsc-et/active?",
+        "command": "calva-power-tools.newHelloDocument",
+        "when": ":calva-power-tools/active?",
         "key": "ctrl+alt+h d"
       }
     ]

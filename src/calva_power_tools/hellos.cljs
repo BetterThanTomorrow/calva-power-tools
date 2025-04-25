@@ -1,9 +1,9 @@
 ;; Example commands
 
-(ns vsc-et.hellos
+(ns calva-power-tools.hellos
   (:require ["vscode" :as vscode]
             [promesa.core :as p]
-            [vsc-et.hellos.util :as util]))
+            [calva-power-tools.hellos.util :as util]))
 
 (defn hello-command!+ [_!state s]
   (p/let [s (or s (vscode/window.showInputBox (clj->js util/input-box-options)))]

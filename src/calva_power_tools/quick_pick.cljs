@@ -1,6 +1,6 @@
-(ns vsc-et.quick-pick
+(ns calva-power-tools.quick-pick
   (:require ["vscode" :as vscode]
-            [vsc-et.extension.db :as db]
+            [calva-power-tools.extension.db :as db]
             [promesa.core :as p]))
 
 (defn memoized-quick-pick!

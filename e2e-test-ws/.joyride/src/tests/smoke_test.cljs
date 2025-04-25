@@ -11,6 +11,6 @@
 
 (deftest-async extension-activation
   (testing "The extension activates (which is an async operation)"
-    (p/let [extension (vscode/extensions.getExtension "betterthantomorrow.vsc-et")
+    (p/let [extension (vscode/extensions.getExtension "betterthantomorrow.calva-power-tools")
             api (.activate extension)]
       (is (not= nil (.-v1 api))))))
