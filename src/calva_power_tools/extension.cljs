@@ -1,7 +1,10 @@
 (ns calva-power-tools.extension
-  (:require [calva-power-tools.extension.db :as db]
-            [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
-            [calva-power-tools.extension.when-contexts :as when-contexts]))
+  (:require
+   [calva-power-tools.extension.calva :as calva]
+   [calva-power-tools.extension.db :as db]
+   [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
+   [calva-power-tools.extension.when-contexts :as when-contexts]
+   [calva-power-tools.tool.clay :as clay]))
 
 ;;;;; Extension activation entry point
 
@@ -11,8 +14,30 @@
 
   (when context
     (swap! db/!app-db assoc :extension/context context))
-  #_(lc-helpers/register-command! db/!app-db "calva-power-tools.hello" #'hellos/hello-command!+)
-  #_(lc-helpers/register-command! db/!app-db "calva-power-tools.newHelloDocument" #'hellos/new-hello-doc-command!+)
+
+  ;; Register commands that call Calva's custom REPL command
+  (lc-helpers/register-command!
+   db/!app-db "clay.showTopLevelForm"
+                                (fn []
+                                  (calva/execute-calva-command!
+                                   "calva.runCustomREPLCommand"
+                                   (clay/command-args clay/make-toplevel-form-snippet))))
+  (lc-helpers/register-command! db/!app-db "clay.makeFile"
+                                (fn []
+                                  (calva/execute-calva-command!
+                                   "calva.runCustomREPLCommand"
+                                   (clay/command-args clay/make-file-snippet))))
+  (lc-helpers/register-command! db/!app-db "clay.makeCurrentForm"
+                                (fn []
+                                  (calva/execute-calva-command!
+                                   "calva.runCustomREPLCommand"
+                                   (clay/command-args clay/make-current-form-snippet))))
+  (lc-helpers/register-command! db/!app-db "clay.watch"
+                                (fn []
+                                  (calva/execute-calva-command!
+                                   "calva.runCustomREPLCommand"
+                                   (clay/command-args clay/watch-snippet))))
+
   (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 
   (js/console.timeLog "activation" "Calva Power Tools activate END")

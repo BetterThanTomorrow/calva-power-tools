@@ -43,26 +43,38 @@
   "contributes": {
     "commands": [
       {
-        "command": "calva-power-tools.hello",
-        "category": "Calva Power Tools",
-        "title": "Say Hello!"
+        "command": "clay.showTopLevelForm",
+        "category": "Clay",
+        "title": "Show top level form"
       },
       {
-        "command": "calva-power-tools.newHelloDocument",
-        "category": "Calva Power Tools",
-        "enablement": ":calva-power-tools/active?",
-        "title": "Open a new Hello document"
+        "command": "clay.makeCurrentForm",
+        "category": "Clay",
+        "title": "Make current form"
+      },
+      {
+        "command": "clay.makeFile",
+        "category": "Clay",
+        "title": "Make file"
+      },
+      {
+        "command": "clay.watch",
+        "category": "Clay",
+        "title": "Watch"
       }
     ],
     "keybindings": [
       {
-        "command": "calva-power-tools.hello",
-        "key": "ctrl+alt+h h"
+        "key": "alt+c",
+        "command": "clay.showTopLevelForm"
       },
       {
-        "command": "calva-power-tools.newHelloDocument",
-        "when": ":calva-power-tools/active?",
-        "key": "ctrl+alt+h d"
+        "key": "alt+shift+c",
+        "command": "clay.makeFile"
+      },
+      {
+        "key": "alt+shift+w",
+        "command": "clay.watch"
       }
     ]
   },
