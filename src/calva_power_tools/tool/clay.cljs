@@ -17,7 +17,7 @@
 
 (def watch-snippet
   '(do (require '[scicloj.clay.v2.snippets])
-         (scicloj.clay.v2.snippets/watch! {:ide :calva})))
+       (scicloj.clay.v2.snippets/watch! {:ide :calva})))
 
 (defn command-args [snippet]
   (clj->js {:snippet (str snippet)

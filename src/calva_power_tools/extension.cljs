@@ -18,10 +18,10 @@
   ;; Register commands that call Calva's custom REPL command
   (lc-helpers/register-command!
    db/!app-db "clay.showTopLevelForm"
-                                (fn []
-                                  (calva/execute-calva-command!
-                                   "calva.runCustomREPLCommand"
-                                   (clay/command-args clay/make-toplevel-form-snippet))))
+   (fn []
+     (calva/execute-calva-command!
+      "calva.runCustomREPLCommand"
+      (clay/command-args clay/make-toplevel-form-snippet))))
   (lc-helpers/register-command! db/!app-db "clay.makeFile"
                                 (fn []
                                   (calva/execute-calva-command!
