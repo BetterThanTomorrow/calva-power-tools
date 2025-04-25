@@ -1,6 +1,5 @@
 (ns calva-power-tools.extension
-  (:require [calva-power-tools.hellos :as hellos]
-            [calva-power-tools.extension.db :as db]
+  (:require [calva-power-tools.extension.db :as db]
             [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
             [calva-power-tools.extension.when-contexts :as when-contexts]))
 
@@ -12,8 +11,8 @@
 
   (when context
     (swap! db/!app-db assoc :extension/context context))
-  (lc-helpers/register-command! db/!app-db "calva-power-tools.hello" #'hellos/hello-command!+)
-  (lc-helpers/register-command! db/!app-db "calva-power-tools.newHelloDocument" #'hellos/new-hello-doc-command!+)
+  #_(lc-helpers/register-command! db/!app-db "calva-power-tools.hello" #'hellos/hello-command!+)
+  #_(lc-helpers/register-command! db/!app-db "calva-power-tools.newHelloDocument" #'hellos/new-hello-doc-command!+)
   (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 
   (js/console.timeLog "activation" "Calva Power Tools activate END")
