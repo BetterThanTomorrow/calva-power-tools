@@ -4,5 +4,4 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
-- Initial Release
-- [Some cool thing that was lacking on the marketplace](https://github.com/BetterThanTomorrow/calva-power-tools/issues/1)
+- [Make an initial release, including Clay commands](https://github.com/BetterThanTomorrow/calva-power-tools/issues/1)
