@@ -136,7 +136,7 @@ jobs:
 
       - name: Get Source Branch
         id: source-branch
-        run: echo "BUMP_BRANCH=$(git symbolic-ref --short HEAD || echo 'main')" >> $GITHUB_ENV
+        run: echo "BUMP_BRANCH=$(git symbolic-ref --short HEAD || echo 'master')" >> $GITHUB_ENV
 
       - name: Setup Babashka
         uses: DeLaGuardo/setup-clojure@12.5
