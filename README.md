@@ -34,3 +34,7 @@ TBD...
 MIT
 
 Free to use, modify and redistribute as you wish. 🍻🗽
+
+## Built VSC-ET, the VS Code Extension Template
+
+* https://github.com/PEZ/vscode-extension-template
