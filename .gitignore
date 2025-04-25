@@ -30,3 +30,7 @@ node_modules
 # ignored folder
 
 /ignore/
+**/.clay_files/
+**/mini.clayground_files/
+**/.clay.html
+**/mini.clayground.html
