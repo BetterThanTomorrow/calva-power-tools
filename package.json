@@ -31,7 +31,8 @@
     "Data Science",
     "Literate Programming",
     "Calva",
-    "REPL"
+    "REPL",
+    "Clay"
   ],
   "activationEvents": [
     "onStartupFinished"
