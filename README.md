@@ -8,7 +8,7 @@ A VSCode extension for Clojure and ClojureScript development that adds commands 
 1. Open the command palette with <kbd>ctrl+shift+p</kbd> or <kbd>cmd+shift+p</kbd>.
 1. Type `Clay` to see the available Clay commands.
 
-## Supported Libraries
+## Supported Tools
 
 * [Clay](https://scicloj.github.io/clay/) for literate programming and data visuallization.
 
