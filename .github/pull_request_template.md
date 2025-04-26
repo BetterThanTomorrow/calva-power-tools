@@ -15,9 +15,9 @@
 
 ## Checklist
 
-- [ ] I have read CONTRIBUTING.md
-- [ ] There is an issue with a clear problem statement related to this change
-- [ ] I have added an entry to the **`[Unreleased]`** section of CHANGELOG.md linking to the issue(s) addressed.
+- [ ] I have read [CONTRIBUTING.md](../blob/master/CONTRIBUTING.md)
+- [ ] There is an [issue](../issues) with a clear problem statement related to this change
+- [ ] I have added an entry to the **`[Unreleased]`** section of [CHANGELOG.md](../blob/master/CHANGELOG.md) linking to the issue(s) addressed
 - [ ] README/docs updated (or not relevant)
 - [ ] My changes generate no new warnings
 - [ ] New and existing unit tests pass locally with my changes
