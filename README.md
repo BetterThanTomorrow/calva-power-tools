@@ -24,7 +24,7 @@ Calva Power Tools is a contributor friendly way for library and tool authors to 
 
 ## Contributing
 
-Issues and pull requests are welcome.
+Issues and pull requests are welcome. Please see [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Adding a new command
 
