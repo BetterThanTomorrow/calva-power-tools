@@ -34,7 +34,7 @@ Issues and pull requests are welcome.
    * The command should be added to the `contributes.commands` array.
 2. Add keybindings for the command in [package.json](package.json) (optional).
    * The keybinding should be added to the `contributes.keybindings` array.
-3. Add clojure snippets they should invoke in src/tool (see [src/tool/clay.cljs](src/tool/clay.cljs) for an example).
+3. Add clojure snippets they should invoke in [src/calva_power_tools/tool](src/calva_power_tools/tool) (see [src/calva_power_tools/tool/clay.cljs](src/calva_power_tools/tool/clay.cljs) for an example).
    * Fully qualify symbols in snippets to avoid uninitialized namespace issues
 4. Register them in [src/extension.cljs](src/extension.cljs) in the `activate` function.
 
