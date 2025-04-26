@@ -14,7 +14,7 @@ A VSCode extension for Clojure and ClojureScript development that adds commands 
 
 ## Prerequisites
 
-* [Calva](https://marketplace.visualstudio.com/items?itemName=ms-vscode.clojure-extension-pack) installed
+* [Calva](https://marketplace.visualstudio.com/items?itemName=ms-vscode.clojure-extension-pack) will be installed automatically when you install Calva Power Tools.
 * [Clay](https://github.com/scicloj/clay) added to deps.edn (when using Clay)
 
 ## Rationale
