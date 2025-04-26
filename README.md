@@ -6,7 +6,7 @@ A VSCode extension for Clojure and ClojureScript development that adds commands 
 
 1. Install the extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=BetterThanTomorrow.calva-power-tools).
 1. Open the command palette with <kbd>ctrl+shift+p</kbd> or <kbd>cmd+shift+p</kbd>.
-1. Type `Clay` to see the available Clay commands.
+1. Start typing to fuzzy search for commands. E.g. `Clay` to see the available Clay commands.
 
 ## Supported Tools
 
