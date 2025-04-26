@@ -42,7 +42,7 @@ Issues and pull requests are welcome.
 
 The paved path is:
 
-1. `npm run watch`. This starts Clojure with an nREPL server.
+1. `npm run watch`. This starts Clojure with an nREPL server. (You can run the build task command inside VSCode).
    * Wait for it to report something like:
      ```
      nREPL server started on port 56749 on host localhost - nrepl://localhost:56749
