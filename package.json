@@ -44,19 +44,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "clay.showTopLevelForm",
+        "command": "clay.topLevelForm",
         "category": "Clay",
-        "title": "Show top level form"
+        "title": "Visualize top-level form"
       },
       {
-        "command": "clay.makeCurrentForm",
+        "command": "clay.currentForm",
         "category": "Clay",
-        "title": "Make current form"
+        "title": "Visualize current form"
       },
       {
-        "command": "clay.makeFile",
+        "command": "clay.file",
         "category": "Clay",
-        "title": "Make file"
+        "title": "Visualize file"
       },
       {
         "command": "clay.watch",
@@ -66,15 +66,15 @@
     ],
     "keybindings": [
       {
-        "key": "alt+c",
-        "command": "clay.showTopLevelForm"
+        "key": "alt+v",
+        "command": "clay.topLevelForm"
       },
       {
-        "key": "alt+shift+c",
-        "command": "clay.makeFile"
+        "key": "ctrl+alt+v enter",
+        "command": "clay.file"
       },
       {
-        "key": "alt+shift+w",
+        "key": "ctrl+alt+v w",
         "command": "clay.watch"
       }
     ]
