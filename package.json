@@ -107,39 +107,39 @@
     ],
     "keybindings": [
       {
-        "key": "ctrl+alt+v f",
+        "key": "ctrl+alt+a f",
         "command": "clay.file"
       },
       {
-        "key": "ctrl+alt+v q f",
+        "key": "ctrl+alt+a q f",
         "command": "clay.fileQuarto"
       },
       {
-        "key": "ctrl+alt+v r f",
+        "key": "ctrl+alt+a r f",
         "command": "clay.fileRevealJs"
       },
       {
-        "key": "ctrl+alt+v",
+        "key": "ctrl+alt+a c",
         "command": "clay.currentForm"
       },
       {
-        "key": "ctrl+alt+v q",
+        "key": "ctrl+alt+a q c",
         "command": "clay.currentFormQuarto"
       },
       {
-        "key": "ctrl+alt+space ctrl+alt+space",
+        "key": "ctrl+alt+a a",
         "command": "clay.topLevelForm"
       },
       {
-        "key": "ctrl+alt+v q t",
+        "key": "ctrl+alt+a q t",
         "command": "clay.topLevelFormQuarto"
       },
       {
-        "key": "ctrl+alt+v b",
+        "key": "ctrl+alt+a b",
         "command": "clay.browse"
       },
       {
-        "key": "ctrl+alt+v w",
+        "key": "ctrl+alt+a w",
         "command": "clay.watch"
       }
     ]
