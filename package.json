@@ -58,7 +58,6 @@
         "category": "Clay",
         "title": "Make File Reveal.js"
       },
-
       {
         "command": "clay.currentForm",
         "category": "Clay",
@@ -78,21 +77,6 @@
         "command": "clay.topLevelFormQuarto",
         "category": "Clay",
         "title": "Make Top Level Form Quarto"
-      },
-      {
-        "command": "clay.topLevelFormRevealJs",
-        "category": "Clay",
-        "title": "Make Top Level Form Reveal.js"
-      },
-      {
-        "command": "clay.revealJs",
-        "category": "Clay",
-        "title": "Make Reveal.js"
-      },
-      {
-        "command": "clay.revealJsQuarto",
-        "category": "Clay",
-        "title": "Make Reveal.js Quarto"
       },
       {
         "command": "clay.browse",
