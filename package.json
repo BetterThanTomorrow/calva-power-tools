@@ -44,37 +44,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "clay.file",
+        "command": "clay.makeFile",
         "category": "Clay",
         "title": "Make File"
       },
       {
-        "command": "clay.fileQuarto",
+        "command": "clay.makeFileQuarto",
         "category": "Clay",
         "title": "Make File Quarto"
       },
       {
-        "command": "clay.fileRevealJs",
+        "command": "clay.makeFileRevealJs",
         "category": "Clay",
         "title": "Make File Reveal.js"
       },
       {
-        "command": "clay.currentForm",
+        "command": "clay.makeCurrentForm",
         "category": "Clay",
         "title": "Make Current Form"
       },
       {
-        "command": "clay.currentFormQuarto",
+        "command": "clay.makeCurrentFormQuarto",
         "category": "Clay",
         "title": "Make Current Form Quarto"
       },
       {
-        "command": "clay.topLevelForm",
+        "command": "clay.makeTopLevelForm",
         "category": "Clay",
         "title": "Make Top Level Form"
       },
       {
-        "command": "clay.topLevelFormQuarto",
+        "command": "clay.makeTopLevelFormQuarto",
         "category": "Clay",
         "title": "Make Top Level Form Quarto"
       },
@@ -91,39 +91,39 @@
     ],
     "keybindings": [
       {
-        "key": "ctrl+alt+a ctrl+alt+f",
-        "command": "clay.file"
+        "key": "ctrl+alt+p c f",
+        "command": "clay.makeFile"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+q",
-        "command": "clay.fileQuarto"
+        "key": "ctrl+alt+p c q f",
+        "command": "clay.makeFileQuarto"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+r",
-        "command": "clay.fileRevealJs"
+        "key": "ctrl+alt+p c r f",
+        "command": "clay.makeFileRevealJs"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+c",
-        "command": "clay.currentForm"
+        "key": "ctrl+alt+p c c",
+        "command": "clay.makeCurrentForm"
       },
       {
-        "key": "ctrl+alt+a q c",
-        "command": "clay.currentFormQuarto"
+        "key": "ctrl+alt+p c q c",
+        "command": "clay.makeCurrentFormQuarto"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+a",
-        "command": "clay.topLevelForm"
+        "key": "ctrl+alt+p c enter",
+        "command": "clay.makeTopLevelForm"
       },
       {
-        "key": "ctrl+alt+a q t",
-        "command": "clay.topLevelFormQuarto"
+        "key": "ctrl+alt+p c q enter",
+        "command": "clay.makeTopLevelFormQuarto"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+b",
+        "key": "ctrl+alt+p c b",
         "command": "clay.browse"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+w",
+        "key": "ctrl+alt+p c w",
         "command": "clay.watch"
       }
     ]

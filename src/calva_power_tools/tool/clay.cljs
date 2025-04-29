@@ -15,12 +15,12 @@
 
 (defn activate! []
   ;; Register commands that call Calva's custom REPL command
-  (calva/register-snippet! "clay.file" (format-snippet "make-ns-html!" file options))
-  (calva/register-snippet! "clay.fileQuarto" (format-snippet "make-ns-quarto-html!" file options))
-  (calva/register-snippet! "clay.fileRevealJs" (format-snippet "make-ns-quarto-revealjs!" file options))
-  (calva/register-snippet! "clay.currentForm" (format-snippet "make-form-html!" current-form file options))
-  (calva/register-snippet! "clay.currentFormQuarto" (format-snippet "make-form-quarto-html!" current-form file options))
-  (calva/register-snippet! "clay.topLevelForm" (format-snippet "make-form-html!" top-level-form file options))
-  (calva/register-snippet! "clay.topLevelFormQuarto" (format-snippet "make-form-quarto-html!" top-level-form file options))
+  (calva/register-snippet! "clay.makeFile" (format-snippet "make-ns-html!" file options))
+  (calva/register-snippet! "clay.makeFileQuarto" (format-snippet "make-ns-quarto-html!" file options))
+  (calva/register-snippet! "clay.makeFileRevealJs" (format-snippet "make-ns-quarto-revealjs!" file options))
+  (calva/register-snippet! "clay.makeCurrentForm" (format-snippet "make-form-html!" current-form file options))
+  (calva/register-snippet! "clay.makeCurrentFormQuarto" (format-snippet "make-form-quarto-html!" current-form file options))
+  (calva/register-snippet! "clay.makeTopLevelForm" (format-snippet "make-form-html!" top-level-form file options))
+  (calva/register-snippet! "clay.makeTopLevelFormQuarto" (format-snippet "make-form-quarto-html!" top-level-form file options))
   (calva/register-snippet! "clay.browse" (format-snippet "browse!"))
   (calva/register-snippet! "clay.watch" (format-snippet "watch!" options)))
