@@ -1,6 +1,5 @@
 (ns calva-power-tools.extension
   (:require
-   [calva-power-tools.extension.calva :as calva]
    [calva-power-tools.extension.db :as db]
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.extension.when-contexts :as when-contexts]
@@ -15,28 +14,7 @@
   (when context
     (swap! db/!app-db assoc :extension/context context))
 
-  ;; Register commands that call Calva's custom REPL command
-  (lc-helpers/register-command!
-   db/!app-db "clay.showTopLevelForm"
-   (fn []
-     (calva/execute-calva-command!
-      "calva.runCustomREPLCommand"
-      (clay/command-args clay/make-toplevel-form-snippet))))
-  (lc-helpers/register-command! db/!app-db "clay.makeFile"
-                                (fn []
-                                  (calva/execute-calva-command!
-                                   "calva.runCustomREPLCommand"
-                                   (clay/command-args clay/make-file-snippet))))
-  (lc-helpers/register-command! db/!app-db "clay.makeCurrentForm"
-                                (fn []
-                                  (calva/execute-calva-command!
-                                   "calva.runCustomREPLCommand"
-                                   (clay/command-args clay/make-current-form-snippet))))
-  (lc-helpers/register-command! db/!app-db "clay.watch"
-                                (fn []
-                                  (calva/execute-calva-command!
-                                   "calva.runCustomREPLCommand"
-                                   (clay/command-args clay/watch-snippet))))
+  (clay/activate!)
 
   (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 

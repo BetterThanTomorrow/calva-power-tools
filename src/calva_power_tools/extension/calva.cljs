@@ -1,6 +1,9 @@
 (ns calva-power-tools.extension.calva
-  (:require ["vscode" :as vscode]
-            [promesa.core :as p]))
+  (:require
+   ["vscode" :as vscode]
+   [calva-power-tools.extension.db :as db]
+   [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
+   [promesa.core :as p]))
 
 (defn execute-calva-command!
   "Safely executes a Calva command and shows user-friendly errors.
@@ -25,3 +28,10 @@
             (p/catch (fn [error]
                        (.showErrorMessage vscode/window (str "Failed to run Calva command '" command "': " error))
                        false)))))))
+
+(defn register-snippet! [command snippet]
+  (lc-helpers/register-command! db/!app-db command
+                                (fn []
+                                  (execute-calva-command! "calva.runCustomREPLCommand"
+                                                          (clj->js {:snippet (str snippet)
+                                                                    :repl "clj"})))))
