@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+- Fix: [Propose changing the Clay prefix to ctrl+shift+a](https://github.com/BetterThanTomorrow/calva-power-tools/issues/12)
+
 ## [v0.0.2] - 2025-04-30
 
 - Improved README to talk about Clay

@@ -91,43 +91,43 @@
     ],
     "keybindings": [
       {
-        "key": "ctrl+alt+a f",
+        "key": "ctrl+shift+a f",
         "command": "clay.makeFile"
       },
       {
-        "key": "ctrl+alt+a q f",
+        "key": "ctrl+shift+a q f",
         "command": "clay.makeFileQuarto"
       },
       {
-        "key": "ctrl+alt+a r f",
+        "key": "ctrl+shift+a r f",
         "command": "clay.makeFileRevealJs"
       },
       {
-        "key": "ctrl+alt+a c",
+        "key": "ctrl+shift+a c",
         "command": "clay.makeCurrentForm"
       },
       {
-        "key": "ctrl+alt+a q c",
+        "key": "ctrl+shift+a q c",
         "command": "clay.makeCurrentFormQuarto"
       },
       {
-        "key": "ctrl+alt+a a",
+        "key": "ctrl+shift+a a",
         "command": "clay.makeTopLevelForm"
       },
       {
-        "key": "ctrl+alt+a ctrl+alt+a",
+        "key": "ctrl+shift+a ctrl+shift+a",
         "command": "clay.makeTopLevelForm"
       },
       {
-        "key": "ctrl+alt+a q a",
+        "key": "ctrl+shift+a q a",
         "command": "clay.makeTopLevelFormQuarto"
       },
       {
-        "key": "ctrl+alt+a b",
+        "key": "ctrl+shift+a b",
         "command": "clay.browse"
       },
       {
-        "key": "ctrl+alt+a w",
+        "key": "ctrl+shift+a w",
         "command": "clay.watch"
       }
     ]
