@@ -115,7 +115,6 @@
         "command": "clay.makeTopLevelForm"
       },
       {
-        // an additional quick binding for this important command
         "key": "ctrl+alt+a ctrl+alt+a",
         "command": "clay.makeTopLevelForm"
       },
