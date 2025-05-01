@@ -111,6 +111,10 @@
         "command": "clay.makeCurrentFormQuarto"
       },
       {
+        "key": "ctrl+shift+space ctrl+shift+a",
+        "command": "clay.makeTopLevelForm"
+      },
+      {
         "key": "ctrl+shift+space a a",
         "command": "clay.makeTopLevelForm"
       },
