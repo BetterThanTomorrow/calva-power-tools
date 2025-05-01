@@ -124,7 +124,7 @@
       },
       {
         "key": "ctrl+shift+space a b",
-        "command": "clay.watch"
+        "command": "clay.browse"
       },
       {
         "key": "ctrl+shift+space a w",
