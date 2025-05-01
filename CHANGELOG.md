@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.3] - 2025-05-01
+
 - Fix: [Propose a set of keybindings with the ctrl+shift+space prefix](https://github.com/BetterThanTomorrow/calva-power-tools/issues/15)
 
 ## [v0.0.2] - 2025-04-30
