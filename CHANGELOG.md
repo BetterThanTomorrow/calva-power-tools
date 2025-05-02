@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.4] - 2025-05-02
+
 - Fix: [Default keybindings should have when clauses limiting their reach](https://github.com/BetterThanTomorrow/calva-power-tools/issues/14)
 
 ## [v0.0.3] - 2025-05-01
