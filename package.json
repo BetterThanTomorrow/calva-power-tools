@@ -93,52 +93,52 @@
       {
         "key": "ctrl+shift+space a f",
         "command": "clay.makeFile",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q f",
         "command": "clay.makeFileQuarto",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a r f",
         "command": "clay.makeFileRevealJs",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a c",
         "command": "clay.makeCurrentForm",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q c",
         "command": "clay.makeCurrentFormQuarto",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space ctrl+shift+a",
         "command": "clay.makeTopLevelForm",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a a",
         "command": "clay.makeTopLevelForm",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q a",
         "command": "clay.makeTopLevelFormQuarto",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a b",
         "command": "clay.browse",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a w",
         "command": "clay.watch",
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
   },
