@@ -92,43 +92,53 @@
     "keybindings": [
       {
         "key": "ctrl+shift+space a f",
-        "command": "clay.makeFile"
+        "command": "clay.makeFile",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q f",
-        "command": "clay.makeFileQuarto"
+        "command": "clay.makeFileQuarto",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a r f",
-        "command": "clay.makeFileRevealJs"
+        "command": "clay.makeFileRevealJs",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a c",
-        "command": "clay.makeCurrentForm"
+        "command": "clay.makeCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q c",
-        "command": "clay.makeCurrentFormQuarto"
+        "command": "clay.makeCurrentFormQuarto",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space ctrl+shift+a",
-        "command": "clay.makeTopLevelForm"
+        "command": "clay.makeTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a a",
-        "command": "clay.makeTopLevelForm"
+        "command": "clay.makeTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q a",
-        "command": "clay.makeTopLevelFormQuarto"
+        "command": "clay.makeTopLevelFormQuarto",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a b",
-        "command": "clay.browse"
+        "command": "clay.browse",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a w",
-        "command": "clay.watch"
+        "command": "clay.watch",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
   },
