@@ -154,6 +154,21 @@
         "key": "ctrl+shift+space a w",
         "command": "clay.watch",
         "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space d d",
+        "command": "deps.loadDependencies",
+        "when": "calva:activated"
+      },
+      {
+        "key": "ctrl+shift+space d ctrl+s",
+        "command": "deps.loadSelectedDependencies",
+        "when": "calva:activated && editorHasSelection"
+      },
+      {
+        "key": "ctrl+shift+space d s",
+        "command": "deps.syncDeps",
+        "when": "calva:activated"
       }
     ]
   },
