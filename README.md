@@ -15,7 +15,7 @@ A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and Clo
 
 ### Default keybindings included
 
-The Calva Power Tools extension generally contributes default keybindings for the commands. They are all chained on a first chord of <kbd>ctrl+shift+space</kbd>, a.k.a. the **Power Key**. Then, generally, each tool has its key, e.g. **Clay** uses the **Tool Key** <kbd>c</kbd>, making Clay commands executed with <kbd>ctrl+shift+space</kbd> <kbd>c</kbd> <kbd>something</kbd>.
+The Calva Power Tools extension generally contributes default keybindings for the commands. They are all chained on a first chord of <kbd>ctrl+shift+space</kbd>, a.k.a. the **Power Key**. Then, generally, each tool has its key, e.g. **Clay** uses the **Tool Key** <kbd>a</kbd>, making Clay commands executed with <kbd>ctrl+shift+space</kbd> <kbd>a</kbd> <kbd>something</kbd>.
 
 ### Tools-deps, add-libs
 
@@ -35,7 +35,7 @@ A set of commands leveraging Clojure 1.12 `add-libs`:
 Explore the Clay commands from the VS Code command palette by fuzzy searching “Clay”.
 Also check this intoduction out: https://www.youtube.com/watch?v=B1yPkpyiEEs
 
-**Tool Key**: <kbd>c</kbd>
+**Tool Key**: <kbd>a</kbd>
 
 ## Rationale
 
