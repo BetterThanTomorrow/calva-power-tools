@@ -8,7 +8,7 @@
 
 (defn activate! []
   (calva/register-snippet! "deps.loadSelectedDependencies"
-                           {:snippet "(require '[clojure.repl.deps :refer [add-libs]]) (add-libs '{$selection})"
+                           {:snippet "((requiring-resolve 'clojure.repl.deps/add-libs) '{$selection})"
                             :ns "user"
                             :repl "clj"})
 
@@ -20,7 +20,7 @@
                                           :placeHolder "dev.weavejester/medley {:mvn/version \"1.8.1\"}"})
          (.then (fn [s]
                   (when s
-                    (let [snippet {:snippet (str "(require '[clojure.repl.deps :refer [add-libs]]) (add-libs '{" s "})")
+                    (let [snippet {:snippet (str "((requiring-resolve 'clojure.repl.deps/add-libs) '{" s "})")
                                    :ns "user"
                                    :repl "clj"}]
                       (calva/execute-calva-command! "calva.runCustomREPLCommand"
