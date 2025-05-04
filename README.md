@@ -13,13 +13,16 @@ A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and Clo
 1. Open the command palette with <kbd>ctrl+shift+p</kbd> or <kbd>cmd+shift+p</kbd>.
 1. Start typing to fuzzy search for commands. E.g. `Clay` to see the available Clay commands.
 
-### Tools-deps
+### Tools-deps, add-libs
 
 A set of commands leveraging Clojure 1.12 `add-libs`:
 
-* **tools-deps: Load Dependencies...**): Will prompt for and load dependencies.
+* **tools-deps: Load Dependencies...**: Will prompt for and load dependencies.
    ![alt text](assets/howto/tools-deps-add-dependencies.png)
 * **tools-deps: Load Selected Dependencies**): Add one or more deps.edn dependencies coordinate that you have selected in the editor. E.g. if you have added it to your `deps.edn` file and want to load the dependency without restarting your REPL (or you may have some comment in the code with the dependency coordinates): Select the key-value pair(s) for the dependencies and then run this command.
+* **tools-deps: Sync deps.edn Dependencies...**: Sync (load any missing)
+ dependencies in `deps.edn`. Prompts for aliases.
+   ![alt text](assets/howto/tools-deps-sync-deps.png)
 
 ### Clay
 

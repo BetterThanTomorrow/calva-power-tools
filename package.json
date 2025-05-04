@@ -97,6 +97,11 @@
         "command": "deps.loadDependencies",
         "category": "tools-deps",
         "title": "Load Dependencies..."
+      },
+      {
+        "command": "deps.syncDeps",
+        "category": "tools-deps",
+        "title": "Sync deps.edn dependencies..."
       }
     ],
     "keybindings": [

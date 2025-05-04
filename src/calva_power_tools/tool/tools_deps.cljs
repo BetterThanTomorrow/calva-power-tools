@@ -11,6 +11,7 @@
                            {:snippet "(require '[clojure.repl.deps :refer [add-libs]]) (add-libs '{$selection})"
                             :ns "user"
                             :repl "clj"})
+
   (lc-helpers/register-command!
    db/!app-db "deps.loadDependencies"
    (fn []
@@ -20,6 +21,21 @@
          (.then (fn [s]
                   (when s
                     (let [snippet {:snippet (str "(require '[clojure.repl.deps :refer [add-libs]]) (add-libs '{" s "})")
+                                   :ns "user"
+                                   :repl "clj"}]
+                      (calva/execute-calva-command! "calva.runCustomREPLCommand"
+                                                    (clj->js snippet)))))))))
+
+  (lc-helpers/register-command!
+   db/!app-db "deps.syncDeps"
+   (fn []
+     (-> (vscode/window.showInputBox #js {:title "Aliases. Leave empty and press ENTER for no aliases"
+                                          :ignoreFocusOut true
+                                          :placeHolder ":dev :test"})
+         (.then (fn [s]
+                  (when s
+                    (let [snippet {:snippet (str "((requiring-resolve 'clojure.repl.deps/sync-deps)
+              :aliases [" s "])")
                                    :ns "user"
                                    :repl "clj"}]
                       (calva/execute-calva-command! "calva.runCustomREPLCommand"
