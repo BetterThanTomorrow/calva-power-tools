@@ -1,4 +1,4 @@
-(ns tests.hello-doc-test
+(ns tests.extension-test
   (:require ["vscode" :as vscode]
             [cljs.test :refer [testing is]]
             [promesa.core :as p]
