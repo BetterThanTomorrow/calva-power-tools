@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.5] - 2025-05-04
+
 - [Add tools-deps tool, with add-libs commands](https://github.com/BetterThanTomorrow/calva-power-tools/issues/7)
 
 ## [v0.0.4] - 2025-05-02
