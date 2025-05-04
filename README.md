@@ -1,6 +1,11 @@
 # Calva Power Tools
 
-A VSCode extension for Clojure and ClojureScript development that adds commands for popular Clojure libraries and tools.
+A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and ClojureScript development that adds commands for popular Clojure libraries and tools.
+
+## Supported Tools
+
+* [tools-deps](https://clojure.org/guides/deps_and_cli) for dependency management.
+* [Clay](https://scicloj.github.io/clay/) for literate programming and data visuallization.
 
 ## Usage
 
@@ -8,14 +13,18 @@ A VSCode extension for Clojure and ClojureScript development that adds commands 
 1. Open the command palette with <kbd>ctrl+shift+p</kbd> or <kbd>cmd+shift+p</kbd>.
 1. Start typing to fuzzy search for commands. E.g. `Clay` to see the available Clay commands.
 
-## Supported Tools
+### Tools-deps
 
-* [Clay](https://scicloj.github.io/clay/) for literate programming and data visuallization.
+A set of commands leveraging Clojure 1.12 `add-libs`:
 
-## Prerequisites
+* **tools-deps: Load Dependencies...**): Will prompt for and load dependencies.
+   ![alt text](assets/howto/tools-deps-add-dependencies.png)
+* **tools-deps: Load Selected Dependencies**): Add one or more deps.edn dependencies coordinate that you have selected in the editor. E.g. if you have added it to your `deps.edn` file and want to load the dependency without restarting your REPL (or you may have some comment in the code with the dependency coordinates): Select the key-value pair(s) for the dependencies and then run this command.
 
-* [Calva](https://marketplace.visualstudio.com/items?itemName=ms-vscode.clojure-extension-pack) will be installed automatically when you install Calva Power Tools.
-* [Clay](https://github.com/scicloj/clay) added to deps.edn (when using Clay)
+### Clay
+
+Explore the Clay commands from the VS Code command palette by fuzzy searching “Clay”.
+Also check this intoduction out: https://www.youtube.com/watch?v=B1yPkpyiEEs
 
 ## Rationale
 

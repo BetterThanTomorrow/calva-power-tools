@@ -87,6 +87,16 @@
         "command": "clay.watch",
         "category": "Clay",
         "title": "Watch"
+      },
+      {
+        "command": "deps.loadSelectedDependencies",
+        "category": "tools-deps",
+        "title": "Load Selected Dependencies"
+      },
+      {
+        "command": "deps.loadDependencies",
+        "category": "tools-deps",
+        "title": "Load Dependencies..."
       }
     ],
     "keybindings": [

@@ -33,5 +33,4 @@
   (lc-helpers/register-command! db/!app-db command
                                 (fn []
                                   (execute-calva-command! "calva.runCustomREPLCommand"
-                                                          (clj->js {:snippet (str snippet)
-                                                                    :repl "clj"})))))
+                                                          (clj->js snippet)))))

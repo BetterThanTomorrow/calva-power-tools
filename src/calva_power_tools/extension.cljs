@@ -3,7 +3,8 @@
    [calva-power-tools.extension.db :as db]
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.extension.when-contexts :as when-contexts]
-   [calva-power-tools.tool.clay :as clay]))
+   [calva-power-tools.tool.clay :as clay]
+   [calva-power-tools.tool.tools-deps :as deps]))
 
 ;;;;; Extension activation entry point
 
@@ -15,6 +16,7 @@
     (swap! db/!app-db assoc :extension/context context))
 
   (clay/activate!)
+  (deps/activate!)
 
   (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 
