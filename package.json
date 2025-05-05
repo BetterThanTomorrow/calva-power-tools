@@ -42,6 +42,16 @@
   ],
   "main": "out/extension.js",
   "contributes": {
+    "configuration": [{
+      "type": "object",
+      "title": "Clay",
+      "properties": {
+        "calva-power-tools.clay.version": {
+          "type": "string",
+          "default": "2-beta42"
+        }
+      }
+    }],
     "commands": [
       {
         "command": "clay.makeFile",
@@ -87,6 +97,11 @@
         "command": "clay.watch",
         "category": "Clay",
         "title": "Watch"
+      },
+      {
+        "command": "clay.loadClayDependency",
+        "category": "Clay",
+        "title": "Load Clay Dependency"
       },
       {
         "command": "deps.loadSelectedDependencies",
@@ -154,6 +169,11 @@
         "key": "ctrl+shift+space a w",
         "command": "clay.watch",
         "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space a d",
+        "command": "clay.loadClayDependency",
+        "when": "calva:activated"
       },
       {
         "key": "ctrl+shift+space d d",

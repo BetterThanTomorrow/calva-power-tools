@@ -9,14 +9,14 @@
   //// https://calva.io/connect-sequences/
   "calva.replConnectSequences": [
     {
-      "name": "Mini Clojure Project",
+      "name": "Mini Clay Project",
       "autoSelectForConnect": true,
       "autoSelectForJackIn": true,
       "projectRootPath": ["."],
       "cljsType": "none",
       "projectType": "deps.edn",
       "menuSelections": {
-        "cljAliases": ["test"]
+        "cljAliases": ["test", "clay"]
       }
     }
   ],
