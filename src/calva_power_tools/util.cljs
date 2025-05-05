@@ -10,3 +10,9 @@
                     {'" mvn-name " {:mvn/version \"" version "\"}})")
      :ns "user"
      :repl "clj"}))
+
+(defn tool-dependency-load-snippet [{:deps/keys [mvn-name]}]
+  {:snippet (str "((requiring-resolve 'clojure.repl.deps/add-lib)
+                    '" mvn-name ")")
+   :ns "user"
+   :repl "clj"})
