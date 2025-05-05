@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+- [Add command for loading Clay dependency](https://github.com/BetterThanTomorrow/calva-power-tools/issues/18)
+
 ## [v0.0.5] - 2025-05-04
 
 - [Add tools-deps tool, with add-libs commands](https://github.com/BetterThanTomorrow/calva-power-tools/issues/7)
