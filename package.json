@@ -44,9 +44,9 @@
   "contributes": {
     "configuration": [{
       "type": "object",
-      "title": "Clay",
+      "title": "Calva Power Tools",
       "properties": {
-        "calva-power-tools.clay.version": {
+        "calva-power-tools.clay.dependencyVersion": {
           "type": "string",
           "default": "2-beta42"
         }

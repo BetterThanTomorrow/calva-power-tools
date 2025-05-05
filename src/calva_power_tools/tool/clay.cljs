@@ -1,6 +1,9 @@
 (ns calva-power-tools.tool.clay
   (:require
-   [calva-power-tools.extension.calva :as calva]
+   [calva-power-tools.calva :as calva]
+   [calva-power-tools.extension.db :as db]
+   [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
+   [calva-power-tools.util :as util]
    [clojure.string :as str]))
 
 (defn make-snippet
@@ -25,8 +28,11 @@
   (calva/register-snippet! "clay.makeTopLevelFormQuarto" (make-snippet "make-form-quarto-html!" top-level-form file options))
   (calva/register-snippet! "clay.browse" (make-snippet "browse!"))
   (calva/register-snippet! "clay.watch" (make-snippet "watch!" options))
-  (calva/register-snippet! "clay.loadClayDependency"
-                           {:snippet (str '((requiring-resolve 'clojure.repl.deps/add-libs)
-                                            '{org.scicloj/clay {:mvn/version "2-beta40"}}))
-                            :ns "user"
-                            :repl "clj"}))
+
+  (lc-helpers/register-command!
+   db/!app-db "clay.loadClayDependency"
+   (fn []
+     (let [snippet (util/tool-dependency-load-version-snippet {:config/path "clay.dependencyVersion"
+                                                               :deps/mvn-name "org.scicloj/clay"})]
+       (calva/execute-calva-command! "calva.runCustomREPLCommand"
+                                     (clj->js snippet))))))

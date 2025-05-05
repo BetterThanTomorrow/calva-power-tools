@@ -1,10 +1,9 @@
 (ns calva-power-tools.tool.tools-deps
   (:require
    ["vscode" :as vscode]
-   [calva-power-tools.extension.calva :as calva]
+   [calva-power-tools.calva :as calva]
    [calva-power-tools.extension.db :as db]
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]))
-
 
 (defn activate! []
   (calva/register-snippet! "deps.loadSelectedDependencies"
