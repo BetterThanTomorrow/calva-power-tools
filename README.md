@@ -42,6 +42,17 @@ If your project doesn't have a Clay dependency set up, you can still use Clay by
 
 **Tool Key**: <kbd>a</kbd>
 
+
+### Snitch
+
+Snitch is inline-defs on steroids. See https://github.com/AbhinavOmprakash/snitch. Search the command palette for “Snitch”.
+
+![Snitch Power Tool Commands](assets/howto/snitch-menu.png)
+
+This menu screenshot is showing the default key bindings. I (PEZ) am on a Mac and can recommend binding the **Snitch: Instrument defn** command to <kbd>cmd+enter</kbd>.
+
+**Tool Key**: <kbd>s</kbd>
+
 ## Contributing
 
 Issues and pull requests are welcome. Please see [CONTRIBUTING](CONTRIBUTING.md)

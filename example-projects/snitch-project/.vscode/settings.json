@@ -1,0 +1,21 @@
+{
+  "calva.autoStartRepl": true,
+  "calva.replConnectSequences": [
+    {
+      "name": "Example Snitch Project",
+      "autoSelectForConnect": true,
+      "autoSelectForJackIn": true,
+      "projectRootPath": ["."],
+      "cljsType": "none",
+      "projectType": "deps.edn",
+      "menuSelections": {
+        "cljAliases": ["test"]
+      }
+    }
+  ],
+
+  "calva.autoOpenInspector": false,
+  "calva.enableInspectorRainbow": true,
+
+  "calva.autoOpenREPLWindow": false
+}

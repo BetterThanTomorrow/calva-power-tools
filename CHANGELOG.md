@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+- [Add Snitch Power Tool](https://github.com/BetterThanTomorrow/calva-power-tools/issues/20)
+
 ## [v0.0.5] - 2025-05-04
 
 - [Add tools-deps tool, with add-libs commands](https://github.com/BetterThanTomorrow/calva-power-tools/issues/7)

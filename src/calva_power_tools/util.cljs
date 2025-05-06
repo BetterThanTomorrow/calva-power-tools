@@ -10,7 +10,7 @@
                              .-v1
                              (js->clj :keywordize-keys true)))
 
-(def ^:private evaluateCode (get-in calva-api [:repl :evaluateCode]))
+(def evaluateCode+ (get-in calva-api [:repl :evaluateCode]))
 
 (defn code-for-dependency-loading [{:deps/keys [mvn-name]}]
   (str "(if-let [add-lib (resolve 'clojure.repl.deps/add-lib)]
@@ -33,7 +33,7 @@
                        (fn [_progress _token]
                          (p/create
                           (fn [resolve reject]
-                            (-> (evaluateCode
+                            (-> (evaluateCode+
                                  "clj" code "user"
                                  #js {:stdout (fn [output]
                                                 (js/console.log (str "Dependency loading stdout: " output)))
@@ -44,8 +44,9 @@
                                 (p/then (fn [result]
                                           (resolve (.-result result))))
                                 (p/catch reject))))))
-        (p/then (fn [_]
-                  (vscode/window.showInformationMessage (str "Dependency " mvn-name " loaded.") "OK")))
+        (p/then (fn [evaluation+]
+                  (vscode/window.showInformationMessage (str "Dependency " mvn-name " loaded.") "OK")
+                  evaluation+))
         (p/catch (fn [error-message]
                    (vscode/window.showErrorMessage
                     (str "Failed to load dependency " mvn-name ": " error-message)
