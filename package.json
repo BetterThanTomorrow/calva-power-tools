@@ -108,6 +108,26 @@
         "command": "deps.syncDeps",
         "category": "tools-deps",
         "title": "Sync deps.edn dependencies..."
+      },
+      {
+        "command": "snitch.loadSnitchDependency",
+        "category": "Snitch",
+        "title": "Load Snitch Dependency"
+      },
+      {
+        "command": "snitch.instrumentDefn",
+        "category": "Snitch",
+        "title": "Instrument defn"
+      },
+      {
+        "command": "snitch.getSnitchedDefnResults",
+        "category": "Snitch",
+        "title": "Get Snitched defn Results"
+      },
+      {
+        "command": "snitch.reconstructLastDefnCallToClipboard",
+        "category": "Snitch",
+        "title": "Reconstruct Last defn Call to Clipboard"
       }
     ],
     "keybindings": [
@@ -180,6 +200,26 @@
         "key": "ctrl+shift+space d s",
         "command": "deps.syncDeps",
         "when": "calva:activated"
+      },
+      {
+        "key": "ctrl+shift+space s l",
+        "command": "snitch.loadSnitchDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space s d",
+        "command": "snitch.instrumentDefn",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space s r",
+        "command": "snitch.getSnitchedDefnResults",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space s c",
+        "command": "snitch.reconstructLastDefnCallToClipboard",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
   },

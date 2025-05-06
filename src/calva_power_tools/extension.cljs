@@ -4,6 +4,7 @@
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.extension.when-contexts :as when-contexts]
    [calva-power-tools.tool.clay :as clay]
+   [calva-power-tools.tool.snitch :as snitch]
    [calva-power-tools.tool.tools-deps :as deps]))
 
 ;;;;; Extension activation entry point
@@ -17,6 +18,7 @@
 
   (clay/activate!)
   (deps/activate!)
+  (snitch/activate!)
 
   (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 
