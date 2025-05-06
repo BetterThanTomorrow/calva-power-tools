@@ -89,6 +89,12 @@
         "title": "Watch"
       },
       {
+        "command": "clay.loadClayDependency",
+        "category": "Clay",
+        "title": "Load Clay Dependency",
+        "enablement": "false"
+      },
+      {
         "command": "deps.loadSelectedDependencies",
         "category": "tools-deps",
         "title": "Load Selected Dependencies"
@@ -154,6 +160,11 @@
         "key": "ctrl+shift+space a w",
         "command": "clay.watch",
         "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space a d",
+        "command": "clay.loadClayDependency",
+        "when": "false && calva:activated"
       },
       {
         "key": "ctrl+shift+space d d",

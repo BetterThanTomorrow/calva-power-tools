@@ -1,4 +1,4 @@
-(ns calva-power-tools.extension.calva
+(ns calva-power-tools.calva
   (:require
    ["vscode" :as vscode]
    [calva-power-tools.extension.db :as db]
@@ -34,3 +34,4 @@
                                 (fn []
                                   (execute-calva-command! "calva.runCustomREPLCommand"
                                                           (clj->js snippet)))))
+

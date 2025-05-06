@@ -1,8 +1,10 @@
 # Calva Power Tools
 
-A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and ClojureScript development that adds commands for popular Clojure libraries and tools.
+A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and ClojureScript development that adds commands for popular Clojure libraries and tools. Including commands for dynamically loading the tool dependencies.
 
 ## Supported Tools
+
+A hopefully a growing list! Calva Power Tools aims to be very [contributor](#contributing) friendly!
 
 * [tools-deps](https://clojure.org/guides/deps_and_cli) for dependency management.
 * [Clay](https://scicloj.github.io/clay/) for literate programming and data visuallization.
@@ -35,12 +37,10 @@ A set of commands leveraging Clojure 1.12 `add-libs`:
 Explore the Clay commands from the VS Code command palette by fuzzy searching “Clay”.
 Also check this intoduction out: https://www.youtube.com/watch?v=B1yPkpyiEEs
 
+If your project doesn't have a Clay dependency set up, you can still use Clay by starting your session with the command:
+* **Clay: Load Clay Dependency**
+
 **Tool Key**: <kbd>a</kbd>
-
-## Rationale
-
-Users access IDE functionality via commands and the command palette, but tools and libraries cannot add these to VSCode except via an extension.
-Calva Power Tools is a contributor friendly way for library and tool authors to provide commands in VSCode without making a separate extension.
 
 ## Contributing
 

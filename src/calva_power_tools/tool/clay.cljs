@@ -1,6 +1,9 @@
 (ns calva-power-tools.tool.clay
   (:require
-   [calva-power-tools.extension.calva :as calva]
+   [calva-power-tools.calva :as calva]
+   [calva-power-tools.extension.db :as db]
+   [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
+   [calva-power-tools.util :as util]
    [clojure.string :as str]))
 
 (defn make-snippet
@@ -24,4 +27,9 @@
   (calva/register-snippet! "clay.makeTopLevelForm" (make-snippet "make-form-html!" top-level-form file options))
   (calva/register-snippet! "clay.makeTopLevelFormQuarto" (make-snippet "make-form-quarto-html!" top-level-form file options))
   (calva/register-snippet! "clay.browse" (make-snippet "browse!"))
-  (calva/register-snippet! "clay.watch" (make-snippet "watch!" options)))
+  (calva/register-snippet! "clay.watch" (make-snippet "watch!" options))
+
+  (lc-helpers/register-command!
+   db/!app-db "clay.loadClayDependency"
+   (fn []
+     (util/load-dependency {:deps/mvn-name "org.scicloj/clay"}))))
