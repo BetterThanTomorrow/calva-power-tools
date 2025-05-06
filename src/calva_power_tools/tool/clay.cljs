@@ -32,6 +32,4 @@
   (lc-helpers/register-command!
    db/!app-db "clay.loadClayDependency"
    (fn []
-     (let [snippet (util/tool-dependency-load-snippet {:deps/mvn-name "org.scicloj/clay"})]
-       (calva/execute-calva-command! "calva.runCustomREPLCommand"
-                                     (clj->js snippet))))))
+     (util/load-dependency {:deps/mvn-name "org.scicloj/clay"}))))
