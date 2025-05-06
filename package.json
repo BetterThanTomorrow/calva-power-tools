@@ -128,6 +128,81 @@
         "command": "snitch.reconstructLastDefnCallToClipboard",
         "category": "Snitch",
         "title": "Reconstruct Last defn Call to Clipboard"
+      },
+      {
+        "command": "performance.loadDecompilerDependency",
+        "category": "Performance",
+        "title": "Load Decompiler Dependency"
+      },
+      {
+        "command": "performance.loadCriteriumDependency",
+        "category": "Performance",
+        "title": "Load Criterium Dependency"
+      },
+      {
+        "command": "performance.loadProfilerDependency",
+        "category": "Performance",
+        "title": "Load Profiler Dependency"
+      },
+      {
+        "command": "performance.decompileTopLevelForm",
+        "category": "Performance",
+        "title": "Decompile Top Level Form"
+      },
+      {
+        "command": "performance.decompileTopLevelFormWithUncheckedMath",
+        "category": "Performance",
+        "title": "Decompile Top Level Form With Unchecked Math"
+      },
+      {
+        "command": "performance.decompileSelection",
+        "category": "Performance",
+        "title": "Decompile Selection"
+      },
+      {
+        "command": "performance.disassembleTopLevelForm",
+        "category": "Performance",
+        "title": "Disassemble Top Level Form"
+      },
+      {
+        "command": "performance.quickBenchTopLevelFunction",
+        "category": "Performance",
+        "title": "Quick Bench Top Level Function"
+      },
+      {
+        "command": "performance.quickBenchCurrentForm",
+        "category": "Performance",
+        "title": "Quick Bench Current Form"
+      },
+      {
+        "command": "performance.timeTopLevelFunction",
+        "category": "Performance",
+        "title": "Time Top Level Function"
+      },
+      {
+        "command": "performance.timeTopLevelForm",
+        "category": "Performance",
+        "title": "Time Top Level Form"
+      },
+      {
+        "command": "performance.timeCurrentForm",
+        "category": "Performance",
+        "title": "Time Current Form"
+      },
+      {
+        "command": "performance.startProfilerUI",
+        "category": "Performance",
+        "title": "Start Profiler UI"
+      },
+      {
+        "command": "performance.shareToFlamebin",
+        "category": "Performance",
+        "title": "Share To Flamebin"
+      },
+      {
+        "command": "performance.shareToPublicFlamebin",
+        "category": "Performance",
+        "title": "Share To Public Flamebin"
       }
     ],
     "keybindings": [
@@ -219,6 +294,81 @@
       {
         "key": "ctrl+shift+space s c",
         "command": "snitch.reconstructLastDefnCallToClipboard",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p l d",
+        "command": "performance.loadDecompilerDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p l c",
+        "command": "performance.loadCriteriumDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p l p",
+        "command": "performance.loadProfilerDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d f",
+        "command": "performance.decompileTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d u",
+        "command": "performance.decompileTopLevelFormWithUncheckedMath",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d s",
+        "command": "performance.decompileSelection",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d a",
+        "command": "performance.disassembleTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p b f",
+        "command": "performance.quickBenchTopLevelFunction",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p b c",
+        "command": "performance.quickBenchCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p t f",
+        "command": "performance.timeTopLevelFunction",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p t l",
+        "command": "performance.timeTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p t c",
+        "command": "performance.timeCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p s",
+        "command": "performance.startProfilerUI",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p f",
+        "command": "performance.shareToFlamebin",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p p",
+        "command": "performance.shareToPublicFlamebin",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
