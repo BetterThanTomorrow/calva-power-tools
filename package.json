@@ -91,7 +91,8 @@
       {
         "command": "clay.loadClayDependency",
         "category": "Clay",
-        "title": "Load Clay Dependency"
+        "title": "Load Clay Dependency",
+        "enablement": "false"
       },
       {
         "command": "deps.loadSelectedDependencies",
@@ -163,7 +164,7 @@
       {
         "key": "ctrl+shift+space a d",
         "command": "clay.loadClayDependency",
-        "when": "calva:activated"
+        "when": "false && calva:activated"
       },
       {
         "key": "ctrl+shift+space d d",
