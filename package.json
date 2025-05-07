@@ -42,6 +42,27 @@
   ],
   "main": "out/extension.js",
   "contributes": {
+    "configuration": [{
+      "type": "object",
+      "title": "Calva Power Tools",
+      "properties": {
+        "calva-power-tools.performance.autoOpenProfilerUI": {
+          "type": "string",
+          "default": "vscode",
+          "enum": [
+            "vscode",
+            "system",
+            "never"
+          ],
+          "enumDescriptions": [
+            "Auto-open the Profiler UI in the VS Code internal Simple Browser.",
+            "Auto-open the Profiler UI in the system default web browser.",
+            "Never auto-open the Profiler UI."
+          ],
+          "description": "Auto-open the Profiler UI in the specified browser (or not)."
+        }
+      }
+    }],
     "commands": [
       {
         "command": "clay.makeFile",

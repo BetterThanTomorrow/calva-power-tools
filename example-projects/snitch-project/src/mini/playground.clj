@@ -21,6 +21,10 @@
     :else (+ (fibonacci (- n 1))
              (fibonacci (- n 2)))))
 
+(comment
+  (count (repeat 10 (fibonacci 40)))
+  :rcf)
+
 ;; More efficient implementations of the Fibonacci function
 
 (defn fibonacci-memo

@@ -26,16 +26,6 @@
                 "calva.runCustomREPLCommand"
                 #js {:snippet "(require '[criterium.core :refer [quick-bench bench]])"
                      :repl "clj"})))))
-
-(defn- load-profiler-dependency []
-  (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
-                             :deps/mvn-version "1.5.1"})
-      (.then (fn [_]
-               (calva/execute-calva-command!
-                "calva.runCustomREPLCommand"
-                #js {:snippet "(require '[clj-async-profiler.core :as prof])"
-                     :repl "clj"})))))
-
 ;; Decompilation functions
 
 (defn- decompile-top-level-form []
@@ -92,6 +82,37 @@
 
 ;; Profiler functions
 
+(def profile-check-code (str '(try
+                                (let [runtime (java.lang.management.ManagementFactory/getRuntimeMXBean)
+                                      jvm-args (.getInputArguments runtime)
+                                      required-opts #{"-Djdk.attach.allowAttachSelf"
+                                                      "-XX:+UnlockDiagnosticVMOptions"
+                                                      "-XX:+DebugNonSafepoints"}
+                                      missing-opts (remove #(some (fn [arg] (.contains arg %)) jvm-args) required-opts)]
+                                  (empty? missing-opts))
+                                (catch Exception _
+                                  false))))
+
+(defn- load-profiler-dependency []
+  (p/let [java-opts ":jvm-opts [\"-Djdk.attach.allowAttachSelf\" \"-XX:+UnlockDiagnosticVMOptions\" \"-XX:+DebugNonSafepoints\"]"
+          evaluation (util/evaluateCode+ "clj" profile-check-code "user")
+          attachable? (= "true" (.-result evaluation))]
+    (if attachable?
+      (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
+                                 :deps/mvn-version "1.5.1"})
+          (.then (fn [_]
+                   (calva/execute-calva-command!
+                    "calva.runCustomREPLCommand"
+                    #js {:snippet "(require '[clj-async-profiler.core :as prof])"
+                         :repl "clj"}))))
+      (-> (vscode/window.showInformationMessage (str "The REPL isn't started with Java optuons allowing the profiler to attach. "
+                                                     "If you are using deps.edn, you can add a `:profiler` alias with: `" java-opts "`")
+                                                "Copy options")
+          (p/then (fn [button]
+                    (when (= "Copy options" button)
+                      (vscode/env.clipboard.writeText java-opts)
+                      (vscode/window.showInformationMessage "Options copied to the clipboard"))))))))
+
 (defn- profile-current-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
@@ -105,10 +126,20 @@
         :repl "clj"}))
 
 (defn- start-profiler-ui []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 9898)"
-        :repl "clj"}))
+  (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
+                      (.get "performance.autoOpenProfilerUI"))]
+    (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 9898)" "user")
+            url (some->> (.-output evaluation)
+                         (re-find #"Started server at /(.*?)\n?$")
+                         second)]
+      (case auto-open
+        "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
+        "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
+        nil))))
+
+(comment
+  (re-find #"Started server at /(.*?)\n?$" "[clj-async-profiler.ui] Started server at /127.0.0.1:54586\n")
+  :rcf)
 
 (defn- share-to-flamebin []
   (calva/execute-calva-command!
