@@ -165,7 +165,7 @@
         "title": "Disassemble Top Level Form"
       },
       {
-        "command": "performance.quickBenchTopLevelFunction",
+        "command": "performance.quickBenchTopLevelForm",
         "category": "Performance",
         "title": "Quick Bench Top Level Function"
       },
@@ -173,11 +173,6 @@
         "command": "performance.quickBenchCurrentForm",
         "category": "Performance",
         "title": "Quick Bench Current Form"
-      },
-      {
-        "command": "performance.timeTopLevelFunction",
-        "category": "Performance",
-        "title": "Time Top Level Function"
       },
       {
         "command": "performance.timeTopLevelForm",
@@ -190,19 +185,19 @@
         "title": "Time Current Form"
       },
       {
+        "command": "performance.profileCurrentForm",
+        "category": "Performance",
+        "title": "Profile Current Form"
+      },
+      {
+        "command": "performance.profileTopLevelForm",
+        "category": "Performance",
+        "title": "Profile Top Level Form"
+      },
+      {
         "command": "performance.startProfilerUI",
         "category": "Performance",
         "title": "Start Profiler UI"
-      },
-      {
-        "command": "performance.shareToFlamebin",
-        "category": "Performance",
-        "title": "Share To Flamebin"
-      },
-      {
-        "command": "performance.shareToPublicFlamebin",
-        "category": "Performance",
-        "title": "Share To Public Flamebin"
       }
     ],
     "keybindings": [
@@ -333,7 +328,7 @@
       },
       {
         "key": "ctrl+shift+space p b f",
-        "command": "performance.quickBenchTopLevelFunction",
+        "command": "performance.quickBenchTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
@@ -342,12 +337,7 @@
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space p t f",
-        "command": "performance.timeTopLevelFunction",
-        "when": "editorTextFocus && editorLangId == 'clojure'"
-      },
-      {
-        "key": "ctrl+shift+space p t l",
+        "key": "ctrl+shift+space p t t",
         "command": "performance.timeTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
@@ -357,18 +347,18 @@
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space p p s",
+        "key": "ctrl+shift+space p p t",
+        "command": "performance.profileTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p c",
+        "command": "performance.profileCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p u",
         "command": "performance.startProfilerUI",
-        "when": "editorTextFocus && editorLangId == 'clojure'"
-      },
-      {
-        "key": "ctrl+shift+space p p f",
-        "command": "performance.shareToFlamebin",
-        "when": "editorTextFocus && editorLangId == 'clojure'"
-      },
-      {
-        "key": "ctrl+shift+space p p p",
-        "command": "performance.shareToPublicFlamebin",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
