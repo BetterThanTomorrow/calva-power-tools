@@ -153,22 +153,6 @@
               "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
               nil)))))))
 
-(comment
-  (re-find #"Started server at /(.*?)\n?$" "[clj-async-profiler.ui] Started server at /127.0.0.1:54586\n")
-  :rcf)
-
-(defn- share-to-flamebin []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "((requiring-resolve 'clj-async-profiler.flamebin/upload-to-flamebin) (read-line) {})"
-        :repl "clj"}))
-
-(defn- share-to-public-flamebin []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "((requiring-resolve 'clj-async-profiler.flamebin/upload-to-flamebin) (read-line) {:public? true})"
-        :repl "clj"}))
-
 ;; Helper function
 (defn- register-command! [command f]
   (lc-helpers/register-command! db/!app-db command f))
@@ -196,6 +180,4 @@
   (register-command! "performance.loadProfilerDependency" #'load-profiler-dependency)
   (register-command! "performance.profileCurrentForm" #'profile-current-form)
   (register-command! "performance.profileTopLevelForm" #'profile-top-level-form)
-  (register-command! "performance.startProfilerUI" #'start-profiler-ui)
-  (register-command! "performance.shareToFlamebin" #'share-to-flamebin)
-  (register-command! "performance.shareToPublicFlamebin" #'share-to-public-flamebin))
+  (register-command! "performance.startProfilerUI" #'start-profiler-ui))
