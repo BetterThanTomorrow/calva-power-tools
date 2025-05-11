@@ -27,6 +27,7 @@
                 "calva.runCustomREPLCommand"
                 #js {:snippet "(require '[criterium.core :refer [quick-bench bench]])"
                      :repl "clj"})))))
+
 ;; Decompilation functions
 
 (defn- decompile-top-level-form []
@@ -94,51 +95,63 @@
                                 (catch Exception _
                                   false))))
 
-(defn- load-profiler-dependency []
+(defn- with-profiler-check [f]
   (p/let [java-opts ":jvm-opts [\"-Djdk.attach.allowAttachSelf\" \"-XX:+UnlockDiagnosticVMOptions\" \"-XX:+DebugNonSafepoints\"]"
           evaluation (util/evaluateCode+ "clj" profile-check-code "user")
           attachable? (= "true" (.-result evaluation))]
     (if attachable?
-      (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
-                                 :deps/mvn-version "1.6.1"})
-          (.then (fn [_]
-                   (calva/execute-calva-command!
-                    "calva.runCustomREPLCommand"
-                    #js {:snippet "(require '[clj-async-profiler.core :as prof])"
-                         :repl "clj"}))))
-      (-> (vscode/window.showInformationMessage (str "The REPL isn't started with Java options allowing the profiler to attach. "
-                                                     "If you are using deps.edn, you can add a `:profiler` alias with: `" java-opts "`")
-                                                "Copy options")
+      (f)
+      (-> (vscode/window.showInformationMessage
+           (str "The REPL isn't started with Java options allowing the profiler to attach. "
+                "If you are using deps.edn, you can add a `:profiler` alias with: `" java-opts "`")
+           "Copy options")
           (p/then (fn [button]
                     (when (= "Copy options" button)
                       (vscode/env.clipboard.writeText java-opts)
                       (vscode/window.showInformationMessage "Options copied to the clipboard"))))))))
 
+(defn- load-profiler-dependency []
+  (with-profiler-check
+   (fn []
+     (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
+                                :deps/mvn-version "1.6.1"})
+         (.then (fn [_]
+                  (calva/execute-calva-command!
+                   "calva.runCustomREPLCommand"
+                   #js {:snippet "(require '[clj-async-profiler.core :as prof])"
+                        :repl "clj"})))))))
+
 (defn- profile-current-form []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $current-form)"
-        :repl "clj"}))
+  (with-profiler-check
+   (fn []
+     (calva/execute-calva-command!
+      "calva.runCustomREPLCommand"
+      #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $current-form)"
+           :repl "clj"}))))
 
 (defn- profile-top-level-form []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $top-level-form)"
-        :repl "clj"}))
+  (with-profiler-check
+   (fn []
+     (calva/execute-calva-command!
+      "calva.runCustomREPLCommand"
+      #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $top-level-form)"
+           :repl "clj"}))))
 
 (defn- start-profiler-ui []
-  (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
-                      (.get "performance.autoOpenProfilerUI"))]
-    (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
-            url (some->> (.-output evaluation)
-                         (re-find #"Started server at /(.*?)\n?$")
-                         second)]
-      (when (and url
-                 (not (string/blank? url)))
-        (case auto-open
-          "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
-          "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
-          nil)))))
+  (with-profiler-check
+   (fn []
+     (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
+                         (.get "performance.autoOpenProfilerUI"))]
+       (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
+               url (some->> (.-output evaluation)
+                            (re-find #"Started server at /(.*?)\n?$")
+                            second)]
+         (when (and url
+                    (not (string/blank? url)))
+           (case auto-open
+             "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
+             "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
+             nil)))))))
 
 (comment
   (re-find #"Started server at /(.*?)\n?$" "[clj-async-profiler.ui] Started server at /127.0.0.1:54586\n")
@@ -185,4 +198,4 @@
   (register-command! "performance.profileTopLevelForm" #'profile-top-level-form)
   (register-command! "performance.startProfilerUI" #'start-profiler-ui)
   (register-command! "performance.shareToFlamebin" #'share-to-flamebin)
-  (register-command! "performance.shareToPublicFlamebin" #'share-to-public-flamebin))(ns calva-power-tools.tool.performance)
+  (register-command! "performance.shareToPublicFlamebin" #'share-to-public-flamebin))
