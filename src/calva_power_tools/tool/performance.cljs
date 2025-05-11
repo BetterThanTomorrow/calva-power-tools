@@ -59,7 +59,7 @@
 (defn- quick-bench-top-level-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[criterium.core :refer [quick-bench]]) (def ARG (read-line)) (quick-bench $top-level-form)"
+   #js {:snippet "(require '[criterium.core :refer [quick-bench]]) (quick-bench $top-level-form)"
         :repl "clj"}))
 
 (defn- quick-bench-current-form []

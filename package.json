@@ -313,18 +313,8 @@
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space p l d",
+        "key": "ctrl+shift+space p d l",
         "command": "performance.loadDecompilerDependency",
-        "when": "editorTextFocus && editorLangId == 'clojure'"
-      },
-      {
-        "key": "ctrl+shift+space p l c",
-        "command": "performance.loadCriteriumDependency",
-        "when": "editorTextFocus && editorLangId == 'clojure'"
-      },
-      {
-        "key": "ctrl+shift+space p l p",
-        "command": "performance.loadProfilerDependency",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
@@ -348,12 +338,17 @@
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space p b f",
+        "key": "ctrl+shift+space p c l",
+        "command": "performance.loadCriteriumDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p c t",
         "command": "performance.quickBenchTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space p b c",
+        "key": "ctrl+shift+space p c c",
         "command": "performance.quickBenchCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
@@ -365,6 +360,11 @@
       {
         "key": "ctrl+shift+space p t c",
         "command": "performance.timeCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p l",
+        "command": "performance.loadProfilerDependency",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
