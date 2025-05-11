@@ -112,46 +112,46 @@
 
 (defn- load-profiler-dependency []
   (with-profiler-check
-   (fn []
-     (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
-                                :deps/mvn-version "1.6.1"})
-         (.then (fn [_]
-                  (calva/execute-calva-command!
-                   "calva.runCustomREPLCommand"
-                   #js {:snippet "(require '[clj-async-profiler.core :as prof])"
-                        :repl "clj"})))))))
+    (fn []
+      (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
+                                 :deps/mvn-version "1.6.1"})
+          (.then (fn [_]
+                   (calva/execute-calva-command!
+                    "calva.runCustomREPLCommand"
+                    #js {:snippet "(require '[clj-async-profiler.core :as prof])"
+                         :repl "clj"})))))))
 
 (defn- profile-current-form []
   (with-profiler-check
-   (fn []
-     (calva/execute-calva-command!
-      "calva.runCustomREPLCommand"
-      #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $current-form)"
-           :repl "clj"}))))
+    (fn []
+      (calva/execute-calva-command!
+       "calva.runCustomREPLCommand"
+       #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $current-form)"
+            :repl "clj"}))))
 
 (defn- profile-top-level-form []
   (with-profiler-check
-   (fn []
-     (calva/execute-calva-command!
-      "calva.runCustomREPLCommand"
-      #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $top-level-form)"
-           :repl "clj"}))))
+    (fn []
+      (calva/execute-calva-command!
+       "calva.runCustomREPLCommand"
+       #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $top-level-form)"
+            :repl "clj"}))))
 
 (defn- start-profiler-ui []
   (with-profiler-check
-   (fn []
-     (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
-                         (.get "performance.autoOpenProfilerUI"))]
-       (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
-               url (some->> (.-output evaluation)
-                            (re-find #"Started server at /(.*?)\n?$")
-                            second)]
-         (when (and url
-                    (not (string/blank? url)))
-           (case auto-open
-             "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
-             "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
-             nil)))))))
+    (fn []
+      (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
+                          (.get "performance.autoOpenProfilerUI"))]
+        (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
+                url (some->> (.-output evaluation)
+                             (re-find #"Started server at /(.*?)\n?$")
+                             second)]
+          (when (and url
+                     (not (string/blank? url)))
+            (case auto-open
+              "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
+              "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
+              nil)))))))
 
 (comment
   (re-find #"Started server at /(.*?)\n?$" "[clj-async-profiler.ui] Started server at /127.0.0.1:54586\n")
