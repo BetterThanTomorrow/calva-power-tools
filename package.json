@@ -188,12 +188,12 @@
       {
         "command": "performance.quickBenchTopLevelForm",
         "category": "Performance",
-        "title": "Quick Bench Top Level Function"
+        "title": "Criterium Quick Bench Top Level Form"
       },
       {
         "command": "performance.quickBenchCurrentForm",
         "category": "Performance",
-        "title": "Quick Bench Current Form"
+        "title": "Criterium Quick Bench Current Form"
       },
       {
         "command": "performance.timeTopLevelForm",
@@ -318,7 +318,7 @@
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space p d f",
+        "key": "ctrl+shift+space p d t",
         "command": "performance.decompileTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
