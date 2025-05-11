@@ -5,7 +5,8 @@
    [calva-power-tools.extension.db :as db]
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.util :as util]
-   [promesa.core :as p]))
+   [promesa.core :as p]
+   [clojure.string :as string]))
 
 ;; Dependencies loading functions
 
@@ -99,13 +100,13 @@
           attachable? (= "true" (.-result evaluation))]
     (if attachable?
       (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-async-profiler"
-                                 :deps/mvn-version "1.5.1"})
+                                 :deps/mvn-version "1.6.1"})
           (.then (fn [_]
                    (calva/execute-calva-command!
                     "calva.runCustomREPLCommand"
                     #js {:snippet "(require '[clj-async-profiler.core :as prof])"
                          :repl "clj"}))))
-      (-> (vscode/window.showInformationMessage (str "The REPL isn't started with Java optuons allowing the profiler to attach. "
+      (-> (vscode/window.showInformationMessage (str "The REPL isn't started with Java options allowing the profiler to attach. "
                                                      "If you are using deps.edn, you can add a `:profiler` alias with: `" java-opts "`")
                                                 "Copy options")
           (p/then (fn [button]
@@ -128,14 +129,16 @@
 (defn- start-profiler-ui []
   (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
                       (.get "performance.autoOpenProfilerUI"))]
-    (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 9898)" "user")
+    (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
             url (some->> (.-output evaluation)
                          (re-find #"Started server at /(.*?)\n?$")
                          second)]
-      (case auto-open
-        "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
-        "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
-        nil))))
+      (when (and url
+                 (not (string/blank? url)))
+        (case auto-open
+          "vscode" (vscode/commands.executeCommand "simpleBrowser.show" (str "http://" url "/"))
+          "system" (vscode/env.openExternal (vscode/Uri.parse (str "http://" url "/")))
+          nil)))))
 
 (comment
   (re-find #"Started server at /(.*?)\n?$" "[clj-async-profiler.ui] Started server at /127.0.0.1:54586\n")
