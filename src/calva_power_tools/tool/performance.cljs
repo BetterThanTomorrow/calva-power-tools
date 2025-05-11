@@ -8,7 +8,7 @@
    [promesa.core :as p]
    [clojure.string :as string]))
 
-;; Dependencies loading functions
+;; Decompilation functions
 
 (defn- load-decompiler-dependency []
   (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-java-decompiler"
@@ -16,8 +16,34 @@
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
-                #js {:snippet "(require '[clj-java-decompiler.core :refer [decompile disassemble]])"
+                #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [decompile disassemble]])"
                      :repl "clj"})))))
+
+(defn- decompile-top-level-form []
+  (calva/execute-calva-command!
+   "calva.runCustomREPLCommand"
+   #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) (clojure.core/spit \"decompiled-$top-level-defined-symbol.java\" (clojure.core/with-out-str (decompile $top-level-form)))"
+        :repl "clj"}))
+
+(defn- decompile-top-level-form-unchecked-math []
+  (calva/execute-calva-command!
+   "calva.runCustomREPLCommand"
+   #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) (clojure.core/spit \"decompiled-$top-level-defined-symbol.java\" (clojure.core/with-out-str (decompile (do (set! *unchecked-math* :warn-on-boxed) $top-level-form))))"
+        :repl "clj"}))
+
+(defn- decompile-selection []
+  (calva/execute-calva-command!
+   "calva.runCustomREPLCommand"
+   #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) (clojure.core/spit \"decompiled-$top-level-defined-symbol.java\" (clojure.core/with-out-str (decompile (do $selection))))"
+        :repl "clj"}))
+
+(defn- disassemble-top-level-form []
+  (calva/execute-calva-command!
+   "calva.runCustomREPLCommand"
+   #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [disassemble]]) (clojure.core/spit \"bytecode-$top-level-defined-symbol.class\" (clojure.core/with-out-str (disassemble $top-level-form)))"
+        :repl "clj"}))
+
+;; Benchmarking functions
 
 (defn- load-criterium-dependency []
   (-> (util/load-dependency {:deps/mvn-name "criterium/criterium"
@@ -25,47 +51,19 @@
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
-                #js {:snippet "(require '[criterium.core :refer [quick-bench bench]])"
+                #js {:snippet "(clojure.core/require '[criterium.core :refer [quick-bench bench]])"
                      :repl "clj"})))))
-
-;; Decompilation functions
-
-(defn- decompile-top-level-form []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-java-decompiler.core :refer [decompile]]) (spit \"decompiled-$top-level-defined-symbol.java\" (with-out-str (decompile $top-level-form)))"
-        :repl "clj"}))
-
-(defn- decompile-top-level-form-unchecked-math []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-java-decompiler.core :refer [decompile]]) (spit \"decompiled-$top-level-defined-symbol.java\" (with-out-str (decompile (do (set! *unchecked-math* :warn-on-boxed) $top-level-form))))"
-        :repl "clj"}))
-
-(defn- decompile-selection []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-java-decompiler.core :refer [decompile]]) (spit \"decompiled-$top-level-defined-symbol.java\" (with-out-str (decompile (do $selection))))"
-        :repl "clj"}))
-
-(defn- disassemble-top-level-form []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[clj-java-decompiler.core :refer [disassemble]]) (spit \"bytecode-$top-level-defined-symbol.class\" (with-out-str (disassemble $top-level-form)))"
-        :repl "clj"}))
-
-;; Benchmarking functions
 
 (defn- quick-bench-top-level-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[criterium.core :refer [quick-bench]]) (quick-bench $top-level-form)"
+   #js {:snippet "(clojure.core/require '[criterium.core :refer [quick-bench]]) (criterium.core/quick-bench $top-level-form)"
         :repl "clj"}))
 
 (defn- quick-bench-current-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(require '[criterium.core :refer [quick-bench]]) (quick-bench $current-form)"
+   #js {:snippet "(clojure.core/require '[criterium.core :refer [quick-bench]]) (criterium.core/quick-bench $current-form)"
         :repl "clj"}))
 
 ;; Time measurement functions
@@ -73,13 +71,13 @@
 (defn- time-top-level-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(time $top-level-form)"
+   #js {:snippet "(clojure.core/time $top-level-form)"
         :repl "clj"}))
 
 (defn- time-current-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(time $current-form)"
+   #js {:snippet "(clojure.core/time $current-form)"
         :repl "clj"}))
 
 ;; Profiler functions
@@ -90,8 +88,8 @@
                                       required-opts #{"-Djdk.attach.allowAttachSelf"
                                                       "-XX:+UnlockDiagnosticVMOptions"
                                                       "-XX:+DebugNonSafepoints"}
-                                      missing-opts (remove #(some (fn [arg] (.contains arg %)) jvm-args) required-opts)]
-                                  (empty? missing-opts))
+                                      missing-opts (clojure.core/remove #(clojure.core/some (fn [arg] (.contains arg %)) jvm-args) required-opts)]
+                                  (clojure.core/empty? missing-opts))
                                 (catch Exception _
                                   false))))
 
@@ -118,7 +116,7 @@
           (.then (fn [_]
                    (calva/execute-calva-command!
                     "calva.runCustomREPLCommand"
-                    #js {:snippet "(require '[clj-async-profiler.core :as prof])"
+                    #js {:snippet "(clojure.core/require '[clj-async-profiler.core :as prof])"
                          :repl "clj"})))))))
 
 (defn- profile-current-form []
@@ -126,7 +124,7 @@
     (fn []
       (calva/execute-calva-command!
        "calva.runCustomREPLCommand"
-       #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $current-form)"
+       #js {:snippet "(clojure.core/require '[clj-async-profiler.core :as prof]) (prof/profile $current-form)"
             :repl "clj"}))))
 
 (defn- profile-top-level-form []
@@ -134,7 +132,7 @@
     (fn []
       (calva/execute-calva-command!
        "calva.runCustomREPLCommand"
-       #js {:snippet "(require '[clj-async-profiler.core :as prof]) (prof/profile $top-level-form)"
+       #js {:snippet "(clojure.core/require '[clj-async-profiler.core :as prof]) (prof/profile $top-level-form)"
             :repl "clj"}))))
 
 (defn- start-profiler-ui []
@@ -142,7 +140,7 @@
     (fn []
       (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
                           (.get "performance.autoOpenProfilerUI"))]
-        (p/let [evaluation (util/evaluateCode+ "clj" "(require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
+        (p/let [evaluation (util/evaluateCode+ "clj" "(clojure.core/require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
                 url (some->> (.-output evaluation)
                              (re-find #"Started server at /(.*?)\n?$")
                              second)]
