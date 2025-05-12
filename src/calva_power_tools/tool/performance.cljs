@@ -21,7 +21,10 @@
                      :repl "clj"})))))
 
 (defn- decompile-top-level-form []
-  (let [function-name (some-> (util/currentTopLevelDef)
+  (let [editor vscode/window.activeTextEditor
+        document (some-> editor .-document)
+        ns (some-> document util/getNamespace)
+        function-name (some-> (util/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name ".java")
         top-level-form (some-> (util/currentTopLevelForm)
@@ -31,14 +34,21 @@
                   "(clojure.core/let [file-name \"" file-name "\"] "
                   "  (clojure.core/spit file-name (clojure.core/with-out-str (decompile " (pr-str top-level-form) "))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [evaluation (util/evaluateCode+ "clj" code js/undefined)
-            result-path (edn/read-string (.-result evaluation))
-            doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-      (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                               :preserveFocus true}))))
+    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
+      (if (.-error evaluation)
+        (vscode/window.showErrorMessage (str (.-error evaluation)
+                                             " - "
+                                             (.-errorOutput evaluation)))
+        (p/let [result-path (edn/read-string (.-result evaluation))
+                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
+          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
+                                                   :preserveFocus true}))))))
 
 (defn- decompile-top-level-form-unchecked-math []
-  (let [function-name (some-> (util/currentTopLevelDef)
+  (let [editor vscode/window.activeTextEditor
+        document (some-> editor .-document)
+        ns (some-> document util/getNamespace)
+        function-name (some-> (util/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name "-unchecked.java")
         top-level-form (some-> (util/currentTopLevelForm)
@@ -50,11 +60,15 @@
                   "    (clojure.core/with-out-str "
                   "      (decompile (do (set! *unchecked-math* :warn-on-boxed) " (pr-str top-level-form) ")))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [evaluation (util/evaluateCode+ "clj" code js/undefined)
-            result-path (edn/read-string (.-result evaluation))
-            doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-      (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                               :preserveFocus true}))))
+    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
+      (if (.-error evaluation)
+        (vscode/window.showErrorMessage (str (.-error evaluation)
+                                             " - "
+                                             (.-errorOutput evaluation)))
+        (p/let [result-path (edn/read-string (.-result evaluation))
+                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
+          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
+                                                   :preserveFocus true}))))))
 
 (defn- decompile-selection []
   (let [editor vscode/window.activeTextEditor
@@ -72,7 +86,7 @@
                   "    (clojure.core/with-out-str "
                   "      (decompile (do " selected-text ")))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [evaluation (util/evaluateCode+ "clj" code ns)]
+    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
       (if (.-error evaluation)
         (vscode/window.showErrorMessage (str (.-error evaluation)
                                              " - "
@@ -82,7 +96,10 @@
           (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
                                                    :preserveFocus true}))))))
 (defn- disassemble-top-level-form []
-  (let [function-name (some-> (util/currentTopLevelDef)
+  (let [editor vscode/window.activeTextEditor
+        document (some-> editor .-document)
+        ns (some-> document util/getNamespace)
+        function-name (some-> (util/currentTopLevelDef)
                               second)
         file-name (str "bytecode-" function-name ".class")
         top-level-form (some-> (util/currentTopLevelForm)
@@ -92,11 +109,15 @@
                   "(clojure.core/let [file-name \"" file-name "\"] "
                   "  (clojure.core/spit file-name (clojure.core/with-out-str (disassemble " (pr-str top-level-form) "))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [evaluation (util/evaluateCode+ "clj" code js/undefined)
-            result-path (edn/read-string (.-result evaluation))
-            doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-      (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                               :preserveFocus true}))))
+    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
+      (if (.-error evaluation)
+        (vscode/window.showErrorMessage (str (.-error evaluation)
+                                             " - "
+                                             (.-errorOutput evaluation)))
+        (p/let [result-path (edn/read-string (.-result evaluation))
+                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
+          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
+                                                   :preserveFocus true}))))))
 
 ;; Benchmarking functions
 
