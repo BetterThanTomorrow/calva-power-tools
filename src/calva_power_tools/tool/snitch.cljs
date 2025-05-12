@@ -20,8 +20,12 @@
     (calva/execute-calva-command! "calva.runCustomREPLCommand"
                                   #js {:snippet snitched})))
 
-(defn- instrument-defn []
+(defn- instrument-top-level-form []
   (instrument-form (-> (util/currentTopLevelForm)
+                       second)))
+
+(defn- instrument-current-form []
+  (instrument-form (-> (util/currentForm)
                        second)))
 
 (defn- get-snitched-defn-results []
@@ -43,7 +47,7 @@
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
-                #js {:snippet "(require '[snitch.core :refer [defn* defmethod* *fn *let]])"
+                #js {:snippet "(clojure.core/require '[snitch.core :refer [defn* defmethod* *fn *let]])"
                      :repl "clj"})))))
 
 (defn- register-command! [command f]
@@ -52,6 +56,7 @@
 (defn activate! []
   ;; Register commands that call Calva's custom REPL command
   (register-command! "snitch.loadSnitchDependency" #'load-dependency)
-  (register-command! "snitch.instrumentTopLevelForm" #'instrument-defn)
+  (register-command! "snitch.instrumentTopLevelForm" #'instrument-top-level-form)
+  (register-command! "snitch.instrumentCurrentForm" #'instrument-current-form)
   (register-command! "snitch.getSnitchedDefnResults" #'get-snitched-defn-results)
   (register-command! "snitch.reconstructLastDefnCallToClipboard" #'reconstruct-last-defn-call-to-clipboard))

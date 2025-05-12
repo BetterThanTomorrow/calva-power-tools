@@ -141,6 +141,11 @@
         "title": "Instrument Top Level defn/let/fn"
       },
       {
+        "command": "snitch.instrumentCurrentForm",
+        "category": "Snitch",
+        "title": "Instrument Current Form defn/let/fn"
+      },
+      {
         "command": "snitch.getSnitchedDefnResults",
         "category": "Snitch",
         "title": "Get Snitched defn Results"
@@ -300,6 +305,11 @@
       {
         "key": "ctrl+shift+space s t",
         "command": "snitch.instrumentTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space s f",
+        "command": "snitch.instrumentCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
