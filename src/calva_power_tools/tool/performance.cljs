@@ -6,7 +6,8 @@
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.util :as util]
    [promesa.core :as p]
-   [clojure.string :as string]))
+   [clojure.string :as string]
+   [clojure.edn :as edn]))
 
 ;; Decompilation functions
 
@@ -38,10 +39,20 @@
         :repl "clj"}))
 
 (defn- disassemble-top-level-form []
-  (calva/execute-calva-command!
-   "calva.runCustomREPLCommand"
-   #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [disassemble]]) (clojure.core/spit \"bytecode-$top-level-defined-symbol.class\" (clojure.core/with-out-str (disassemble $top-level-form)))"
-        :repl "clj"}))
+  (let [function-name (some-> (util/currentTopLevelDef)
+                              second)
+        file-name (str "bytecode-" function-name ".class")
+        top-level-form (some-> (util/currentTopLevelForm)
+                               second)
+        code (str "(clojure.core/require '[clj-java-decompiler.core :refer [disassemble]]) "
+                  "(clojure.core/require '[clojure.java.io :as io]) "
+                  "(clojure.core/let [file-name \"" file-name "\"] "
+                  "  (clojure.core/spit file-name (clojure.core/with-out-str (disassemble " (pr-str top-level-form) "))) "
+                  "  (.getCanonicalPath (io/file file-name)))")]
+    (p/let [evaluation (util/evaluateCode+ "clj" code "user")
+            result-path (edn/read-string (.-result evaluation))
+            doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
+      (vscode/window.showTextDocument doc))))
 
 ;; Benchmarking functions
 
