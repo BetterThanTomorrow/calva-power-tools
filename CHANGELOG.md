@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+- [Add performance tools](https://github.com/BetterThanTomorrow/calva-power-tools/issues/21)
+
 ## [v0.0.6] - 2025-05-06
 
 - [Add Snitch Power Tool](https://github.com/BetterThanTomorrow/calva-power-tools/issues/20)

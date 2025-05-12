@@ -2,13 +2,6 @@
 
 A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and ClojureScript development that adds commands for popular Clojure libraries and tools. Including commands for dynamically loading the tool dependencies.
 
-## Supported Tools
-
-A hopefully a growing list! Calva Power Tools aims to be very [contributor](#contributing) friendly!
-
-* [tools-deps](https://clojure.org/guides/deps_and_cli) for dependency management.
-* [Clay](https://scicloj.github.io/clay/) for literate programming and data visuallization.
-
 ## Usage
 
 1. Install the extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=BetterThanTomorrow.calva-power-tools).
@@ -19,7 +12,13 @@ A hopefully a growing list! Calva Power Tools aims to be very [contributor](#con
 
 The Calva Power Tools extension generally contributes default keybindings for the commands. They are all chained on a first chord of <kbd>ctrl+shift+space</kbd>, a.k.a. the **Power Key**. Then, generally, each tool has its key, e.g. **Clay** uses the **Tool Key** <kbd>a</kbd>, making Clay commands executed with <kbd>ctrl+shift+space</kbd> <kbd>a</kbd> <kbd>something</kbd>.
 
+## The Tools
+
+A hopefully growing list of power tools.
+
 ### Tools-deps, add-libs
+
+* [tools-deps](https://clojure.org/guides/deps_and_cli)
 
 A set of commands leveraging Clojure 1.12 `add-libs`:
 
@@ -34,24 +33,45 @@ A set of commands leveraging Clojure 1.12 `add-libs`:
 
 ### Clay
 
-Explore the Clay commands from the VS Code command palette by fuzzy searching “Clay”.
-Also check this intoduction out: https://www.youtube.com/watch?v=B1yPkpyiEEs
-
-If your project doesn't have a Clay dependency set up, you can still use Clay by starting your session with the command:
-* **Clay: Load Clay Dependency**
+* [Clay](https://scicloj.github.io/clay/)
 
 **Tool Key**: <kbd>a</kbd>
 
+Explore the Clay commands from the VS Code command palette by fuzzy searching “Clay”.
+Also check this intoduction out: https://www.youtube.com/watch?v=B1yPkpyiEEs
 
 ### Snitch
 
 Snitch is inline-defs on steroids. See https://github.com/AbhinavOmprakash/snitch. Search the command palette for “Snitch”.
 
+**Tool Key**: <kbd>s</kbd>
+
 ![Snitch Power Tool Commands](assets/howto/snitch-menu.png)
 
 This menu screenshot is showing the default key bindings. I (PEZ) am on a Mac and can recommend binding the **Snitch: Instrument defn** command to <kbd>cmd+enter</kbd>.
 
-**Tool Key**: <kbd>s</kbd>
+
+### Performance
+
+There are commands for four important tools when chasing performance gains in Clojure. For loading dependencies as well as basic usage:
+
+**Tool Key**: <kbd>s</kbd>. Further each “sub-tool” has a key, <kbd>c/d/p/t</kbd> for Criterium/clojure-java-decompiler/clj-async-profiler/time, respectively. Example: Loading the dependency for Criteriums is <kbd>ctrl+shift+space p c l</kbd>, to be read as **Power Tools, Performance, Criterium, Load**.
+
+#### [Criterium](https://github.com/hugoduncan/criterium)
+
+![Command Palette search: Criterium Commands](assets/howto/criterium-menu.png)
+
+#### [clojure-java-decompiler](https://github.com/clojure-goes-fast/clj-java-decompiler)
+
+![Command Palette search: Decompiler Commands](assets/howto/decompiler-menu.png)
+
+#### [clj-async-profiler](https://clojure-goes-fast.com/kb/profiling/clj-async-profiler/)
+
+![Command Palette search: Profiler Commands](assets/howto/profiler-menu.png)
+
+#### [time](https://clojuredocs.org/clojure.core/time)
+
+![Command Palette search: time Commands](assets/howto/time-menu.png)
 
 ## Contributing
 

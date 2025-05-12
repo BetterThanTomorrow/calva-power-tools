@@ -42,6 +42,27 @@
   ],
   "main": "out/extension.js",
   "contributes": {
+    "configuration": [{
+      "type": "object",
+      "title": "Calva Power Tools",
+      "properties": {
+        "calva-power-tools.performance.autoOpenProfilerUI": {
+          "type": "string",
+          "default": "vscode",
+          "enum": [
+            "vscode",
+            "system",
+            "never"
+          ],
+          "enumDescriptions": [
+            "Auto-open the Profiler UI in the VS Code internal Simple Browser.",
+            "Auto-open the Profiler UI in the system default web browser.",
+            "Never auto-open the Profiler UI."
+          ],
+          "description": "Auto-open the Profiler UI in the specified browser (or not)."
+        }
+      }
+    }],
     "commands": [
       {
         "command": "clay.makeFile",
@@ -128,6 +149,76 @@
         "command": "snitch.reconstructLastDefnCallToClipboard",
         "category": "Snitch",
         "title": "Reconstruct Last defn Call to Clipboard"
+      },
+      {
+        "command": "performance.loadDecompilerDependency",
+        "category": "Performance",
+        "title": "Load Decompiler Dependency"
+      },
+      {
+        "command": "performance.loadCriteriumDependency",
+        "category": "Performance",
+        "title": "Load Criterium Dependency"
+      },
+      {
+        "command": "performance.loadProfilerDependency",
+        "category": "Performance",
+        "title": "Load Profiler Dependency"
+      },
+      {
+        "command": "performance.decompileTopLevelForm",
+        "category": "Performance",
+        "title": "Decompile Top Level Form"
+      },
+      {
+        "command": "performance.decompileTopLevelFormWithUncheckedMath",
+        "category": "Performance",
+        "title": "Decompile Top Level Form With Unchecked Math"
+      },
+      {
+        "command": "performance.decompileSelection",
+        "category": "Performance",
+        "title": "Decompile Selection"
+      },
+      {
+        "command": "performance.disassembleTopLevelForm",
+        "category": "Performance",
+        "title": "Disassemble Top Level Form"
+      },
+      {
+        "command": "performance.quickBenchTopLevelForm",
+        "category": "Performance",
+        "title": "Criterium Quick Bench Top Level Form"
+      },
+      {
+        "command": "performance.quickBenchCurrentForm",
+        "category": "Performance",
+        "title": "Criterium Quick Bench Current Form"
+      },
+      {
+        "command": "performance.timeTopLevelForm",
+        "category": "Performance",
+        "title": "Time Top Level Form"
+      },
+      {
+        "command": "performance.timeCurrentForm",
+        "category": "Performance",
+        "title": "Time Current Form"
+      },
+      {
+        "command": "performance.profileCurrentForm",
+        "category": "Performance",
+        "title": "Profile Current Form"
+      },
+      {
+        "command": "performance.profileTopLevelForm",
+        "category": "Performance",
+        "title": "Profile Top Level Form"
+      },
+      {
+        "command": "performance.startProfilerUI",
+        "category": "Performance",
+        "title": "Start Profiler UI"
       }
     ],
     "keybindings": [
@@ -219,6 +310,76 @@
       {
         "key": "ctrl+shift+space s c",
         "command": "snitch.reconstructLastDefnCallToClipboard",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d l",
+        "command": "performance.loadDecompilerDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d t",
+        "command": "performance.decompileTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d u",
+        "command": "performance.decompileTopLevelFormWithUncheckedMath",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d s",
+        "command": "performance.decompileSelection",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p d a",
+        "command": "performance.disassembleTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p c l",
+        "command": "performance.loadCriteriumDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p c t",
+        "command": "performance.quickBenchTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p c c",
+        "command": "performance.quickBenchCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p t t",
+        "command": "performance.timeTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p t c",
+        "command": "performance.timeCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p l",
+        "command": "performance.loadProfilerDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p t",
+        "command": "performance.profileTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p c",
+        "command": "performance.profileCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space p p u",
+        "command": "performance.startProfilerUI",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]

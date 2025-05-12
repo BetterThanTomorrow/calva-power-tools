@@ -8,9 +8,6 @@
       "projectRootPath": ["."],
       "cljsType": "none",
       "projectType": "deps.edn",
-      "menuSelections": {
-        "cljAliases": ["test"]
-      }
     }
   ],
 
