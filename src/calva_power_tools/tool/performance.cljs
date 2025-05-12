@@ -11,6 +11,32 @@
 
 ;; Decompilation functions
 
+(defn- execute-and-open-file
+  "Execute code in the REPL and open the resulting file.
+
+   Handles:
+   - Getting the current namespace
+   - Evaluating the code
+   - Error handling
+   - Opening the resulting file
+
+   Arguments:
+   - code: The Clojure code to evaluate (must return a file path)
+   - repl-type: The REPL type to use ('clj' or 'cljs')"
+  [code repl-type]
+  (let [editor vscode/window.activeTextEditor
+        document (some-> editor .-document)
+        ns (some-> document util/getNamespace)]
+    (p/let [^js evaluation (util/evaluateCode+ repl-type code ns)]
+      (if (.-error evaluation)
+        (vscode/window.showErrorMessage (str (.-error evaluation)
+                                             " - "
+                                             (.-errorOutput evaluation)))
+        (p/let [result-path (edn/read-string (.-result evaluation))
+                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
+          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
+                                                   :preserveFocus true}))))))
+
 (defn- load-decompiler-dependency []
   (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-java-decompiler"
                              :deps/mvn-version "0.3.6"})
@@ -21,10 +47,7 @@
                      :repl "clj"})))))
 
 (defn- decompile-top-level-form []
-  (let [editor vscode/window.activeTextEditor
-        document (some-> editor .-document)
-        ns (some-> document util/getNamespace)
-        function-name (some-> (util/currentTopLevelDef)
+  (let [function-name (some-> (util/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name ".java")
         top-level-form (some-> (util/currentTopLevelForm)
@@ -34,21 +57,10 @@
                   "(clojure.core/let [file-name \"" file-name "\"] "
                   "  (clojure.core/spit file-name (clojure.core/with-out-str (decompile " (pr-str top-level-form) "))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
-      (if (.-error evaluation)
-        (vscode/window.showErrorMessage (str (.-error evaluation)
-                                             " - "
-                                             (.-errorOutput evaluation)))
-        (p/let [result-path (edn/read-string (.-result evaluation))
-                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                                   :preserveFocus true}))))))
+    (execute-and-open-file code "clj")))
 
 (defn- decompile-top-level-form-unchecked-math []
-  (let [editor vscode/window.activeTextEditor
-        document (some-> editor .-document)
-        ns (some-> document util/getNamespace)
-        function-name (some-> (util/currentTopLevelDef)
+  (let [function-name (some-> (util/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name "-unchecked.java")
         top-level-form (some-> (util/currentTopLevelForm)
@@ -60,21 +72,12 @@
                   "    (clojure.core/with-out-str "
                   "      (decompile (do (set! *unchecked-math* :warn-on-boxed) " (pr-str top-level-form) ")))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
-      (if (.-error evaluation)
-        (vscode/window.showErrorMessage (str (.-error evaluation)
-                                             " - "
-                                             (.-errorOutput evaluation)))
-        (p/let [result-path (edn/read-string (.-result evaluation))
-                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                                   :preserveFocus true}))))))
+    (execute-and-open-file code "clj")))
 
 (defn- decompile-selection []
   (let [editor vscode/window.activeTextEditor
         selection (some-> editor .-selection)
         document (some-> editor .-document)
-        ns (some-> document util/getNamespace)
         selected-text (some-> document (.getText selection))
         function-name (some-> (util/currentTopLevelDef)
                               second)
@@ -86,20 +89,10 @@
                   "    (clojure.core/with-out-str "
                   "      (decompile (do " selected-text ")))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
-      (if (.-error evaluation)
-        (vscode/window.showErrorMessage (str (.-error evaluation)
-                                             " - "
-                                             (.-errorOutput evaluation)))
-        (p/let [result-path (edn/read-string (.-result evaluation))
-                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                                   :preserveFocus true}))))))
+    (execute-and-open-file code "clj")))
+
 (defn- disassemble-top-level-form []
-  (let [editor vscode/window.activeTextEditor
-        document (some-> editor .-document)
-        ns (some-> document util/getNamespace)
-        function-name (some-> (util/currentTopLevelDef)
+  (let [function-name (some-> (util/currentTopLevelDef)
                               second)
         file-name (str "bytecode-" function-name ".class")
         top-level-form (some-> (util/currentTopLevelForm)
@@ -109,15 +102,7 @@
                   "(clojure.core/let [file-name \"" file-name "\"] "
                   "  (clojure.core/spit file-name (clojure.core/with-out-str (disassemble " (pr-str top-level-form) "))) "
                   "  (.getCanonicalPath (io/file file-name)))")]
-    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
-      (if (.-error evaluation)
-        (vscode/window.showErrorMessage (str (.-error evaluation)
-                                             " - "
-                                             (.-errorOutput evaluation)))
-        (p/let [result-path (edn/read-string (.-result evaluation))
-                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                                   :preserveFocus true}))))))
+    (execute-and-open-file code "clj")))
 
 ;; Benchmarking functions
 
