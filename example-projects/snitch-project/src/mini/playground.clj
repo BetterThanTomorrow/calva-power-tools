@@ -78,11 +78,13 @@
   (say-hello "Clojure fan")
 
   ;; Let's define a value to work with
-  (def numbers (range 1 11))
+  (let [numbers (range 1 11)]
 
-  ;; Now we can play with this data
-  (reduce + numbers)
-  (map #(* % %) numbers) ; square each number
+    ;; Now we can play with this data
+    (reduce + numbers)
+    (map #(* % %) numbers)) ; square each number
+
+  ((fn [s] (str "Hello " s)) "foo")
 
   ;; Compare performance of different Fibonacci implementations
   (time (fibonacci 30))
@@ -94,7 +96,7 @@
   (time (fibonacci-memo 100))
   (time (fibonacci-iterative 100))
   (time (fibonacci-linear 100))
-)
+  )
 
 ;; Let's create a more complex function to demonstrate with
 (defn process-collection
