@@ -52,7 +52,8 @@
     (p/let [evaluation (util/evaluateCode+ "clj" code "user")
             result-path (edn/read-string (.-result evaluation))
             doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-      (vscode/window.showTextDocument doc))))
+      (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
+                                               :preserveFocus true}))))
 
 ;; Benchmarking functions
 
