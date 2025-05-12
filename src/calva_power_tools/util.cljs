@@ -14,6 +14,7 @@
 (def currentFunction (get-in calva-api [:ranges :currentFunction]))
 (def currentTopLevelDef (get-in calva-api [:ranges :currentTopLevelDef]))
 (def currentTopLevelForm (get-in calva-api [:ranges :currentTopLevelForm]))
+(def getNamespace (get-in calva-api [:document :getNamespace]))
 
 (defn code-for-dependency-loading [{:deps/keys [mvn-name]}]
   (str "(if-let [add-lib (resolve 'clojure.repl.deps/add-lib)]
