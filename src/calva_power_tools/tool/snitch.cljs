@@ -6,7 +6,6 @@
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.util :as util]
    [promesa.core :as p]
-   [clojure.reader :as reader]
    [clojure.string :as string]))
 
 
