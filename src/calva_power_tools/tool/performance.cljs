@@ -11,32 +11,6 @@
 
 ;; Decompilation functions
 
-(defn- execute-and-open-file
-  "Execute code in the REPL and open the resulting file.
-
-   Handles:
-   - Getting the current namespace
-   - Evaluating the code
-   - Error handling
-   - Opening the resulting file
-
-   Arguments:
-   - code: The Clojure code to evaluate (must return a file path)
-   - repl-type: The REPL type to use ('clj' or 'cljs')"
-  [code repl-type]
-  (let [editor vscode/window.activeTextEditor
-        document (some-> editor .-document)
-        ns (some-> document util/getNamespace)]
-    (p/let [^js evaluation (util/evaluateCode+ repl-type code ns)]
-      (if (.-error evaluation)
-        (vscode/window.showErrorMessage (str (.-error evaluation)
-                                             " - "
-                                             (.-errorOutput evaluation)))
-        (p/let [result-path (edn/read-string (.-result evaluation))
-                doc (vscode/workspace.openTextDocument (vscode/Uri.file result-path))]
-          (vscode/window.showTextDocument doc #js {:viewColumn vscode/ViewColumn.Beside
-                                                   :preserveFocus true}))))))
-
 (defn- load-decompiler-dependency []
   (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-java-decompiler"
                              :deps/mvn-version "0.3.6"})
@@ -46,6 +20,24 @@
                 #js {:snippet "(clojure.core/require '[clj-java-decompiler.core :refer [decompile disassemble]])"
                      :repl "clj"})))))
 
+(defn- execute-and-open-untitled
+  "Evaluate code in the REPL and open the result in an untitled document."
+  [code title]
+  (let [editor vscode/window.activeTextEditor
+        document (some-> editor .-document)
+        ns (some-> document util/getNamespace)]
+    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
+      (if (.-error evaluation)
+        (vscode/window.showErrorMessage (str (.-error evaluation)
+                                             " - "
+                                             (.-errorOutput evaluation)))
+        (p/let [content (.-result evaluation)
+                untitled-doc (vscode/workspace.openTextDocument #js {:content (str "// " title "\n"
+                                                                                   (edn/read-string content))
+                                                                     :language "java"})]
+          (vscode/window.showTextDocument untitled-doc #js {:viewColumn vscode/ViewColumn.Beside
+                                                            :preserveFocus true}))))))
+
 (defn- decompile-top-level-form []
   (let [function-name (some-> (util/currentTopLevelDef)
                               second)
@@ -53,11 +45,8 @@
         top-level-form (some-> (util/currentTopLevelForm)
                                second)
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) "
-                  "(clojure.core/require '[clojure.java.io :as io]) "
-                  "(clojure.core/let [file-name \"" file-name "\"] "
-                  "  (clojure.core/spit file-name (clojure.core/with-out-str (decompile " (pr-str top-level-form) "))) "
-                  "  (.getCanonicalPath (io/file file-name)))")]
-    (execute-and-open-file code "clj")))
+                  "(clojure.core/with-out-str (decompile " (pr-str top-level-form) "))")]
+    (execute-and-open-untitled code file-name)))
 
 (defn- decompile-top-level-form-unchecked-math []
   (let [function-name (some-> (util/currentTopLevelDef)
@@ -66,13 +55,9 @@
         top-level-form (some-> (util/currentTopLevelForm)
                                second)
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) "
-                  "(clojure.core/require '[clojure.java.io :as io]) "
-                  "(clojure.core/let [file-name \"" file-name "\"] "
-                  "  (clojure.core/spit file-name "
-                  "    (clojure.core/with-out-str "
-                  "      (decompile (do (set! *unchecked-math* :warn-on-boxed) " (pr-str top-level-form) ")))) "
-                  "  (.getCanonicalPath (io/file file-name)))")]
-    (execute-and-open-file code "clj")))
+                  "(clojure.core/with-out-str "
+                  "  (decompile (do (set! *unchecked-math* :warn-on-boxed) " (pr-str top-level-form) ")))")]
+    (execute-and-open-untitled code file-name)))
 
 (defn- decompile-selection []
   (let [editor vscode/window.activeTextEditor
@@ -83,13 +68,9 @@
                               second)
         file-name (str "decompiled-" function-name "-selection.java")
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) "
-                  "(clojure.core/require '[clojure.java.io :as io]) "
-                  "(clojure.core/let [file-name \"" file-name "\"] "
-                  "  (clojure.core/spit file-name "
-                  "    (clojure.core/with-out-str "
-                  "      (decompile (do " selected-text ")))) "
-                  "  (.getCanonicalPath (io/file file-name)))")]
-    (execute-and-open-file code "clj")))
+                  "(clojure.core/with-out-str "
+                  "  (decompile (do " selected-text ")))")]
+    (execute-and-open-untitled code file-name)))
 
 (defn- disassemble-top-level-form []
   (let [function-name (some-> (util/currentTopLevelDef)
@@ -98,11 +79,8 @@
         top-level-form (some-> (util/currentTopLevelForm)
                                second)
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [disassemble]]) "
-                  "(clojure.core/require '[clojure.java.io :as io]) "
-                  "(clojure.core/let [file-name \"" file-name "\"] "
-                  "  (clojure.core/spit file-name (clojure.core/with-out-str (disassemble " (pr-str top-level-form) "))) "
-                  "  (.getCanonicalPath (io/file file-name)))")]
-    (execute-and-open-file code "clj")))
+                  "(clojure.core/with-out-str (disassemble " (pr-str top-level-form) "))")]
+    (execute-and-open-untitled code file-name)))
 
 ;; Benchmarking functions
 
