@@ -9,12 +9,13 @@
     (p/let [;; Get commands from the extension's manifest
             extension-id "betterthantomorrow.calva-power-tools"
             extension (vscode/extensions.getExtension extension-id)
+            _ (.activate extension)
             package-json (when extension (.-packageJSON extension))
             contributed-commands (when package-json
                                    (->> (.-contributes package-json)
                                         (.-commands)
                                         (map #(.-command %))
-                                        (into #{}))) ; Convert to set
+                                        (into #{})))
             ;; Get all currently registered commands
             all-commands (-> (vscode/commands.getCommands true)
                              (p/then js->clj))
