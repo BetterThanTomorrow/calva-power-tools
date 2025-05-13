@@ -52,7 +52,7 @@
               b
               (recur b (+ a b) (inc i))))))
 
-(defn fibonacci-linear
+(defn- fibonacci-linear
   "Returns the nth number in the Fibonacci sequence using linear recursion"
   [n]
   (letfn [(fib-pair [n]

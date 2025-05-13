@@ -57,8 +57,8 @@
 
 (defn activate! []
   ;; Register commands that call Calva's custom REPL command
-  (register-command! "snitch.loadSnitchDependency" #'load-dependency)
-  (register-command! "snitch.instrumentTopLevelForm" #'instrument-top-level-form)
-  (register-command! "snitch.instrumentCurrentForm" #'instrument-current-form)
-  (register-command! "snitch.getSnitchedDefnResults" #'get-snitched-defn-results)
-  (register-command! "snitch.reconstructLastDefnCallToClipboard" #'reconstruct-last-defn-call-to-clipboard))
+  (register-command! "cpt.snitch.loadSnitchDependency" #'load-dependency)
+  (register-command! "cpt.snitch.instrumentTopLevelForm" #'instrument-top-level-form)
+  (register-command! "cpt.snitch.instrumentCurrentForm" #'instrument-current-form)
+  (register-command! "cpt.snitch.getSnitchedDefnResults" #'get-snitched-defn-results)
+  (register-command! "cpt.snitch.reconstructLastDefnCallToClipboard" #'reconstruct-last-defn-call-to-clipboard))

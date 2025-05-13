@@ -177,7 +177,7 @@
 (defn- start-profiler-ui []
   (with-profiler-check
     (fn []
-      (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
+      (let [auto-open (-> (vscode/workspace.getConfiguration "cpt")
                           (.get "performance.autoOpenProfilerUI"))]
         (p/let [evaluation (calva/evaluateCode+ "clj" "(clojure.core/require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
                 url (some->> (.-output evaluation)
@@ -198,23 +198,23 @@
   ;; Register dependency loading commands
 
   ;; Register decompilation commands
-  (register-command! "performance.loadDecompilerDependency" #'load-decompiler-dependency)
-  (register-command! "performance.decompileTopLevelForm" #'decompile-top-level-form)
-  (register-command! "performance.decompileTopLevelFormWithUncheckedMath" #'decompile-top-level-form-unchecked-math)
-  (register-command! "performance.decompileSelection" #'decompile-selection)
-  (register-command! "performance.disassembleTopLevelForm" #'disassemble-top-level-form)
+  (register-command! "cpt.performance.loadDecompilerDependency" #'load-decompiler-dependency)
+  (register-command! "cpt.performance.decompileTopLevelForm" #'decompile-top-level-form)
+  (register-command! "cpt.performance.decompileTopLevelFormWithUncheckedMath" #'decompile-top-level-form-unchecked-math)
+  (register-command! "cpt.performance.decompileSelection" #'decompile-selection)
+  (register-command! "cpt.performance.disassembleTopLevelForm" #'disassemble-top-level-form)
 
   ;; Register benchmarking commands
-  (register-command! "performance.loadCriteriumDependency" #'load-criterium-dependency)
-  (register-command! "performance.quickBenchTopLevelForm" #'quick-bench-top-level-form)
-  (register-command! "performance.quickBenchCurrentForm" #'quick-bench-current-form)
+  (register-command! "cpt.performance.loadCriteriumDependency" #'load-criterium-dependency)
+  (register-command! "cpt.performance.quickBenchTopLevelForm" #'quick-bench-top-level-form)
+  (register-command! "cpt.performance.quickBenchCurrentForm" #'quick-bench-current-form)
 
   ;; Register time measurement commands
-  (register-command! "performance.timeTopLevelForm" #'time-top-level-form)
-  (register-command! "performance.timeCurrentForm" #'time-current-form)
+  (register-command! "cpt.performance.timeTopLevelForm" #'time-top-level-form)
+  (register-command! "cpt.performance.timeCurrentForm" #'time-current-form)
 
   ;; Register profiler commands
-  (register-command! "performance.loadProfilerDependency" #'load-profiler-dependency)
-  (register-command! "performance.profileCurrentForm" #'profile-current-form)
-  (register-command! "performance.profileTopLevelForm" #'profile-top-level-form)
-  (register-command! "performance.startProfilerUI" #'start-profiler-ui))
+  (register-command! "cpt.performance.loadProfilerDependency" #'load-profiler-dependency)
+  (register-command! "cpt.performance.profileCurrentForm" #'profile-current-form)
+  (register-command! "cpt.performance.profileTopLevelForm" #'profile-top-level-form)
+  (register-command! "cpt.performance.startProfilerUI" #'start-profiler-ui))

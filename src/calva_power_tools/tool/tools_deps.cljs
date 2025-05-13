@@ -6,13 +6,13 @@
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]))
 
 (defn activate! []
-  (calva/register-snippet! "deps.loadSelectedDependencies"
+  (calva/register-snippet! "cpt.deps.loadSelectedDependencies"
                            {:snippet "((requiring-resolve 'clojure.repl.deps/add-libs) '{$selection})"
                             :ns "user"
                             :repl "clj"})
 
   (lc-helpers/register-command!
-   db/!app-db "deps.loadDependencies"
+   db/!app-db "cpt.deps.loadDependencies"
    (fn []
      (-> (vscode/window.showInputBox #js {:title "Enter one or more deps.edn dependency coordinates"
                                           :ignoreFocusOut true
@@ -26,7 +26,7 @@
                                                     (clj->js snippet)))))))))
 
   (lc-helpers/register-command!
-   db/!app-db "deps.syncDeps"
+   db/!app-db "cpt.deps.syncDeps"
    (fn []
      (-> (vscode/window.showInputBox #js {:title "Aliases. Leave empty and press ENTER for no aliases"
                                           :ignoreFocusOut true

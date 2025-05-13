@@ -23,4 +23,4 @@
   (push-disposable! !state (vscode/commands.registerCommand
                             command-id
                             (fn [& args]
-                              (apply var !state args)))))
+                              (apply var args)))))

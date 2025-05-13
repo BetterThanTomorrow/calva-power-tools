@@ -19,17 +19,17 @@
 
 (defn activate! []
   ;; Register commands that call Calva's custom REPL command
-  (calva/register-snippet! "clay.makeFile" (make-snippet "make-ns-html!" file options))
-  (calva/register-snippet! "clay.makeFileQuarto" (make-snippet "make-ns-quarto-html!" file options))
-  (calva/register-snippet! "clay.makeFileRevealJs" (make-snippet "make-ns-quarto-revealjs!" file options))
-  (calva/register-snippet! "clay.makeCurrentForm" (make-snippet "make-form-html!" current-form file options))
-  (calva/register-snippet! "clay.makeCurrentFormQuarto" (make-snippet "make-form-quarto-html!" current-form file options))
-  (calva/register-snippet! "clay.makeTopLevelForm" (make-snippet "make-form-html!" top-level-form file options))
-  (calva/register-snippet! "clay.makeTopLevelFormQuarto" (make-snippet "make-form-quarto-html!" top-level-form file options))
-  (calva/register-snippet! "clay.browse" (make-snippet "browse!"))
-  (calva/register-snippet! "clay.watch" (make-snippet "watch!" options))
+  (calva/register-snippet! "cpt.clay.makeFile" (make-snippet "make-ns-html!" file options))
+  (calva/register-snippet! "cpt.clay.makeFileQuarto" (make-snippet "make-ns-quarto-html!" file options))
+  (calva/register-snippet! "cpt.clay.makeFileRevealJs" (make-snippet "make-ns-quarto-revealjs!" file options))
+  (calva/register-snippet! "cpt.clay.makeCurrentForm" (make-snippet "make-form-html!" current-form file options))
+  (calva/register-snippet! "cpt.clay.makeCurrentFormQuarto" (make-snippet "make-form-quarto-html!" current-form file options))
+  (calva/register-snippet! "cpt.clay.makeTopLevelForm" (make-snippet "make-form-html!" top-level-form file options))
+  (calva/register-snippet! "cpt.clay.makeTopLevelFormQuarto" (make-snippet "make-form-quarto-html!" top-level-form file options))
+  (calva/register-snippet! "cpt.clay.browse" (make-snippet "browse!"))
+  (calva/register-snippet! "cpt.clay.watch" (make-snippet "watch!" options))
 
   (lc-helpers/register-command!
-   db/!app-db "clay.loadClayDependency"
+   db/!app-db "cpt.clay.loadClayDependency"
    (fn []
      (util/load-dependency {:deps/mvn-name "org.scicloj/clay"}))))

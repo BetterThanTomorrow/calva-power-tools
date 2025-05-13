@@ -35,246 +35,261 @@
     "Clay"
   ],
   "activationEvents": [
-    "onStartupFinished"
   ],
   "extensionDependencies": [
     "betterthantomorrow.calva"
   ],
   "main": "out/extension.js",
   "contributes": {
-    "configuration": [{
-      "type": "object",
-      "title": "Calva Power Tools",
-      "properties": {
-        "calva-power-tools.performance.autoOpenProfilerUI": {
-          "type": "string",
-          "default": "vscode",
-          "enum": [
-            "vscode",
-            "system",
-            "never"
-          ],
-          "enumDescriptions": [
-            "Auto-open the Profiler UI in the VS Code internal Simple Browser.",
-            "Auto-open the Profiler UI in the system default web browser.",
-            "Never auto-open the Profiler UI."
-          ],
-          "description": "Auto-open the Profiler UI in the specified browser (or not)."
+    "configuration": [
+      {
+        "type": "object",
+        "title": "Calva Power Tools",
+        "properties": {
+          "cpt.performance.autoOpenProfilerUI": {
+            "type": "string",
+            "default": "vscode",
+            "enum": [
+              "vscode",
+              "system",
+              "never"
+            ],
+            "enumDescriptions": [
+              "Auto-open the Profiler UI in the VS Code internal Simple Browser.",
+              "Auto-open the Profiler UI in the system default web browser.",
+              "Never auto-open the Profiler UI."
+            ],
+            "description": "Auto-open the Profiler UI in the specified browser (or not)."
+          }
         }
       }
-    }],
+    ],
     "commands": [
       {
-        "command": "clay.makeFile",
-        "category": "Clay",
+        "command": "cpt.showCommands",
+        "category": "Calva Power Tools (CPT)",
+        "title": "Show Commands"
+      },
+      {
+        "command": "cpt.clay.makeFile",
+        "category": "[CPT] Clay",
         "title": "Make File"
       },
       {
-        "command": "clay.makeFileQuarto",
-        "category": "Clay",
+        "command": "cpt.clay.makeFileQuarto",
+        "category": "[CPT] Clay",
         "title": "Make File Quarto"
       },
       {
-        "command": "clay.makeFileRevealJs",
-        "category": "Clay",
+        "command": "cpt.clay.makeFileRevealJs",
+        "category": "[CPT] Clay",
         "title": "Make File Reveal.js"
       },
       {
-        "command": "clay.makeCurrentForm",
-        "category": "Clay",
+        "command": "cpt.clay.makeCurrentForm",
+        "category": "[CPT] Clay",
         "title": "Make Current Form"
       },
       {
-        "command": "clay.makeCurrentFormQuarto",
-        "category": "Clay",
+        "command": "cpt.clay.makeCurrentFormQuarto",
+        "category": "[CPT] Clay",
         "title": "Make Current Form Quarto"
       },
       {
-        "command": "clay.makeTopLevelForm",
-        "category": "Clay",
+        "command": "cpt.clay.makeTopLevelForm",
+        "category": "[CPT] Clay",
         "title": "Make Top Level Form"
       },
       {
-        "command": "clay.makeTopLevelFormQuarto",
-        "category": "Clay",
+        "command": "cpt.clay.makeTopLevelFormQuarto",
+        "category": "[CPT] Clay",
         "title": "Make Top Level Form Quarto"
       },
       {
-        "command": "clay.browse",
-        "category": "Clay",
+        "command": "cpt.clay.browse",
+        "category": "[CPT] Clay",
         "title": "Browse"
       },
       {
-        "command": "clay.watch",
-        "category": "Clay",
+        "command": "cpt.clay.watch",
+        "category": "[CPT] Clay",
         "title": "Watch"
       },
       {
-        "command": "clay.loadClayDependency",
-        "category": "Clay",
+        "command": "cpt.clay.loadClayDependency",
+        "category": "[CPT] Clay",
         "title": "Load Clay Dependency",
         "enablement": "false"
       },
       {
-        "command": "deps.loadSelectedDependencies",
-        "category": "tools-deps",
+        "command": "cpt.deps.loadSelectedDependencies",
+        "category": "[CPT] tools-deps",
         "title": "Load Selected Dependencies"
       },
       {
-        "command": "deps.loadDependencies",
-        "category": "tools-deps",
+        "command": "cpt.deps.loadDependencies",
+        "category": "[CPT] tools-deps",
         "title": "Load Dependencies..."
       },
       {
-        "command": "deps.syncDeps",
-        "category": "tools-deps",
+        "command": "cpt.deps.syncDeps",
+        "category": "[CPT] tools-deps",
         "title": "Sync deps.edn dependencies..."
       },
       {
-        "command": "snitch.loadSnitchDependency",
-        "category": "Snitch",
+        "command": "cpt.snitch.loadSnitchDependency",
+        "category": "[CPT] Snitch",
         "title": "Load Snitch Dependency"
       },
       {
-        "command": "snitch.instrumentTopLevelForm",
-        "category": "Snitch",
+        "command": "cpt.snitch.instrumentTopLevelForm",
+        "category": "[CPT] Snitch",
         "title": "Instrument Top Level defn/let/fn"
       },
       {
-        "command": "snitch.instrumentCurrentForm",
-        "category": "Snitch",
+        "command": "cpt.snitch.instrumentCurrentForm",
+        "category": "[CPT] Snitch",
         "title": "Instrument Current Form defn/let/fn"
       },
       {
-        "command": "snitch.getSnitchedDefnResults",
-        "category": "Snitch",
+        "command": "cpt.snitch.getSnitchedDefnResults",
+        "category": "[CPT] Snitch",
         "title": "Get Snitched defn Results"
       },
       {
-        "command": "snitch.reconstructLastDefnCallToClipboard",
-        "category": "Snitch",
+        "command": "cpt.snitch.reconstructLastDefnCallToClipboard",
+        "category": "[CPT] Snitch",
         "title": "Reconstruct Last defn Call to Clipboard"
       },
       {
-        "command": "performance.loadDecompilerDependency",
-        "category": "Performance",
+        "command": "cpt.performance.loadDecompilerDependency",
+        "category": "[CPT] Performance",
         "title": "Load Decompiler Dependency"
       },
       {
-        "command": "performance.loadCriteriumDependency",
-        "category": "Performance",
+        "command": "cpt.performance.loadCriteriumDependency",
+        "category": "[CPT] Performance",
         "title": "Load Criterium Dependency"
       },
       {
-        "command": "performance.loadProfilerDependency",
-        "category": "Performance",
+        "command": "cpt.performance.loadProfilerDependency",
+        "category": "[CPT] Performance",
         "title": "Load Profiler Dependency"
       },
       {
-        "command": "performance.decompileTopLevelForm",
-        "category": "Performance",
+        "command": "cpt.performance.decompileTopLevelForm",
+        "category": "[CPT] Performance",
         "title": "Decompile Top Level Form"
       },
       {
-        "command": "performance.decompileTopLevelFormWithUncheckedMath",
-        "category": "Performance",
+        "command": "cpt.performance.decompileTopLevelFormWithUncheckedMath",
+        "category": "[CPT] Performance",
         "title": "Decompile Top Level Form With Unchecked Math"
       },
       {
-        "command": "performance.decompileSelection",
-        "category": "Performance",
+        "command": "cpt.performance.decompileSelection",
+        "category": "[CPT] Performance",
         "title": "Decompile Selection"
       },
       {
-        "command": "performance.disassembleTopLevelForm",
-        "category": "Performance",
+        "command": "cpt.performance.disassembleTopLevelForm",
+        "category": "[CPT] Performance",
         "title": "Disassemble Top Level Form"
       },
       {
-        "command": "performance.quickBenchTopLevelForm",
-        "category": "Performance",
+        "command": "cpt.performance.quickBenchTopLevelForm",
+        "category": "[CPT] Performance",
         "title": "Criterium Quick Bench Top Level Form"
       },
       {
-        "command": "performance.quickBenchCurrentForm",
-        "category": "Performance",
+        "command": "cpt.performance.quickBenchCurrentForm",
+        "category": "[CPT] Performance",
         "title": "Criterium Quick Bench Current Form"
       },
       {
-        "command": "performance.timeTopLevelForm",
-        "category": "Performance",
+        "command": "cpt.performance.timeTopLevelForm",
+        "category": "[CPT] Performance",
         "title": "Time Top Level Form"
       },
       {
-        "command": "performance.timeCurrentForm",
-        "category": "Performance",
+        "command": "cpt.performance.timeCurrentForm",
+        "category": "[CPT] Performance",
         "title": "Time Current Form"
       },
       {
-        "command": "performance.profileCurrentForm",
-        "category": "Performance",
+        "command": "cpt.performance.profileCurrentForm",
+        "category": "[CPT] Performance",
         "title": "Profile Current Form"
       },
       {
-        "command": "performance.profileTopLevelForm",
-        "category": "Performance",
+        "command": "cpt.performance.profileTopLevelForm",
+        "category": "[CPT] Performance",
         "title": "Profile Top Level Form"
       },
       {
-        "command": "performance.startProfilerUI",
-        "category": "Performance",
+        "command": "cpt.performance.startProfilerUI",
+        "category": "[CPT] Performance",
         "title": "Start Profiler UI"
       }
     ],
     "keybindings": [
       {
+        "key": "ctrl+shift+space ctrl+shift+space",
+        "command": "cpt.showCommands"
+      },
+      {
+        "key": "ctrl+shift+space ctrl+a",
+        "command": "cpt.showCommands",
+        "args": "Clay"
+      },
+      {
         "key": "ctrl+shift+space a f",
-        "command": "clay.makeFile",
+        "command": "cpt.clay.makeFile",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q f",
-        "command": "clay.makeFileQuarto",
+        "command": "cpt.clay.makeFileQuarto",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a r f",
-        "command": "clay.makeFileRevealJs",
+        "command": "cpt.clay.makeFileRevealJs",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a c",
-        "command": "clay.makeCurrentForm",
+        "command": "cpt.clay.makeCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q c",
-        "command": "clay.makeCurrentFormQuarto",
+        "command": "cpt.clay.makeCurrentFormQuarto",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space ctrl+shift+a",
-        "command": "clay.makeTopLevelForm",
+        "command": "cpt.clay.makeTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a a",
-        "command": "clay.makeTopLevelForm",
+        "command": "cpt.clay.makeTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a q a",
-        "command": "clay.makeTopLevelFormQuarto",
+        "command": "cpt.clay.makeTopLevelFormQuarto",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a b",
-        "command": "clay.browse",
+        "command": "cpt.clay.browse",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space a w",
-        "command": "clay.watch",
+        "command": "cpt.clay.watch",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
@@ -283,113 +298,128 @@
         "when": "false && calva:activated"
       },
       {
+        "key": "ctrl+shift+space ctrl+shift+d",
+        "command": "cpt.showCommands",
+        "args": "tools-deps"
+      },
+      {
         "key": "ctrl+shift+space d d",
-        "command": "deps.loadDependencies",
+        "command": "cpt.deps.loadDependencies",
         "when": "calva:activated"
       },
       {
         "key": "ctrl+shift+space d ctrl+s",
-        "command": "deps.loadSelectedDependencies",
+        "command": "cpt.deps.loadSelectedDependencies",
         "when": "calva:activated && editorHasSelection"
       },
       {
         "key": "ctrl+shift+space d s",
-        "command": "deps.syncDeps",
+        "command": "cpt.deps.syncDeps",
         "when": "calva:activated"
       },
       {
+        "key": "ctrl+shift+space ctrl+shift+s",
+        "command": "cpt.showCommands",
+        "args": "Snitch"
+      },
+      {
         "key": "ctrl+shift+space s l",
-        "command": "snitch.loadSnitchDependency",
+        "command": "cpt.snitch.loadSnitchDependency",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space s t",
-        "command": "snitch.instrumentTopLevelForm",
+        "command": "cpt.snitch.instrumentTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space s f",
-        "command": "snitch.instrumentCurrentForm",
+        "command": "cpt.snitch.instrumentCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space s r",
-        "command": "snitch.getSnitchedDefnResults",
+        "command": "cpt.snitch.getSnitchedDefnResults",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space s c",
-        "command": "snitch.reconstructLastDefnCallToClipboard",
+        "command": "cpt.snitch.reconstructLastDefnCallToClipboard",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
+        "key": "ctrl+shift+space ctrl+shift+p",
+        "command": "cpt.showCommands",
+        "args": "Performance"
+      },
+      {
         "key": "ctrl+shift+space p d l",
-        "command": "performance.loadDecompilerDependency",
+        "command": "cpt.performance.loadDecompilerDependency",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p d t",
-        "command": "performance.decompileTopLevelForm",
+        "command": "cpt.performance.decompileTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p d u",
-        "command": "performance.decompileTopLevelFormWithUncheckedMath",
+        "command": "cpt.performance.decompileTopLevelFormWithUncheckedMath",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p d s",
-        "command": "performance.decompileSelection",
+        "command": "cpt.performance.decompileSelection",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p d a",
-        "command": "performance.disassembleTopLevelForm",
+        "command": "cpt.performance.disassembleTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p c l",
-        "command": "performance.loadCriteriumDependency",
+        "command": "cpt.performance.loadCriteriumDependency",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p c t",
-        "command": "performance.quickBenchTopLevelForm",
+        "command": "cpt.performance.quickBenchTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p c c",
-        "command": "performance.quickBenchCurrentForm",
+        "command": "cpt.performance.quickBenchCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p t t",
-        "command": "performance.timeTopLevelForm",
+        "command": "cpt.performance.timeTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p t c",
-        "command": "performance.timeCurrentForm",
+        "command": "cpt.performance.timeCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p p l",
-        "command": "performance.loadProfilerDependency",
+        "command": "cpt.performance.loadProfilerDependency",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p p t",
-        "command": "performance.profileTopLevelForm",
+        "command": "cpt.performance.profileTopLevelForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p p c",
-        "command": "performance.profileCurrentForm",
+        "command": "cpt.performance.profileCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
         "key": "ctrl+shift+space p p u",
-        "command": "performance.startProfilerUI",
+        "command": "cpt.performance.startProfilerUI",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]

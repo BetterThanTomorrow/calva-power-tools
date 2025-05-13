@@ -1,5 +1,6 @@
 (ns calva-power-tools.extension
   (:require
+   ["vscode" :as vscode]
    [calva-power-tools.extension.db :as db]
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.extension.when-contexts :as when-contexts]
@@ -10,12 +11,20 @@
 
 ;;;;; Extension activation entry point
 
+(defn show-commands!
+  ([]
+   (vscode/commands.executeCommand "workbench.action.quickOpen" ">CPT "))
+  ([s]
+   (vscode/commands.executeCommand "workbench.action.quickOpen" (str ">CPT " s " "))))
+
 (defn ^:export activate [context]
   (js/console.time "activation")
   (js/console.timeLog "activation" "Calva Power Tools activate START")
 
   (when context
     (swap! db/!app-db assoc :extension/context context))
+
+  (lc-helpers/register-command! db/!app-db "cpt.showCommands" #'show-commands!)
 
   (clay/activate!)
   (deps/activate!)

@@ -6,9 +6,9 @@
 
 (defn- code-for-dependency-loading [{:deps/keys [mvn-name]}]
   (str "(if-let [add-lib (resolve 'clojure.repl.deps/add-lib)]
-          (do (println \"Adding dependency: \"'" mvn-name ")
+          (do (clojure.core/println \"Adding dependency: \"'" mvn-name ")
               (add-lib '" mvn-name "))
-          (throw (ex-info (str \"FAILED adding dependency '" mvn-name ". clojure.repl.deps/add-lib was not found, Clojure 1.12 or higher is required\") {})))"))
+          (throw (clojure.core/ex-info (clojure.core/str \"FAILED adding dependency '" mvn-name ". clojure.repl.deps/add-lib was not found, Clojure 1.12 or higher is required\") {})))"))
 
 (defn load-dependency
   "Load a dependency using Calva's REPL API directly.
