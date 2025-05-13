@@ -4,8 +4,6 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
-## [v0.0.7] - 2025-05-13
-
 - [Add performance tools](https://github.com/BetterThanTomorrow/calva-power-tools/issues/21)
 - [Add snitching for `let` and `fn`](https://github.com/BetterThanTomorrow/calva-power-tools/issues/24)
 - [Add snitching for current form](https://github.com/BetterThanTomorrow/calva-power-tools/issues/25)
