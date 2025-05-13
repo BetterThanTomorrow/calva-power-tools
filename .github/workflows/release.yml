@@ -23,8 +23,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: /tmp
-          pattern: '*.vsix'
-          merge-multiple: true
+          pattern: 'Linux-*.vsix'
+          # Use only Linux build for GitHub release
 
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@12.5
@@ -80,8 +80,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: /tmp
-          pattern: '*.vsix'
-          merge-multiple: true
+          pattern: 'Linux-*.vsix'
+          # Use only Linux build for marketplace publishing
 
       - name: Publish to VS Code Marketplace
         run: |
@@ -115,8 +115,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: /tmp
-          pattern: '*.vsix'
-          merge-multiple: true
+          pattern: 'Linux-*.vsix'
+          # Use only Linux build for Open VSX publishing
 
       - name: Publish to Open VSX
         run: |
