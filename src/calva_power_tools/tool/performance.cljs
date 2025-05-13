@@ -25,8 +25,8 @@
   [code title]
   (let [editor vscode/window.activeTextEditor
         document (some-> editor .-document)
-        ns (some-> document util/getNamespace)]
-    (p/let [^js evaluation (util/evaluateCode+ "clj" code ns)]
+        ns (some-> document calva/getNamespace)]
+    (p/let [^js evaluation (calva/evaluateCode+ "clj" code ns)]
       (if (.-error evaluation)
         (vscode/window.showErrorMessage (str (.-error evaluation)
                                              " - "
@@ -39,20 +39,20 @@
                                                             :preserveFocus true}))))))
 
 (defn- decompile-top-level-form []
-  (let [function-name (some-> (util/currentTopLevelDef)
+  (let [function-name (some-> (calva/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name ".java")
-        top-level-form (some-> (util/currentTopLevelForm)
+        top-level-form (some-> (calva/currentTopLevelForm)
                                second)
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) "
                   "(clojure.core/with-out-str (decompile " (pr-str top-level-form) "))")]
     (execute-and-open-untitled code file-name)))
 
 (defn- decompile-top-level-form-unchecked-math []
-  (let [function-name (some-> (util/currentTopLevelDef)
+  (let [function-name (some-> (calva/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name "-unchecked.java")
-        top-level-form (some-> (util/currentTopLevelForm)
+        top-level-form (some-> (calva/currentTopLevelForm)
                                second)
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) "
                   "(clojure.core/with-out-str "
@@ -64,7 +64,7 @@
         selection (some-> editor .-selection)
         document (some-> editor .-document)
         selected-text (some-> document (.getText selection))
-        function-name (some-> (util/currentTopLevelDef)
+        function-name (some-> (calva/currentTopLevelDef)
                               second)
         file-name (str "decompiled-" function-name "-selection.java")
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [decompile]]) "
@@ -73,10 +73,10 @@
     (execute-and-open-untitled code file-name)))
 
 (defn- disassemble-top-level-form []
-  (let [function-name (some-> (util/currentTopLevelDef)
+  (let [function-name (some-> (calva/currentTopLevelDef)
                               second)
         file-name (str "bytecode-" function-name ".class")
-        top-level-form (some-> (util/currentTopLevelForm)
+        top-level-form (some-> (calva/currentTopLevelForm)
                                second)
         code (str "(clojure.core/require '[clj-java-decompiler.core :refer [disassemble]]) "
                   "(clojure.core/with-out-str (disassemble " (pr-str top-level-form) "))")]
@@ -134,7 +134,7 @@
 
 (defn- with-profiler-check [f]
   (p/let [java-opts ":jvm-opts [\"-Djdk.attach.allowAttachSelf\" \"-XX:+UnlockDiagnosticVMOptions\" \"-XX:+DebugNonSafepoints\"]"
-          evaluation (util/evaluateCode+ "clj" profile-check-code "user")
+          evaluation (calva/evaluateCode+ "clj" profile-check-code "user")
           attachable? (= "true" (.-result evaluation))]
     (if attachable?
       (f)
@@ -179,7 +179,7 @@
     (fn []
       (let [auto-open (-> (vscode/workspace.getConfiguration "calva-power-tools")
                           (.get "performance.autoOpenProfilerUI"))]
-        (p/let [evaluation (util/evaluateCode+ "clj" "(clojure.core/require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
+        (p/let [evaluation (calva/evaluateCode+ "clj" "(clojure.core/require '[clj-async-profiler.core :as prof]) (prof/serve-ui 0)" "user")
                 url (some->> (.-output evaluation)
                              (re-find #"Started server at /(.*?)\n?$")
                              second)]

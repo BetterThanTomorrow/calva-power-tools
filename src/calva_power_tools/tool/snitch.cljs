@@ -20,12 +20,12 @@
                                   #js {:snippet snitched})))
 
 (defn- instrument-top-level-form []
-  (instrument-form (-> (util/currentTopLevelForm)
-                       second)))
+  (instrument-form (some-> (calva/currentTopLevelForm)
+                           second)))
 
 (defn- instrument-current-form []
-  (instrument-form (-> (util/currentForm)
-                       second)))
+  (instrument-form (some-> (calva/currentForm)
+                           second)))
 
 (defn- get-snitched-defn-results []
   (calva/execute-calva-command! "calva.runCustomREPLCommand"
@@ -35,8 +35,8 @@
   (-> (calva/execute-calva-command! "calva.runCustomREPLCommand"
                                     #js {:snippet "${top-level-defined-symbol|replace|$|>}"})
       (.then (fn [_]
-               (p/let [ns (util/getNamespace)
-                       evaluation+ (util/evaluateCode+ js/undefined "*1" ns)
+               (p/let [ns (calva/getNamespace)
+                       evaluation+ (calva/evaluateCode+ js/undefined "*1" ns)
                        last-call (.-result evaluation+)]
                  (vscode/env.clipboard.writeText last-call)
                  (vscode/window.showInformationMessage "The snitched call to this function is saved to the clipboard."))))))

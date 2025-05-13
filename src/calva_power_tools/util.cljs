@@ -1,23 +1,10 @@
 (ns calva-power-tools.util
   (:require
    ["vscode" :as vscode]
+   [calva-power-tools.calva :as calva]
    [promesa.core :as p]))
 
-(def ^:private ^js calva-ext (vscode/extensions.getExtension "betterthantomorrow.calva"))
-
-(def ^:private calva-api (-> calva-ext
-                             .-exports
-                             .-v1
-                             (js->clj :keywordize-keys true)))
-
-(def evaluateCode+ (get-in calva-api [:repl :evaluateCode]))
-(def currentFunction (get-in calva-api [:ranges :currentFunction]))
-(def currentTopLevelDef (get-in calva-api [:ranges :currentTopLevelDef]))
-(def currentTopLevelForm (get-in calva-api [:ranges :currentTopLevelForm]))
-(def currentForm (get-in calva-api [:ranges :currentForm]))
-(def getNamespace (get-in calva-api [:document :getNamespace]))
-
-(defn code-for-dependency-loading [{:deps/keys [mvn-name]}]
+(defn- code-for-dependency-loading [{:deps/keys [mvn-name]}]
   (str "(if-let [add-lib (resolve 'clojure.repl.deps/add-lib)]
           (do (println \"Adding dependency: \"'" mvn-name ")
               (add-lib '" mvn-name "))
@@ -38,7 +25,7 @@
                        (fn [_progress _token]
                          (p/create
                           (fn [resolve reject]
-                            (-> (evaluateCode+
+                            (-> (calva/evaluateCode+
                                  "clj" code "user"
                                  #js {:stdout (fn [output]
                                                 (js/console.log (str "Dependency loading stdout: " output)))
