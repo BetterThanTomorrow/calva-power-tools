@@ -24,7 +24,7 @@ jobs:
         with:
           path: /tmp
           pattern: 'Linux-*.vsix'
-          # Use only Linux build for GitHub release
+          merge-multiple: true
 
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@12.5
@@ -81,7 +81,7 @@ jobs:
         with:
           path: /tmp
           pattern: 'Linux-*.vsix'
-          # Use only Linux build for marketplace publishing
+          merge-multiple: true
 
       - name: Publish to VS Code Marketplace
         run: |
@@ -116,7 +116,7 @@ jobs:
         with:
           path: /tmp
           pattern: 'Linux-*.vsix'
-          # Use only Linux build for Open VSX publishing
+          merge-multiple: true
 
       - name: Publish to Open VSX
         run: |
