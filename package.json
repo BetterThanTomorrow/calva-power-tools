@@ -136,9 +136,14 @@
         "title": "Load Snitch Dependency"
       },
       {
-        "command": "snitch.instrumentDefn",
+        "command": "snitch.instrumentTopLevelForm",
         "category": "Snitch",
-        "title": "Instrument defn"
+        "title": "Instrument Top Level defn/let/fn"
+      },
+      {
+        "command": "snitch.instrumentCurrentForm",
+        "category": "Snitch",
+        "title": "Instrument Current Form defn/let/fn"
       },
       {
         "command": "snitch.getSnitchedDefnResults",
@@ -298,8 +303,13 @@
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {
-        "key": "ctrl+shift+space s d",
-        "command": "snitch.instrumentDefn",
+        "key": "ctrl+shift+space s t",
+        "command": "snitch.instrumentTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space s f",
+        "command": "snitch.instrumentCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       },
       {

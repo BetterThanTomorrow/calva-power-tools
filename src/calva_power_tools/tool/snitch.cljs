@@ -5,12 +5,27 @@
    [calva-power-tools.extension.db :as db]
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.util :as util]
-   [promesa.core :as p]))
+   [promesa.core :as p]
+   [clojure.string :as string]))
 
 
-(defn- instrument-defn []
-  (calva/execute-calva-command! "calva.runCustomREPLCommand"
-                                #js {:snippet "${top-level-form|replace|^\\(defn-?|(defn*}"}))
+(defn- instrument-form [form]
+  (let [pattern (re-pattern "\\b(defn|fn|let)\\b")
+        snitched (string/replace-first form pattern (fn [s]
+                                                      (case s
+                                                        "defn" "defn*"
+                                                        "let" "*let"
+                                                        "fn" "*fn")))]
+    (calva/execute-calva-command! "calva.runCustomREPLCommand"
+                                  #js {:snippet snitched})))
+
+(defn- instrument-top-level-form []
+  (instrument-form (-> (util/currentTopLevelForm)
+                       second)))
+
+(defn- instrument-current-form []
+  (instrument-form (-> (util/currentForm)
+                       second)))
 
 (defn- get-snitched-defn-results []
   (calva/execute-calva-command! "calva.runCustomREPLCommand"
@@ -20,7 +35,8 @@
   (-> (calva/execute-calva-command! "calva.runCustomREPLCommand"
                                     #js {:snippet "${top-level-defined-symbol|replace|$|>}"})
       (.then (fn [_]
-               (p/let [evaluation+ (util/evaluateCode+ js/undefined "*1" js/undefined)
+               (p/let [ns (util/getNamespace)
+                       evaluation+ (util/evaluateCode+ js/undefined "*1" ns)
                        last-call (.-result evaluation+)]
                  (vscode/env.clipboard.writeText last-call)
                  (vscode/window.showInformationMessage "The snitched call to this function is saved to the clipboard."))))))
@@ -30,7 +46,7 @@
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
-                #js {:snippet "(require '[snitch.core :refer [defn* defmethod* *fn *let]])"
+                #js {:snippet "(clojure.core/require '[snitch.core :refer [defn* defmethod* *fn *let]])"
                      :repl "clj"})))))
 
 (defn- register-command! [command f]
@@ -39,6 +55,7 @@
 (defn activate! []
   ;; Register commands that call Calva's custom REPL command
   (register-command! "snitch.loadSnitchDependency" #'load-dependency)
-  (register-command! "snitch.instrumentDefn" #'instrument-defn)
+  (register-command! "snitch.instrumentTopLevelForm" #'instrument-top-level-form)
+  (register-command! "snitch.instrumentCurrentForm" #'instrument-current-form)
   (register-command! "snitch.getSnitchedDefnResults" #'get-snitched-defn-results)
   (register-command! "snitch.reconstructLastDefnCallToClipboard" #'reconstruct-last-defn-call-to-clipboard))
