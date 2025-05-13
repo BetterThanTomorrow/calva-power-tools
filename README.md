@@ -5,12 +5,17 @@ A VSCode extension, and [Calva](https://calva.io) companion, for Clojure and Clo
 ## Usage
 
 1. Install the extension from the [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=BetterThanTomorrow.calva-power-tools).
-1. Open the command palette with <kbd>ctrl+shift+p</kbd> or <kbd>cmd+shift+p</kbd>.
-1. Start typing to fuzzy search for commands. E.g. `Clay` to see the available Clay commands.
+1. The commands are available from the command palette. There is a default keybinding for filtering the palette on the Calva Power Tools commands: <kbd>ctrl+shift+space ctrl+shift+space</kbd>.
+
+There is a quick demo/howto here: https://youtu.be/GiWKX-0NqkM
 
 ### Default keybindings included
 
-The Calva Power Tools extension generally contributes default keybindings for the commands. They are all chained on a first chord of <kbd>ctrl+shift+space</kbd>, a.k.a. the **Power Key**. Then, generally, each tool has its key, e.g. **Clay** uses the **Tool Key** <kbd>a</kbd>, making Clay commands executed with <kbd>ctrl+shift+space</kbd> <kbd>a</kbd> <kbd>something</kbd>.
+The Calva Power Tools extension generally contributes default keybindings for the commands. They are all chained on a first chord of <kbd>ctrl+shift+space</kbd>, a.k.a. the **Power Key**. Then, generally, each tool has its key, e.g. **Snitch** uses the **Tool Key** <kbd>s</kbd>. You can thus execute Snitch commands with <kbd>ctrl+shift+space</kbd> <kbd>s</kbd> <kbd>something</kbd>.
+
+There are also default bindings for filtering the command palette on a specific tool. Generally the <kbd>ctrl+shift+space</kbd> <kbd>ctrl+shift+tool-key</kbd>. E.g. to list the Snitch commands:
+
+* <kbd>ctrl+shift+space</kbd> <kbd>ctrl+shift+s</kbd>
 
 ## The Tools
 
@@ -100,9 +105,7 @@ The paved path is:
      ```
 1. <kbd>ctrl+alt+c ctrl+alt+c</kbd>. This runs the command: **Calva: Connect to a Running REPL Server in the Project**
    * It will connect the Clojure REPL, start a ClojureScript (shadow-cljs) REPL, and build the extension.
-   * This will compile the extension and run the tests. Wait for the **Build+watch extension** to show that the tests have ran, and for Calva to pop up a progress dialog looking something like so:
-     ![Progress dialog, start your extension](assets/usage/start-your-clojurescript-app.png)
-   * Hint: _The ClojureScript app is your extension_.
+   * This will compile the extension and run the tests. Wait for the **Build+watch extension** to show that the tests have ran, and for Calva to pop up a progress dialog about starting your ClojureScript app (which is your extension in this case).
 1. <kbd>F5</kbd>. This starts the VS Code _Development Extension Host_ (because configured to do so in [.vscode/launch.json](.vscode/launch.json))
    * The development extension host is a VS Code window where your extension under development is installed. You now need to activate it to actually start the ClojureScript app.
    * The extension auto-activates, **now your ClojureScript app and its REPL is started 🎉**
