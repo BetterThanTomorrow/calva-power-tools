@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.8] - 2025-05-14
+
 - Fix: [The `time` commands force the `clj` repl](https://github.com/BetterThanTomorrow/calva-power-tools/issues/28)
 
 ## [v0.0.7] - 2025-05-13
