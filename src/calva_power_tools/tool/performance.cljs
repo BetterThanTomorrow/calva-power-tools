@@ -110,14 +110,12 @@
 (defn- time-top-level-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(clojure.core/time $top-level-form)"
-        :repl "clj"}))
+   #js {:snippet "(clojure.core/time $top-level-form)"}))
 
 (defn- time-current-form []
   (calva/execute-calva-command!
    "calva.runCustomREPLCommand"
-   #js {:snippet "(clojure.core/time $current-form)"
-        :repl "clj"}))
+   #js {:snippet "(clojure.core/time $current-form)"}))
 
 ;; Profiler functions
 
