@@ -39,10 +39,17 @@
         label (get-label-candidate form)]
     (inspect-form form label)))
 
+(tagged-literal 'flare/html {:url "http://localhost:7117/" :title "Dataspex"})
+
+(defn- open-in-editor-webview []
+  (calva/execute-calva-command! "calva.runCustomREPLCommand"
+                                #js {:snippet "(tagged-literal 'flare/html {:url \"http://localhost:7117/\" :title \"Dataspex\"})"}))
+
 (defn- register-command! [command f]
   (lc-helpers/register-command! db/!app-db command f))
 
 (defn activate! []
   (register-command! "cpt.dataspex.loadDataspexDependency" #'load-dependency)
   (register-command! "cpt.dataspex.inspectCurrentForm" #'inspect-current-form)
-  (register-command! "cpt.dataspex.inspectTopLevelForm" #'inspect-top-level-form))
+  (register-command! "cpt.dataspex.inspectTopLevelForm" #'inspect-top-level-form)
+  (register-command! "cpt.dataspex.openInspectorInEditorView" #'open-in-editor-webview))

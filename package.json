@@ -244,6 +244,11 @@
         "command": "cpt.dataspex.inspectTopLevelForm",
         "category": "[CPT] Dataspex",
         "title": "Inspect Top Level Form..."
+      },
+      {
+        "command": "cpt.dataspex.openInspectorInEditorView",
+        "category": "[CPT] Dataspex",
+        "title": "Open Inspector in Editor"
       }
     ],
     "keybindings": [
