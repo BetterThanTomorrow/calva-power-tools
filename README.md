@@ -28,11 +28,11 @@ A hopefully growing list of power tools.
 A set of commands leveraging Clojure 1.12 `add-libs`:
 
 * **tools-deps: Load Dependencies...**: Will prompt for and load dependencies.
-   ![alt text](assets/howto/tools-deps-add-dependencies.png)
+   ![alt text](docs/images/howto/tools-deps-add-dependencies.png)
 * **tools-deps: Load Selected Dependencies**): Add one or more deps.edn dependencies coordinate that you have selected in the editor. E.g. if you have added it to your `deps.edn` file and want to load the dependency without restarting your REPL (or you may have some comment in the code with the dependency coordinates): Select the key-value pair(s) for the dependencies and then run this command.
 * **tools-deps: Sync deps.edn Dependencies...**: Sync (load any missing)
  dependencies in `deps.edn`. Prompts for aliases.
-   ![alt text](assets/howto/tools-deps-sync-deps.png)
+   ![alt text](docs/images/howto/tools-deps-sync-deps.png)
 
 **Tool Key**: <kbd>d</kbd>
 
@@ -51,7 +51,7 @@ Snitch is inline-defs on steroids. See https://github.com/AbhinavOmprakash/snitc
 
 **Tool Key**: <kbd>s</kbd>
 
-![Snitch Power Tool Commands](assets/howto/snitch-menu.png)
+![Snitch Power Tool Commands](docs/images/howto/snitch-menu.png)
 
 This menu screenshot is showing the default key bindings. I (PEZ) am on a Mac and can recommend binding the **Snitch: Instrument defn** command to <kbd>cmd+enter</kbd>.
 
@@ -64,25 +64,25 @@ There are commands for four important tools when chasing performance gains in Cl
 
 #### [Criterium](https://github.com/hugoduncan/criterium)
 
-![Command Palette search: Criterium Commands](assets/howto/criterium-menu.png)
+![Command Palette search: Criterium Commands](docs/images/howto/criterium-menu.png)
 
 #### [clojure-java-decompiler](https://github.com/clojure-goes-fast/clj-java-decompiler)
 
-![Command Palette search: Decompiler Commands](assets/howto/decompiler-menu.png)
+![Command Palette search: Decompiler Commands](docs/images/howto/decompiler-menu.png)
 
 #### [clj-async-profiler](https://clojure-goes-fast.com/kb/profiling/clj-async-profiler/)
 
-![Command Palette search: Profiler Commands](assets/howto/profiler-menu.png)
+![Command Palette search: Profiler Commands](docs/images/howto/profiler-menu.png)
 
 #### [time](https://clojuredocs.org/clojure.core/time)
 
-![Command Palette search: time Commands](assets/howto/time-menu.png)
+![Command Palette search: time Commands](docs/images/howto/time-menu.png)
 
 ### Dataspex
 
 [Dataspex](https://github.com/cjohansen/dataspex) is an easy to use data inspection tool/browser.
 
-![Command Palette search: Dataspex Commands](assets/howto/dataspex-menu.png)
+![Command Palette search: Dataspex Commands](docs/images/howto/dataspex-menu.png)
 
 **Tool Key**: <kbd>x</kbd>
 
