@@ -78,6 +78,14 @@ There are commands for four important tools when chasing performance gains in Cl
 
 ![Command Palette search: time Commands](assets/howto/time-menu.png)
 
+### Dataspex
+
+[Dataspex](https://github.com/cjohansen/dataspex) is an easy to use data inspection tool/browser.
+
+![Command Palette search: Dataspex Commands](assets/howto/dataspex-menu.png)
+
+**Tool Key**: <kbd>x</kbd>
+
 ## Contributing
 
 Issues and pull requests are welcome. Please see [CONTRIBUTING](CONTRIBUTING.md)
