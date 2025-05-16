@@ -229,6 +229,21 @@
         "command": "cpt.performance.startProfilerUI",
         "category": "[CPT] Performance",
         "title": "Start Profiler UI"
+      },
+      {
+        "command": "cpt.dataspex.loadDataspexDependency",
+        "category": "[CPT] Dataspex",
+        "title": "Load Dataspex Dependency"
+      },
+      {
+        "command": "cpt.dataspex.inspectCurrentForm",
+        "category": "[CPT] Dataspex",
+        "title": "Inspect Current Form..."
+      },
+      {
+        "command": "cpt.dataspex.inspectTopLevelForm",
+        "category": "[CPT] Dataspex",
+        "title": "Inspect Top Level Form..."
       }
     ],
     "keybindings": [
@@ -419,6 +434,26 @@
       {
         "key": "ctrl+shift+space p p u",
         "command": "cpt.performance.startProfilerUI",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space ctrl+shift+x",
+        "command": "cpt.showCommands",
+        "args": "Dataspex"
+      },
+      {
+        "key": "ctrl+shift+space x l",
+        "command": "cpt.dataspex.loadDataspexDependency",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x t",
+        "command": "cpt.dataspex.inspectTopLevelForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x c",
+        "command": "cpt.dataspex.inspectCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
