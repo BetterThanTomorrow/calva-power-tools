@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.9] - 2025-05-16
+
 - [Add Dataspex tool](https://github.com/BetterThanTomorrow/calva-power-tools/issues/29)
 
 ## [v0.0.8] - 2025-05-14
