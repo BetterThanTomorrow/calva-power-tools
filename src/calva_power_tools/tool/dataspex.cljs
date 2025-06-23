@@ -16,7 +16,7 @@
     form))
 
 (defn- check-dataspex-loaded []
-  (-> (calva/evaluateCode+ "clj" "(boolean (find-ns 'dataspex.core))" "user")
+  (-> (calva/evaluateCode+ "clj" "(clojure.core/boolean (clojure.core/find-ns 'dataspex.core))" "user")
       (p/then (fn [result]
                 (= "true" (.-result result))))))
 
@@ -25,9 +25,9 @@
 
 (defn- start-dataspex-server []
   (-> (calva/evaluateCode+ "clj"
-                          "(let [s (dataspex.core/start-server! {:port 0})]
+                           "(let [s (dataspex.core/start-server! {:port 0})]
                              (-> s .getConnectors first .getLocalPort))"
-                          "user")
+                           "user")
       (p/then (fn [result]
                 (let [port (parse-long (.-result result))]
                   (swap! db/!app-db assoc :dataspex/port port))))))
@@ -42,6 +42,16 @@
       (p/let [_ (load-dependency)
               _ (calva/evaluateCode+ js/undefined "(clojure.core/require 'dataspex.core)" "user")]
         (start-dataspex-server)))))
+
+(defn- open-in-editor-webview []
+  (p/let [port (ensure-dataspex-loaded-and-running)]
+    (calva/execute-calva-command! "calva.runCustomREPLCommand"
+                                  {:snippet (str "(clojure.core/tagged-literal 'flare/html {:url \"http://localhost:" port "/\" :title \"Dataspex\"})")})))
+
+(defn- open-in-panel-webview [!app-state context]
+  (p/let [port (ensure-dataspex-loaded-and-running)]
+    (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
+    (panel-view/activate! context port)))
 
 (defn- inspect-form [form label-candidate]
   (p/let [_ (ensure-dataspex-loaded-and-running)]
@@ -65,16 +75,6 @@
   (let [form (second (calva/currentTopLevelForm))
         label (get-label-candidate form)]
     (inspect-form form label)))
-
-(defn- open-in-editor-webview []
-  (p/let [port (ensure-dataspex-loaded-and-running)]
-    (calva/execute-calva-command! "calva.runCustomREPLCommand"
-                                  #js {:snippet (str "(tagged-literal 'flare/html {:url \"http://localhost:" port "/\" :title \"Dataspex\"})")})))
-
-(defn- open-in-panel-webview [!app-state context]
-  (p/let [port (ensure-dataspex-loaded-and-running)]
-    (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
-    (panel-view/activate! context port)))
 
 (defn- register-command! [command f]
   (lc-helpers/register-command! db/!app-db command f))

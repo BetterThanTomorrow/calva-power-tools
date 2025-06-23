@@ -43,7 +43,7 @@
     "views": {
       "calva": [
         {
-          "id": "cpt.dataspex",
+          "id": "cpt.dataspex.view",
           "name": "Dataspex",
           "type": "webview",
           "icon": "assets/calva-symbol-white.svg",

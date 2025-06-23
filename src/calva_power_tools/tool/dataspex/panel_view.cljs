@@ -53,6 +53,6 @@
   (let [^js provider (DataspexViewProvider (.-extensionUri extension-context) port)]
     (.push (.-subscriptions extension-context)
            (vscode/window.registerWebviewViewProvider
-            "cpt.dataspex"
+            "cpt.dataspex.view"
             provider
             #js {:webviewOptions #js {:retainContextWhenHidden true}}))))
