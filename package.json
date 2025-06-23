@@ -40,6 +40,17 @@
   ],
   "main": "out/extension.js",
   "contributes": {
+    "views": {
+      "calva": [
+        {
+          "id": "cpt.dataspex",
+          "name": "Dataspex",
+          "type": "webview",
+          "icon": "assets/calva-symbol-white.svg",
+          "when": ":calva-power-tools/dataspex-panel-active?"
+        }
+      ]
+    },
     "configuration": [
       {
         "type": "object",
@@ -249,6 +260,12 @@
         "command": "cpt.dataspex.openInspectorInEditorView",
         "category": "[CPT] Dataspex",
         "title": "Open Inspector in Editor"
+      },
+      {
+        "command": "cpt.dataspex.openInspectorPanelView",
+        "category": "[CPT] Dataspex",
+        "title": "Open Inspector Panel",
+        "enablement": "!:calva-power-tools/dataspex-panel-active?"
       }
     ],
     "keybindings": [
