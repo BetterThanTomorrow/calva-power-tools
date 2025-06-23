@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+- [Change cpt.showCommands prefix](https://github.com/BetterThanTomorrow/calva-power-tools/issues/32)
+
 ## [v0.0.9] - 2025-05-16
 
 - [Add Dataspex tool](https://github.com/BetterThanTomorrow/calva-power-tools/issues/29)
