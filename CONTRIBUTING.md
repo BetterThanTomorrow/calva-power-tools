@@ -16,7 +16,7 @@ The default way of progress for a change to this project is:
 
 We prefer that each pull request is focused on one problem at the time. Even if sometimes related Issues can be addressed by the same changes.
 
-As part of your PR you update the `**[Unrelased]**` section of CHANGELOG.md, linking to the issue(s) addressed. WHen a new version of the extension is released a changelog entry will be created with everything that is in the unreleased section. The Changelog should read like a story of how the extension has evolved since its creation.
+As part of your PR you update the `**[Unreleased]**` section of CHANGELOG.md, linking to the issue(s) addressed. WHen a new version of the extension is released a changelog entry will be created with everything that is in the unreleased section. The Changelog should read like a story of how the extension has evolved since its creation.
 
 When you file a pull request some CI jobs will run:
 

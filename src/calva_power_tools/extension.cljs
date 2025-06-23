@@ -14,9 +14,9 @@
 
 (defn show-commands!
   ([]
-   (vscode/commands.executeCommand "workbench.action.quickOpen" ">CPT "))
+   (vscode/commands.executeCommand "workbench.action.quickOpen" ">[CPT] "))
   ([s]
-   (vscode/commands.executeCommand "workbench.action.quickOpen" (str ">CPT " s " "))))
+   (vscode/commands.executeCommand "workbench.action.quickOpen" (str ">[CPT] " s " "))))
 
 (defn ^:export activate [context]
   (js/console.time "activation")
