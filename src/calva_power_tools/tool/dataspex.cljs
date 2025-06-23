@@ -7,29 +7,54 @@
    [calva-power-tools.tool.dataspex.panel-view :as panel-view]
    [calva-power-tools.util :as util]
    [clojure.string :as string]
+   [promesa.core :as p]
    [calva-power-tools.extension.when-contexts :as when-contexts]))
 
 (defn- get-label-candidate [form]
-  (when-not (re-find #"\{|\(|\[" form)
+  (if (re-find #"\{|\(|\[" form)
+    "CPT inspect"
     form))
+
+(defn- check-dataspex-loaded []
+  (-> (calva/evaluateCode+ "clj" "(boolean (find-ns 'dataspex.core))" "user")
+      (p/then (fn [result]
+                (= "true" (.-result result))))))
 
 (defn- load-dependency []
   (util/load-dependency {:deps/mvn-name "no.cjohansen/dataspex"}))
 
-(defn- inspect-form [form label-candidate]
-  (-> (vscode/window.showInputBox #js {:title "Dataspex Inspect: Panel item name"
-                                       :ignoreFocusOut true
-                                       :value label-candidate
-                                       :placeHolder "Inspected thing"})
-      (.then (fn [s]
-               (let [snippet {:snippet (str "(require 'dataspex.core) (dataspex.core/inspect\""
-                                            (if (string/blank? s)
-                                              "Inspected thing"
-                                              s)
-                                            "\" " form " )")}]
-                 (calva/execute-calva-command! "calva.runCustomREPLCommand"
-                                               (clj->js snippet)))))))
+(defn- start-dataspex-server []
+  (-> (calva/evaluateCode+ "clj"
+                          "(let [s (dataspex.core/start-server! {:port 0})]
+                             (-> s .getConnectors first .getLocalPort))"
+                          "user")
+      (p/then (fn [result]
+                (let [port (parse-long (.-result result))]
+                  (swap! db/!app-db assoc :dataspex/port port))))))
 
+(defn- ensure-dataspex-loaded-and-running []
+  (p/let [is-loaded (check-dataspex-loaded)
+          port (:dataspex/port @db/!app-db)]
+    (if is-loaded
+      (if port
+        (p/resolved port)
+        (start-dataspex-server))
+      (p/let [_ (load-dependency)
+              _ (calva/evaluateCode+ js/undefined "(clojure.core/require 'dataspex.core)" "user")]
+        (start-dataspex-server)))))
+
+(defn- inspect-form [form label-candidate]
+  (p/let [_ (ensure-dataspex-loaded-and-running)]
+    (-> (vscode/window.showInputBox #js {:title "Dataspex Inspect: Panel item name"
+                                         :ignoreFocusOut true
+                                         :value label-candidate
+                                         :placeHolder label-candidate})
+        (.then (fn [s]
+                 (calva/evaluateCode+ js/undefined (str "(dataspex.core/inspect\""
+                                                        (if (string/blank? s)
+                                                          "CPT inspect"
+                                                          s)
+                                                        "\" " form " )")))))))
 
 (defn- inspect-current-form []
   (let [form (second (calva/currentForm))
@@ -41,15 +66,15 @@
         label (get-label-candidate form)]
     (inspect-form form label)))
 
-(tagged-literal 'flare/html {:url "http://localhost:7117/" :title "Dataspex"})
-
 (defn- open-in-editor-webview []
-  (calva/execute-calva-command! "calva.runCustomREPLCommand"
-                                #js {:snippet "(tagged-literal 'flare/html {:url \"http://localhost:7117/\" :title \"Dataspex\"})"}))
+  (p/let [port (ensure-dataspex-loaded-and-running)]
+    (calva/execute-calva-command! "calva.runCustomREPLCommand"
+                                  #js {:snippet (str "(tagged-literal 'flare/html {:url \"http://localhost:" port "/\" :title \"Dataspex\"})")})))
 
 (defn- open-in-panel-webview [!app-state context]
-  (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
-  (panel-view/activate! context))
+  (p/let [port (ensure-dataspex-loaded-and-running)]
+    (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
+    (panel-view/activate! context port)))
 
 (defn- register-command! [command f]
   (lc-helpers/register-command! db/!app-db command f))
