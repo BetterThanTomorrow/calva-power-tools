@@ -4,7 +4,7 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
-- [Change cpt.showCommands prefix](https://github.com/BetterThanTomorrow/calva-power-tools/issues/32)
+- [Change `cpt.showCommands` command search `>CPT` to `>[CPT]` for more accurate filtering](https://github.com/BetterThanTomorrow/calva-power-tools/issues/32)
 
 ## [v0.0.9] - 2025-05-16
 
