@@ -30,6 +30,7 @@
 
 (defn- resolveWebviewView [^js this ^js webviewView _context _token]
   (println "resolveWebviewView")
+  (unchecked-set this "_webviewView" webviewView)
   (let [webview (.-webview webviewView)
         port (.-_port this)]
     (unchecked-set webview "options" #js{:enableScripts true
@@ -41,21 +42,38 @@
                                           (js/console.log "webviewView.onDidChangeVisibility" (.-visible webviewView) x)))))
 
 (defn- postMessage [^js this message]
-  (when-let [webviewView (.-view this)]
+  (when-let [webviewView (.-_webviewView this)]
     (.postMessage (.-webview webviewView) message)))
+
+(defn- updateHtml [^js this new-html]
+  (when-let [webviewView (.-_webviewView this)]
+    (let [webview (.-webview webviewView)]
+      (unchecked-set webview "html" new-html))))
+
+(defn- updatePort [^js this new-port]
+  (unchecked-set this "_port" new-port)
+  (updateHtml this (getWebViewHtml new-port)))
 
 (defn DataspexViewProvider [extensionUri port]
   (this-as ^js this
            (unchecked-set this "_extensionUri" extensionUri)
            (unchecked-set this "_port" port)
            #js {:resolveWebviewView (partial #'resolveWebviewView this)
-                :postMessage (partial #'postMessage this)}))
+                :postMessage (partial #'postMessage this)
+                :updateHtml (partial #'updateHtml this)
+                :updatePort (partial #'updatePort this)}))
 
 (defn ^:export activate! [!app-state ^js extension-context port]
-  (let [^js provider (DataspexViewProvider (.-extensionUri extension-context) port)]
-    (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
-    (.push (.-subscriptions extension-context)
-           (vscode/window.registerWebviewViewProvider
-            "cpt.dataspex.view"
-            provider
-            #js {:webviewOptions #js {:retainContextWhenHidden true}}))))
+  (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
+  (if-let [^js existing-provider (get-in @!app-state [:dataspex/view-provider])]
+    (do
+      (println "Updating dataspex webview to connect to server on port:" port)
+      (.updatePort existing-provider port))
+    (let [^js provider (DataspexViewProvider (.-extensionUri extension-context) port)]
+      (println "Creating new dataspex webview provider with port:" port)
+      (swap! !app-state assoc :dataspex/view-provider provider)
+      (.push (.-subscriptions extension-context)
+             (vscode/window.registerWebviewViewProvider
+              "cpt.dataspex.view"
+              provider
+              #js {:webviewOptions #js {:retainContextWhenHidden true}})))))
