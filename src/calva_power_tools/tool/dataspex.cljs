@@ -26,6 +26,7 @@
 (defn- maybe-start-server! []
   (-> (calva/evaluateCode+ "clj"
                            (str
+                            '(clojure.core/require 'dataspex.core)
                             '(let [server-info (if @dataspex.core/server
                                                  {:server @dataspex.core/server
                                                   :running? true}
@@ -65,11 +66,12 @@
                                          :value label-candidate
                                          :placeHolder label-candidate})
         (.then (fn [s]
-                 (calva/evaluateCode+ js/undefined (str "(dataspex.core/inspect\""
-                                                        (if (string/blank? s)
-                                                          "CPT inspect"
-                                                          s)
-                                                        "\" " form " )")))))))
+                 (calva/evaluateCode+ js/undefined
+                                      (str "(dataspex.core/inspect\""
+                                           (if (string/blank? s)
+                                             "CPT inspect"
+                                             s)
+                                           "\" " form " )")))))))
 
 (defn- inspect-current-form []
   (let [form (second (calva/currentForm))

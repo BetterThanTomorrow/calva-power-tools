@@ -12,12 +12,22 @@
                              .-v1
                              (js->clj :keywordize-keys true)))
 
-(def evaluateCode+ (get-in calva-api [:repl :evaluateCode]))
+(def evaluateCodeApiFn+ (get-in calva-api [:repl :evaluateCode]))
 (def currentFunction (get-in calva-api [:ranges :currentFunction]))
 (def currentTopLevelDef (get-in calva-api [:ranges :currentTopLevelDef]))
 (def currentTopLevelForm (get-in calva-api [:ranges :currentTopLevelForm]))
 (def currentForm (get-in calva-api [:ranges :currentForm]))
 (def getNamespace (get-in calva-api [:document :getNamespace]))
+
+(defn evaluateCode+
+  "Will use the current document the-ns if omitted."
+  ([session code the-ns]
+   (evaluateCodeApiFn+ session code the-ns))
+  ([session code]
+   (let [editor vscode/window.activeTextEditor
+         document (some-> editor .-document)
+         the-ns (some-> document getNamespace)]
+     (evaluateCodeApiFn+ session code the-ns))))
 
 (defn execute-calva-command!
   "Safely executes a Calva command and shows user-friendly errors.
