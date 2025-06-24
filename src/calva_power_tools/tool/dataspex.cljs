@@ -6,9 +6,9 @@
    [calva-power-tools.extension.life-cycle-helpers :as lc-helpers]
    [calva-power-tools.tool.dataspex.panel-view :as panel-view]
    [calva-power-tools.util :as util]
+   [clojure.edn :as edn]
    [clojure.string :as string]
-   [promesa.core :as p]
-   [calva-power-tools.extension.when-contexts :as when-contexts]))
+   [promesa.core :as p]))
 
 (defn- get-label-candidate [form]
   (if (re-find #"\{|\(|\[" form)
@@ -20,28 +20,34 @@
       (p/then (fn [result]
                 (= "true" (.-result result))))))
 
-(defn- load-dependency []
+(defn- load-dependency! []
   (util/load-dependency {:deps/mvn-name "no.cjohansen/dataspex"}))
 
-(defn- start-dataspex-server []
+(defn- maybe-start-server! []
   (-> (calva/evaluateCode+ "clj"
-                           "(let [s (dataspex.core/start-server! {:port 0})]
-                             (-> s .getConnectors first .getLocalPort))"
+                           (str
+                            '(let [server-info (if @dataspex.core/server
+                                                 {:server @dataspex.core/server
+                                                  :running? true}
+                                                 {:server (dataspex.core/start-server! {:port 0})})
+                                   server (:server server-info)]
+                               (-> server-info
+                                   (merge {:port (-> server .getConnectors first .getLocalPort)})
+                                   (dissoc :server))))
                            "user")
       (p/then (fn [result]
-                (let [port (parse-long (.-result result))]
-                  (swap! db/!app-db assoc :dataspex/port port))))))
+                (let [{:keys [port running?]} (edn/read-string (.-result result))]
+                  (when-not running?
+                    (println "Dataspex server started on port:" port))
+                  port)))))
 
 (defn- ensure-dataspex-loaded-and-running []
-  (p/let [is-loaded (check-dataspex-loaded)
-          port (:dataspex/port @db/!app-db)]
+  (p/let [is-loaded (check-dataspex-loaded)]
     (if is-loaded
-      (if port
-        (p/resolved port)
-        (start-dataspex-server))
-      (p/let [_ (load-dependency)
+      (maybe-start-server!)
+      (p/let [_ (load-dependency!)
               _ (calva/evaluateCode+ js/undefined "(clojure.core/require 'dataspex.core)" "user")]
-        (start-dataspex-server)))))
+        (maybe-start-server!)))))
 
 (defn- open-in-editor-webview []
   (p/let [port (ensure-dataspex-loaded-and-running)]
@@ -50,8 +56,7 @@
 
 (defn- open-in-panel-webview [!app-state context]
   (p/let [port (ensure-dataspex-loaded-and-running)]
-    (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
-    (panel-view/activate! context port)))
+    (panel-view/activate! !app-state context port)))
 
 (defn- inspect-form [form label-candidate]
   (p/let [_ (ensure-dataspex-loaded-and-running)]
@@ -80,7 +85,7 @@
   (lc-helpers/register-command! db/!app-db command f))
 
 (defn activate! [!app-state context]
-  (register-command! "cpt.dataspex.loadDataspexDependency" #'load-dependency)
+  (register-command! "cpt.dataspex.loadDataspexDependency" #'load-dependency!)
   (register-command! "cpt.dataspex.inspectCurrentForm" #'inspect-current-form)
   (register-command! "cpt.dataspex.inspectTopLevelForm" #'inspect-top-level-form)
   (register-command! "cpt.dataspex.openInspectorInEditorView" #'open-in-editor-webview)

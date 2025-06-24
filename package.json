@@ -264,8 +264,7 @@
       {
         "command": "cpt.dataspex.openInspectorPanelView",
         "category": "[CPT] Dataspex",
-        "title": "Open Inspector Panel",
-        "enablement": "!:calva-power-tools/dataspex-panel-active?"
+        "title": "Open/Restart Inspector Panel"
       }
     ],
     "keybindings": [

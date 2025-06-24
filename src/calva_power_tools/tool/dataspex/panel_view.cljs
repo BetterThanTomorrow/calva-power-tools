@@ -1,6 +1,7 @@
 (ns calva-power-tools.tool.dataspex.panel-view
   (:require
-   ["vscode" :as vscode]))
+   ["vscode" :as vscode]
+   [calva-power-tools.extension.when-contexts :as when-contexts]))
 
 (defn getWebViewHtml [port]
   (let [port-str (str port)]
@@ -28,6 +29,7 @@
     </html>")))
 
 (defn- resolveWebviewView [^js this ^js webviewView _context _token]
+  (println "resolveWebviewView")
   (let [webview (.-webview webviewView)
         port (.-_port this)]
     (unchecked-set webview "options" #js{:enableScripts true
@@ -49,8 +51,9 @@
            #js {:resolveWebviewView (partial #'resolveWebviewView this)
                 :postMessage (partial #'postMessage this)}))
 
-(defn ^:export activate! [^js extension-context port]
+(defn ^:export activate! [!app-state ^js extension-context port]
   (let [^js provider (DataspexViewProvider (.-extensionUri extension-context) port)]
+    (when-contexts/set-context!+ !app-state :calva-power-tools/dataspex-panel-active? true)
     (.push (.-subscriptions extension-context)
            (vscode/window.registerWebviewViewProvider
             "cpt.dataspex.view"
