@@ -21,6 +21,8 @@
 
 (defn evaluateCode+
   "Will use the current document the-ns if omitted."
+  ([session code the-ns opts]
+   (evaluateCodeApiFn+ session code the-ns opts))
   ([session code the-ns]
    (evaluateCodeApiFn+ session code the-ns))
   ([session code]
