@@ -265,6 +265,16 @@
         "command": "cpt.dataspex.openInspectorPanelView",
         "category": "[CPT] Dataspex",
         "title": "Open/Restart Inspector Panel"
+      },
+      {
+        "command": "cpt.dataspex.connectRemoteInspector",
+        "category": "[CPT] Dataspex",
+        "title": "Show Browser Extension Inspects in VS Code"
+      },
+      {
+        "command": "cpt.dataspex.inspectRemote",
+        "category": "[CPT] Dataspex",
+        "title": "Show Server Inspects in Browser Extension Inspector"
       }
     ],
     "keybindings": [

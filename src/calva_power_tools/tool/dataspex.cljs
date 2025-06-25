@@ -88,6 +88,18 @@
         label (get-label-candidate form)]
     (inspect-form form label)))
 
+(defn- inspect-remote []
+  (p/let [port (ensure-dataspex-loaded-and-running!)]
+    (when port
+      (calva/evaluateCode+ js/undefined (str "(if (resolve (quote dataspex.core/inspect-remote))"
+                                             "(dataspex.core/inspect-remote \"http://localhost:" port "\"))")))))
+
+(defn- connect-remote-inspector []
+  (p/let [port (ensure-dataspex-loaded-and-running!)]
+    (when port
+      (calva/evaluateCode+ js/undefined (str "(if (resolve (quote dataspex.core/connect-remote-inspector))"
+                                             "(dataspex.core/connect-remote-inspector \"http://localhost:" port "\"))")))))
+
 (defn- register-command! [command f]
   (lc-helpers/register-command! db/!app-db command f))
 
@@ -96,4 +108,6 @@
   (register-command! "cpt.dataspex.inspectCurrentForm" #'inspect-current-form)
   (register-command! "cpt.dataspex.inspectTopLevelForm" #'inspect-top-level-form)
   (register-command! "cpt.dataspex.openInspectorInEditorView" #'open-in-editor-webview)
-  (register-command! "cpt.dataspex.openInspectorPanelView" (partial #'open-in-panel-webview !app-state context)))
+  (register-command! "cpt.dataspex.openInspectorPanelView" (partial #'open-in-panel-webview !app-state context))
+  (register-command! "cpt.dataspex.inspectRemote" (partial #'inspect-remote))
+  (register-command! "cpt.dataspex.connectRemoteInspector" (partial #'connect-remote-inspector)))
