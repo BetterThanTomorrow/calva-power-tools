@@ -29,7 +29,6 @@
     </html>")))
 
 (defn- resolveWebviewView [^js this ^js webviewView _context _token]
-  (println "resolveWebviewView")
   (unchecked-set this "_webviewView" webviewView)
   (let [webview (.-webview webviewView)
         port (.-_port this)]
@@ -48,7 +47,8 @@
 (defn- updateHtml [^js this new-html]
   (when-let [webviewView (.-_webviewView this)]
     (let [webview (.-webview webviewView)]
-      (unchecked-set webview "html" new-html))))
+      (unchecked-set webview "html" new-html)
+      (.show webviewView true))))
 
 (defn- updatePort [^js this new-port]
   (unchecked-set this "_port" new-port)
