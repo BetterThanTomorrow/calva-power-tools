@@ -26,18 +26,22 @@
 (defn- maybe-start-server! []
   (-> (calva/evaluateCode+ "clj"
                            (str
-                            '(clojure.core/require 'dataspex.core)
-                            '(if (dataspex.core/get-server-info)
-                               (assoc (dataspex.core/get-server-info) :running? true)
-                               (dataspex.core/start-server! {:port 0})))
+                            '(if-let [get-server-info (clojure.core/requiring-resolve 'dataspex.core/get-server-info)]
+                               (if (get-server-info)
+                                 (assoc (get-server-info) :running? true)
+                                 (dataspex.core/start-server! {:port 0}))
+                               {:error :get-server-info-missing}))
                            "user")
       (p/then (fn [result]
-                (let [{:keys [port running?]} (edn/read-string (.-result result))]
-                  (when-not running?
-                    (println "Dataspex server started on port:" port))
-                  port)))))
+                (let [{:keys [port running? error]} (edn/read-string (.-result result))]
+                  (if-not error
+                    (do
+                      (when-not running?
+                        (println "Dataspex server started on port:" port))
+                      port)
+                    (throw (ex-info "Can't query Dataspex server-info. Dataspex 2025.06.8 or newer required." error))))))))
 
-(defn- ensure-dataspex-loaded-and-running []
+(defn- ensure-dataspex-loaded-and-running! []
   (p/let [is-loaded (check-dataspex-loaded)]
     (if is-loaded
       (maybe-start-server!)
@@ -46,16 +50,16 @@
         (maybe-start-server!)))))
 
 (defn- open-in-editor-webview []
-  (p/let [port (ensure-dataspex-loaded-and-running)]
+  (p/let [port (ensure-dataspex-loaded-and-running!)]
     (calva/execute-calva-command! "calva.runCustomREPLCommand"
                                   {:snippet (str "(clojure.core/tagged-literal 'flare/html {:url \"http://localhost:" port "/\" :title \"Dataspex\"})")})))
 
 (defn- open-in-panel-webview [!app-state context]
-  (p/let [port (ensure-dataspex-loaded-and-running)]
+  (p/let [port (ensure-dataspex-loaded-and-running!)]
     (panel-view/activate! !app-state context port)))
 
 (defn- inspect-form [form label-candidate]
-  (p/let [_ (ensure-dataspex-loaded-and-running)]
+  (p/let [_ (ensure-dataspex-loaded-and-running!)]
     (-> (vscode/window.showInputBox #js {:title "Dataspex Inspect: Panel item name"
                                          :ignoreFocusOut true
                                          :value label-candidate
