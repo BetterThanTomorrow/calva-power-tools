@@ -80,11 +80,50 @@ There are commands for four important tools when chasing performance gains in Cl
 
 ### Dataspex
 
-[Dataspex](https://github.com/cjohansen/dataspex) is an easy to use data inspection tool/browser.
+[Dataspex](https://github.com/cjohansen/dataspex) is an easy to use, and powerful data inspection tool/browser for both frontend and backend applications. It supports watching atoms, [Datascript](https://github.com/tonsky/datascript), and [Datomic](https://www.datomic.com/) databases. There is a browser extension so you can watch your frontend app's state where it runs.
+
+With Calva Power Tools it is easy to take it for a spin, without updating your project configuration. To use the browser extension, you'll need to install that separately, but without installing anything you can test Dataspex inside VS Code:
+
+![Dataspex view inside VS Code](docs/images/howto/dataspex-vscode-view.png)
+
+With a ClojureScript frontend app you do this by using the command: <kbd>[CPT] Dataspex: Show Browser Extension Inspects in VS Code</kbd>
 
 ![Command Palette search: Dataspex Commands](docs/images/howto/dataspex-menu.png)
 
 **Tool Key**: <kbd>x</kbd>
+
+#### Backend workflow
+
+Use the Dataspex command palette to:
+
+* Inspect something
+* Open the Dataspex inspector (sidebar) panel (and/or open the inspector in the editor view)
+* Inspect something more
+
+If you don't have the Dataspex dependency configured/loaded in your project, you will be offered to do tis dynamically (and this needs Clojure 1.12 or newer to work).
+
+#### Frontend workflow
+
+This is the most convenient if you have Dataspex configured in the app to inspect the app's state atom/datascript db:
+
+1. Start and connect your frontend app
+1. <kbd>[CPT] Dataspex: Show Browser Extension Inspects in VS Code</kbd>
+
+Then you can inspect other values using the Dataspex commands.
+
+**Without Datspex configured in the project:**
+
+1. Start and connect your frontend app
+1. <kbd>[CPT] Dataspex: Show Browser Extension Inspects in VS Code</kbd>
+1. Inspect the app's state atom/db
+
+#### Backend + frontend workflow
+
+In addition to the above workflows, you can use the Dataspex command palette to show server inspects in the browser extension.
+
+#### Use the REPL for the full Dataspex API
+
+The commands included in Calva Power Tools support the basic and common workflows. You can of course go beyond this by calling the Dataspex API yourself from the repl.
 
 ## Contributing
 
