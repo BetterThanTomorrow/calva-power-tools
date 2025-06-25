@@ -2,4 +2,5 @@
  :deps {org.clojure/clojure {:mvn/version "1.12.1"}
         ring/ring-jetty-adapter {:mvn/version "1.14.2"}
         thheller/shadow-cljs {:mvn/version "3.1.7"}
-        io.github.tonsky/clj-reload {:mvn/version "0.9.7"}}}
+        io.github.tonsky/clj-reload {:mvn/version "0.9.7"}
+        no.cjohansen/dataspex {:mvn/version "2025.06.8"}}}

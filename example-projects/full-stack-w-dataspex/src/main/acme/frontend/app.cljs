@@ -1,4 +1,5 @@
-(ns acme.frontend.app)
+(ns acme.frontend.app
+  (:require [dataspex.core :as dataspex]))
 
 (defonce !client-state (atom {:client/counter 0}))
 
@@ -66,6 +67,7 @@
 
 (defn ^:export init! []
   (println "Hello World")
+  (dataspex/inspect "!client-state" !client-state)
   (add-watch !client-state :dom-update
              (fn [_k _r _o _n] (update-dom!)))
   (update-dom!)
