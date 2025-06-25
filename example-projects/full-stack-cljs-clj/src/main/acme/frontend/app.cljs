@@ -4,9 +4,10 @@
 
 (comment
   (swap! !client-state assoc :client/hello :world)
+  (swap! !client-state update :client/counter inc)
   :rcf)
 
-(defn ^:export fetch-server-counter []
+(defn ^:export fetch-server-counter! []
   (-> (js/fetch "/api/counter")
       (.then #(.json %))
       (.then #(js->clj % :keywordize-keys true))
@@ -14,7 +15,7 @@
       (.then #(swap! !client-state assoc :server/counter %))
       (.catch #(js/console.error "Failed to fetch server counter:" %))))
 
-(defn ^:export sync-to-server []
+(defn ^:export sync-to-server! []
   (let [client-counter (:client/counter @!client-state)]
     (-> (js/fetch "/api/sync"
                   #js {:method "POST"
@@ -45,11 +46,11 @@
          "<div style='padding: 1rem; border: 2px solid #2196F3; border-radius: 8px; min-width: 200px;'>"
          "<h3>Server Counter</h3>"
          "<h2>" server-counter "</h2>"
-         "<button onclick='acme.frontend.app.sync_to_server()' "
+         "<button onclick='acme.frontend.app.sync_to_server_BANG_()' "
          "style='padding: 0.5rem 1rem; font-size: 1rem; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0.5rem;'>"
-         "Update Server"
+         "Sync to Server"
          "</button>"
-         "<button onclick='acme.frontend.app.fetch_server_counter()' "
+         "<button onclick='acme.frontend.app.fetch_server_counter_BANG_()' "
          "style='padding: 0.5rem 1rem; font-size: 1rem; background: #FF9800; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0.5rem;'>"
          "Refresh"
          "</button>"
@@ -68,4 +69,4 @@
   (add-watch !client-state :dom-update
              (fn [_k _r _o _n] (update-dom!)))
   (update-dom!)
-  (fetch-server-counter))
+  (fetch-server-counter!))

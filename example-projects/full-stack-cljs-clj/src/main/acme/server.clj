@@ -3,7 +3,7 @@
    [ring.adapter.jetty :as jetty]
    [ring.middleware.file :as ring-file]
    [ring.middleware.file-info :as ring-file-info]
-   [clojure.string]))
+   [clojure.string :as string]))
 
 (defonce !server-state (atom {:server/counter 0}))
 
@@ -32,7 +32,7 @@
       (and (= method :post) (= uri "/api/sync"))
       (let [body (slurp (:body req))
             client-counter (try
-                             (-> body (clojure.string/replace #"[^0-9]" "") Integer/parseInt)
+                             (-> body (string/replace #"[^0-9]" "") parse-long)
                              (catch Exception _ 0))
             new-server-counter (sync-client-to-server client-counter)]
         {:status 200
