@@ -40,6 +40,17 @@
   ],
   "main": "out/extension.js",
   "contributes": {
+    "views": {
+      "calva": [
+        {
+          "id": "cpt.dataspex.view",
+          "name": "Dataspex",
+          "type": "webview",
+          "icon": "assets/calva-symbol-white.svg",
+          "when": ":calva-power-tools/dataspex-panel-active?"
+        }
+      ]
+    },
     "configuration": [
       {
         "type": "object",
@@ -244,6 +255,26 @@
         "command": "cpt.dataspex.inspectTopLevelForm",
         "category": "[CPT] Dataspex",
         "title": "Inspect Top Level Form..."
+      },
+      {
+        "command": "cpt.dataspex.openInspectorInEditorView",
+        "category": "[CPT] Dataspex",
+        "title": "Open Inspector in Editor"
+      },
+      {
+        "command": "cpt.dataspex.openInspectorPanelView",
+        "category": "[CPT] Dataspex",
+        "title": "Open/Restart Inspector Panel"
+      },
+      {
+        "command": "cpt.dataspex.connectRemoteInspector",
+        "category": "[CPT] Dataspex",
+        "title": "Show Browser Extension Inspects in VS Code"
+      },
+      {
+        "command": "cpt.dataspex.inspectRemote",
+        "category": "[CPT] Dataspex",
+        "title": "Show Server Inspects in Browser Extension Inspector"
       }
     ],
     "keybindings": [
@@ -454,6 +485,26 @@
       {
         "key": "ctrl+shift+space x c",
         "command": "cpt.dataspex.inspectCurrentForm",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x e",
+        "command": "cpt.dataspex.openInspectorInEditorView",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x i",
+        "command": "cpt.dataspex.openInspectorPanelView",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x b",
+        "command": "cpt.dataspex.connectRemoteInspector",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x s",
+        "command": "cpt.dataspex.inspectRemote",
         "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]

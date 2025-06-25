@@ -31,7 +31,7 @@
   (deps/activate!)
   (snitch/activate!)
   (performance/activate!)
-  (dataspex/activate!)
+  (dataspex/activate! db/!app-db context)
 
   (when-contexts/set-context!+ db/!app-db :calva-power-tools/active? true)
 

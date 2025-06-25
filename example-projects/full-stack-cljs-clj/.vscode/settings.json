@@ -1,0 +1,34 @@
+//// Configuration of the mini-project for use with Calva
+{
+  //// Autostart the repl and connect it to the editor (Jack-in)
+  //// https://calva.io/customizing-jack-in-and-connect/#customizing-jack-in
+  "calva.autoStartRepl": true,
+  //// If you disable the above setting, you start the repl
+  //// manually with the command;
+  //// "Calva: Start a Project REPL and Connect (aka Jack-in)"
+  //// https://calva.io/connect-sequences/
+  "calva.replConnectSequences": [
+    {
+      "name": "Acme shadow-cljs Fullstack",
+      "projectRootPath": ["."],
+      "autoSelectForJackIn": true,
+      "projectType": "deps.edn",
+      "cljsType": "shadow-cljs",
+      "menuSelections": {
+        "cljsDefaultBuild": "frontend",
+        "cljsLaunchBuilds": ["frontend"]
+      },
+      // Add (clojure.java.browse/browse-url \"http://localhost:3000\") last in the
+      // afterCLJReplJackInCode to open the browser automatically when the server has started
+      "afterCLJReplJackInCode": "(shadow.cljs.devtools.server.runtime/get-instance)\n(require 'repl)\n(repl/go!)\n(println \"REPL started.\nWeb server started on http://localhost:3000\")"
+    }
+  ],
+
+  "calva.customREPLCommandSnippets": [
+    {
+      "name": "Restart Acme Server",
+      "snippet": "(require 'repl) (repl/restart!)",
+      "repl": "clj"
+    }
+  ]
+}
