@@ -27,14 +27,9 @@
   (-> (calva/evaluateCode+ "clj"
                            (str
                             '(clojure.core/require 'dataspex.core)
-                            '(let [server-info (if @dataspex.core/server
-                                                 {:server @dataspex.core/server
-                                                  :running? true}
-                                                 {:server (dataspex.core/start-server! {:port 0})})
-                                   server (:server server-info)]
-                               (-> server-info
-                                   (merge {:port (-> server .getConnectors first .getLocalPort)})
-                                   (dissoc :server))))
+                            '(if (dataspex.core/get-server-info)
+                               (assoc (dataspex.core/get-server-info) :running? true)
+                               (dataspex.core/start-server! {:port 0})))
                            "user")
       (p/then (fn [result]
                 (let [{:keys [port running?]} (edn/read-string (.-result result))]
