@@ -4,6 +4,12 @@
    [ring.middleware.file :as ring-file]
    [ring.middleware.file-info :as ring-file-info]))
 
+(defonce !server-state (atom {}))
+
+(comment
+  (swap! !server-state assoc :server/hello :world)
+  :rcf)
+
 (defn my-handler [_req]
   {:status 200
    :headers {"content-type" "text/plain"}
