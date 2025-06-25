@@ -486,6 +486,26 @@
         "key": "ctrl+shift+space x c",
         "command": "cpt.dataspex.inspectCurrentForm",
         "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x e",
+        "command": "cpt.dataspex.openInspectorInEditorView",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x i",
+        "command": "cpt.dataspex.openInspectorPanelView",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x b",
+        "command": "cpt.dataspex.connectRemoteInspector",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
+      },
+      {
+        "key": "ctrl+shift+space x s",
+        "command": "cpt.dataspex.inspectRemote",
+        "when": "editorTextFocus && editorLangId == 'clojure'"
       }
     ]
   },
