@@ -4,5 +4,5 @@
   {:target :browser
    :output-dir "public/js/compiled"
    :asset-path "/js/compiled"
-   :modules {:main {:init-fn acme.frontend.app/init}}
+   :modules {:main {:init-fn acme.frontend.app/init!}}
    :devtools {:watch-dir "public"}}}}

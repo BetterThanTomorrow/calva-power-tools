@@ -9,7 +9,7 @@
 (defn ^:export increment-counter! []
   (swap! !client-state update :client/counter inc))
 
-(defn render-app [{:client/keys [counter]}]
+(defn app-html [{:client/keys [counter]}]
   (str "<div style='text-align: center; padding: 2rem; font-family: Arial, sans-serif;'>"
        "<h1>Acme Counter App</h1>"
        "<div style='margin: 2rem;'>"
@@ -25,9 +25,9 @@
   (-> js/document
       (.getElementById "root")
       (.-innerHTML)
-      (set! (render-app @!client-state))))
+      (set! (app-html @!client-state))))
 
-(defn ^:export init []
+(defn ^:export init! []
   (println "Hello World")
   (add-watch !client-state :dom-update
              (fn [_k _r _o _n] (update-dom!)))
