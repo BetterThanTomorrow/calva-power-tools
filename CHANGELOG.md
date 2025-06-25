@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.10] - 2025-06-25
+
 - [Change `cpt.showCommands` command search `>CPT` to `>[CPT]` for more accurate filtering](https://github.com/BetterThanTomorrow/calva-power-tools/issues/32)
 - [Add Dataspex views and support for sharing inspects client/server](https://github.com/BetterThanTomorrow/calva-power-tools/issues/34)
 
