@@ -29,7 +29,7 @@
                             '(if-let [get-server-info (clojure.core/requiring-resolve 'dataspex.core/get-server-info)]
                                (if (get-server-info)
                                  (assoc (get-server-info) :running? true)
-                                 (dataspex.core/start-server! {:port 0}))
+                                 ((requiring-resolve 'dataspex.core/start-server!) {:port 0}))
                                {:error :get-server-info-missing}))
                            "user")
       (p/then (fn [result]
@@ -48,7 +48,7 @@
       (p/let [choice (vscode/window.showInformationMessage "The Dataspex dependency is not loaded in the REPL. Do you want to load it?" "Yes" "No")]
         (when (= "Yes" choice)
           (p/let [_ (load-dependency!)
-                  _ (calva/evaluateCode+ js/undefined "(clojure.core/require 'dataspex.core)" "user")]
+                  _ (calva/evaluateCode+ js/undefined "(#?(:clj clojure.core/require :cljs require) 'dataspex.core)" "user")]
             (maybe-start-server!)))))))
 
 (defn- open-in-editor-webview []
@@ -71,7 +71,8 @@
                                            :placeHolder label-candidate})
           (.then (fn [s]
                    (calva/evaluateCode+ js/undefined
-                                        (str "(dataspex.core/inspect\""
+                                        (str "(require 'dataspex.core)\n"
+                                             "(dataspex.core/inspect\""
                                              (if (string/blank? s)
                                                "CPT inspect"
                                                s)
