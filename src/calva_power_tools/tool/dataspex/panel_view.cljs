@@ -76,4 +76,5 @@
              (vscode/window.registerWebviewViewProvider
               "cpt.dataspex.view"
               provider
-              #js {:webviewOptions #js {:retainContextWhenHidden true}})))))
+              #js {:webviewOptions #js {:retainContextWhenHidden true}}))
+      (vscode/commands.executeCommand "cpt.dataspex.view.focus"))))
