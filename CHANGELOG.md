@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+- [Add support for defmethod* (Snitch)](https://github.com/BetterThanTomorrow/calva-power-tools/issues/31)
+
 ## [v0.0.10] - 2025-06-25
 
 - [Change `cpt.showCommands` command search `>CPT` to `>[CPT]` for more accurate filtering](https://github.com/BetterThanTomorrow/calva-power-tools/issues/32)
