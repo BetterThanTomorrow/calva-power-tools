@@ -154,22 +154,22 @@
       {
         "command": "cpt.snitch.instrumentTopLevelForm",
         "category": "[CPT] Snitch",
-        "title": "Instrument Top Level defn/let/fn"
+        "title": "Instrument Top Level defn/defmethod/let/fn"
       },
       {
         "command": "cpt.snitch.instrumentCurrentForm",
         "category": "[CPT] Snitch",
-        "title": "Instrument Current Form defn/let/fn"
+        "title": "Instrument Current Form defn/defmethod/let/fn"
       },
       {
         "command": "cpt.snitch.getSnitchedDefnResults",
         "category": "[CPT] Snitch",
-        "title": "Get Snitched defn Results"
+        "title": "Get Snitched defn/defmethod Results"
       },
       {
         "command": "cpt.snitch.reconstructLastDefnCallToClipboard",
         "category": "[CPT] Snitch",
-        "title": "Reconstruct Last defn Call to Clipboard"
+        "title": "Reconstruct Last defn/defmethod Call to Clipboard"
       },
       {
         "command": "cpt.performance.loadDecompilerDependency",

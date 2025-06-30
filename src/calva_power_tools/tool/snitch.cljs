@@ -11,13 +11,14 @@
 
 (defn- instrument-form [form]
   (let [snitched (.replace form
-                           #"\b(defn-?|fn|let)(?=\s)"
+                           #"\b(defn-?|defmethod|fn|let)(?=\s)"
                            (fn [s]
                              (case (string/trim s)
-                               "defn-" "defn*"
-                               "defn" "defn*"
-                               "let" "*let"
-                               "fn" "*fn"
+                               "defn-"     "defn*"
+                               "defn"      "defn*"
+                               "defmethod" "defmethod*"
+                               "let"       "*let"
+                               "fn"        "*fn"
                                s)))]
     (calva/execute-calva-command! "calva.runCustomREPLCommand"
                                   #js {:snippet snitched})))
