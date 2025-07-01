@@ -2,7 +2,7 @@
   "name": "calva-power-tools",
   "displayName": "Calva Power Tools",
   "description": "Commands for extra powerful things in the Clojure ecosystem.",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "publisher": "betterthantomorrow",
   "author": {
     "name": "Better Than Tomorrow",
