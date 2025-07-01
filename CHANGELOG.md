@@ -4,6 +4,8 @@ Changes to Calva Power Tools
 
 ## [Unreleased]
 
+## [v0.0.11] - 2025-07-01
+
 - [Add support for defmethod* (Snitch)](https://github.com/BetterThanTomorrow/calva-power-tools/issues/31)
 
 ## [v0.0.10] - 2025-06-25
