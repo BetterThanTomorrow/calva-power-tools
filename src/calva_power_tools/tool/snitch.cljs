@@ -46,7 +46,7 @@
                  (vscode/window.showInformationMessage "The snitched call to this function is saved to the clipboard."))))))
 
 (defn- load-dependency []
-  (-> (util/load-dependency {:deps/mvn-name "org.clojars.abhinav/snitch"})
+  (-> (util/load-dependency {:deps/mvn-name "org.clojars.abhinav/snitch" :deps/mvn-version "0.1.16"})
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
