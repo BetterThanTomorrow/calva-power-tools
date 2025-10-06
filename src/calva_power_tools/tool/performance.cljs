@@ -12,8 +12,7 @@
 ;; Decompilation functions
 
 (defn- load-decompiler-dependency []
-  (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-java-decompiler"
-                             :deps/mvn-version "0.3.6"})
+  (-> (util/load-dependency {:deps/mvn-name "com.clojure-goes-fast/clj-java-decompiler"})
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
@@ -85,8 +84,7 @@
 ;; Benchmarking functions
 
 (defn- load-criterium-dependency []
-  (-> (util/load-dependency {:deps/mvn-name "criterium/criterium"
-                             :deps/mvn-version "0.4.6"})
+  (-> (util/load-dependency {:deps/mvn-name "criterium/criterium"})
       (.then (fn [_]
                (calva/execute-calva-command!
                 "calva.runCustomREPLCommand"
