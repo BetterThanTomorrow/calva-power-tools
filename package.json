@@ -512,7 +512,7 @@
   "scripts": {
     "clean": "rimraf .cpcache .shadow-cljs/ out/",
     "preclean": "npm install",
-    "watch": "clojure -Sdeps '{:deps {nrepl/nrepl {:mvn/version,\"1.3.1\"},cider/cider-nrepl {:mvn/version,\"0.52.1\"}}}' -M -m nrepl.cmdline --middleware \"[cider.nrepl/cider-middleware shadow.cljs.devtools.server.nrepl/middleware]\"",
+    "watch": "clojure -Sdeps '{:deps {nrepl/nrepl {:mvn/version,\"1.4.0\"},cider/cider-nrepl {:mvn/version,\"0.57.0\"}}}' -M -m nrepl.cmdline --middleware \"[cider.nrepl/cider-middleware shadow.cljs.devtools.server.nrepl/middleware]\"",
     "test": "node out/extension-tests.js",
     "pretest": "npm run compile",
     "prewatch": "npm run clean",
